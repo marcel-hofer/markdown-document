@@ -15,9 +15,12 @@
     "del": "3.0.0",
     "merge-stream": "1.0.1",
     "typescript": "2.5.2",
+
     "mocha": "3.5.3",
     "should": "13.0.1",
-    "@types/mocha": "2.2.43"
+    "mock-fs": "4.4.1",
+    "@types/mocha": "2.2.43",
+    "@types/mock-fs": "3.6.30"
   },
   "scripts": {
     "clean": "gulp clean",

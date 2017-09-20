@@ -5,4 +5,7 @@ export interface IOptions {
 export class MarkdownDocument {
     constructor(private options: IOptions) {
     }
+
+    public createPdf() {
+    }
 }
