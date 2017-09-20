@@ -1,0 +1,7 @@
+# External libs
+/node_modules
+
+# Build
+/output/**
+/src/**/*.js
+/specs/**/*.js
