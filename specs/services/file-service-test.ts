@@ -10,7 +10,7 @@ describe('FileService', function() {
         it('returns true if file exists', async function() {
             // Arrange
             mockFs({
-                'document.md': "content"
+                'document.md': 'content'
             });
 
             // Act
@@ -24,7 +24,7 @@ describe('FileService', function() {
         it('returns false if file does not exists', async function() {
             // Arrange
             mockFs({
-                'document.md': "content"
+                'document.md': 'content'
             });
 
             // Act
@@ -32,6 +32,34 @@ describe('FileService', function() {
 
             // Assert
             should(result).be.false();
+        });
+    });
+
+    describe('readFileAsync', function() {
+        it('returns file content if file exists', async function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = await fileService.readFileAsync('document.md');
+
+            // Assert
+            should(result.toString()).be.equal('content');
+        });
+
+        it('fails if file does not exist', async function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = fileService.readFileAsync('document2.md');
+
+            // Assert
+            await should(result).be.rejected;
         });
     });
 });

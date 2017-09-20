@@ -6,6 +6,10 @@ export class FileService {
         return this.nfCallNoError<boolean>(fs.exists, path);
     }
 
+    public readFileAsync(path: fs.PathLike) {
+        return q.nfcall<Buffer>(fs.readFile, path);
+    }
+
     private nfCallNoError<TValue>(nodeFunction: (...args: any[]) => any, ...args: any[]) {
         const defer = q.defer<TValue>();
 
