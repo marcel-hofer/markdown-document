@@ -89,7 +89,7 @@ describe('FileService', function() {
             const result = fileService.readFileAsync('document2.md');
 
             // Assert
-            await should(result).be.rejected;
+            await should(result).be.rejectedWith(Error);
         });
     });
 });
