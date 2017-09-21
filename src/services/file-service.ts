@@ -6,6 +6,10 @@ export class FileService {
         return this.nfCallNoError<boolean>(fs.exists, path);
     }
 
+    public readFile(path: fs.PathLike) {
+        return fs.readFileSync(path);
+    }
+
     public readFileAsync(path: fs.PathLike) {
         return q.nfcall<Buffer>(fs.readFile, path);
     }

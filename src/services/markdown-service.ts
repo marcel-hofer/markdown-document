@@ -1,33 +1,34 @@
+/// <reference path="../definitions/remarkable.d.ts" />
+
 import { PathLike } from "fs";
-const Remarkable: IRemarkableCtor = require('remarkable');
+import { Remarkable as RemarkableCtor, IRemarkable } from "remarkable-types";
+const Remarkable: RemarkableCtor = require('remarkable');
+
+import { IncludePlugin } from "./markdown/include-plugin";
 
 import fileService from "./file-service";
 
-interface IRemarkableCtor {
-    new (options: {
-        xhtmlOut?: boolean
-    }): IRemarkable;
-}
-
-interface IRemarkable {
-    render(markdown: string): string;
-}
-
 export class MarkdownService {
-    private md: IRemarkable;
+    private readonly md: IRemarkable;
 
     constructor() {
-        this.md = new Remarkable({
-            xhtmlOut: true
-        });
+        this.md = this.createRemarkableInstance();
     }
 
     public async renderFileAsync(path: PathLike) {
         const file = await fileService.readFileAsync(path);
-        const renderedMarkdown = this.md.render(file.toString());
+        const renderedMarkdown = this.md.render(file.toString(), { path: path });
 
         return renderedMarkdown;
     }
-}
 
-export default new MarkdownService();
+    private createRemarkableInstance() {
+        const md = new Remarkable({
+            xhtmlOut: true
+        });
+
+        md.use(IncludePlugin.register);
+
+        return md;
+    }
+}

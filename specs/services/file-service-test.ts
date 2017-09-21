@@ -35,6 +35,35 @@ describe('FileService', function() {
         });
     });
 
+    describe('readFile', function() {
+        it('returns file content if file exists', function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = fileService.readFile('document.md');
+
+            // Assert
+            should(result).be.not.null();
+            should(result.toString()).be.equal('content');
+        });
+
+        it('fails if file does not exist', function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const act = () => fileService.readFile('document2.md');
+
+            // Assert
+            should.throws(act);
+        });
+    });
+
     describe('readFileAsync', function() {
         it('returns file content if file exists', async function() {
             // Arrange
@@ -46,6 +75,7 @@ describe('FileService', function() {
             const result = await fileService.readFileAsync('document.md');
 
             // Assert
+            should(result).be.not.null();
             should(result.toString()).be.equal('content');
         });
 
