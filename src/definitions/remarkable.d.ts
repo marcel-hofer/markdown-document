@@ -22,11 +22,7 @@ declare module "remarkable-types" {
         inline: IParser<IInlineParserFunc>,
         block: IParser<IBlockParserFunc>,
         core: IParser<IInlineParserFunc>,
-        renderer: {
-            rules: {
-                [name: string]: (tokens: IToken[], idx: number, options: IRemarkableOptions) => string;
-            }
-        }
+        renderer: IRenderer;
     }
 
     export interface IParser<TParserFunc> {
@@ -44,6 +40,12 @@ declare module "remarkable-types" {
     
     export interface IInlineParserFunc {
         (state: IState, silent: boolean): boolean;
+    }
+
+    export interface IRenderer {
+        rules: {
+            [name: string]: (tokens: IToken[], idx: number, options: IRemarkableOptions, env: any, renderer: IRenderer) => string;
+        }
     }
 
     export interface IState {

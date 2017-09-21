@@ -125,7 +125,7 @@ describe('IncludePlugin', function() {
         const result = md.render(document, { path: 'document.md' });
 
         // Assert
-        should(result.trim()).be.equal('<h1>title</h1>\n<h2>subtitle 1</h2>\n<h2>subtitle 2</h2>\n<h2>subtitle 3</h2>\n<h2>subtitle 2</h2>');
+        should(result.trim()).be.equal('<h1>title</h1>\n<h2>subtitle 1</h2>\n<h2>subtitle 2</h2>\n<h2>subtitle 3</h2>\n<h2>subtitle 2</h2>\n<h2>subtitle 3</h2>');
     });
     
     it('throws exception when file could not be found', function() {
