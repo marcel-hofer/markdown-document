@@ -14,6 +14,10 @@ export class FileService {
         return q.nfcall<Buffer>(fs.readFile, path);
     }
 
+    public changeExt(file: string, ext: string = '') {
+        return file.replace(/\.[^/.]+$/, '') + ext;
+    }
+
     private nfCallNoError<TValue>(nodeFunction: (...args: any[]) => any, ...args: any[]) {
         const defer = q.defer<TValue>();
 

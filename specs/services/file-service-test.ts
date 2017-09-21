@@ -92,4 +92,38 @@ describe('FileService', function() {
             await should(result).be.rejectedWith(Error);
         });
     });
+
+    describe('changeExt', function() {
+        it('changes test.md with .json to test.json', function() {
+            // Act
+            const result = fileService.changeExt('test.md', '.json');
+
+            // Assert
+            should(result).be.equal('test.json');
+        });
+        
+        it('changes test.md with -props.json to test-props.json', function() {
+            // Act
+            const result = fileService.changeExt('test.md', '-props.json');
+
+            // Assert
+            should(result).be.equal('test-props.json');
+        });
+
+        it('changes test.md with <empty> to test', function() {
+            // Act
+            const result = fileService.changeExt('test.md', '');
+
+            // Assert
+            should(result).be.equal('test');
+        });
+
+        it('changes test with .json to test.json', function() {
+            // Act
+            const result = fileService.changeExt('test', '.json');
+
+            // Assert
+            should(result).be.equal('test.json');
+        });
+    });
 });

@@ -1,29 +1,14 @@
 import * as path from "path";
 
-export interface IOptions {
-    document: string;
-    templateDir?: string;
-}
+import { default as optionsService, IOptions } from "./services/options-service";
 
 export class MarkdownDocument {
     constructor(private options: IOptions) {
-        this.fallbackOptionsToDocument();
-        this.fallbackOptionsToTemplate();
-        this.fallbackOptionsToDefault();
     }
 
-    public createPdf() {
-    }
-
-    private fallbackOptionsToDocument() {
-        // TODO
-    }
-
-    private fallbackOptionsToTemplate() {
-        // TODO
-    }
-
-    private fallbackOptionsToDefault() {
-        // TODO
+    public async createPdf() {
+        await optionsService.consolidateAsync(this.options);
     }
 }
+
+export { IOptions } from "./services/options-service";
