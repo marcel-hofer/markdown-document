@@ -39,7 +39,7 @@ export interface IDocumentInformation {
 }
 
 export class OptionsService {
-    private readonly OPTIONS_POSTFIX = '-props.json';
+    private readonly OPTIONS_POSTFIX = '.json';
 
     // TODO: Is there a better naming for fallback & check
     public async consolidateAsync(options: IOptions) {

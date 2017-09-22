@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import { IOptions, IDocumentInformation } from "../markdown-document";
+import { IDocumentInformation } from "../markdown-document";
 import fileService from "./file-service";
 import templateService from "./template-service";
 
@@ -39,16 +39,20 @@ export class LayoutService {
         throw new Error(`Cannot find the layout '${layout}'.`);
     }
 
-    public async applyLayout(templatePath: string, markdown: string, document: IDocumentInformation, additionalData?: any) {
+    public async applyLayoutAsync(layoutPath: string, markdownAsHtml: string, document: IDocumentInformation, additionalData?: any) {
         const data = Object.assign({
+            layoutPath: 'file://' + path.dirname(layoutPath) + '/',
+            markdown: markdownAsHtml,
             document: document
         }, additionalData);
 
-        const template = await fileService.readFileAsync(templatePath);
+        const template = await fileService.readFileAsync(layoutPath);
         const tempFile = await fileService.createTempFileAsync({ postfix: '.html'});
 
-        const templateWithAppliedData = templateService.applyTemplate(template.toString(), data);
+        return await templateService.applyTemplate(template.toString(), data);
     }
 }
 
 export default new LayoutService();
+
+export { IDocumentInformation } from "../markdown-document";

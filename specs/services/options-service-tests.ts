@@ -17,8 +17,8 @@ describe('OptionsService', function() {
             // Arrange
             mockFs({
                 'default.html': 'content',
-                'document-props.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A5' }, document: { title: 'title' } }),
-                'default-props.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A6', paperOrientation: 'landscape' } })
+                'document.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A5' }, document: { title: 'title' } }),
+                'default.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A6', paperOrientation: 'landscape' } })
             });
 
             const options = <IOptions>{
