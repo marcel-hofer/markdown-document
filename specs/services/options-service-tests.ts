@@ -36,7 +36,7 @@ describe('OptionsService', function() {
             should(options.pdf.phantomPath).not.be.null();
             should(options.pdf.paperFormat).be.equal('A5');
             should(options.pdf.paperOrientation).be.equal('landscape');
-            should(options.pdf.paperBorder).be.equal('2cm');
+            should(options.pdf.paperMargin).be.equal('2cm');
 
             should(options.document).not.be.null();
             should(options.document.title).be.equal('title');

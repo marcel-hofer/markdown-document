@@ -5,3 +5,5 @@
 /output/**
 /src/**/*.js
 /specs/**/*.js
+/specs/**/*.html
+/specs/**/*.pdf

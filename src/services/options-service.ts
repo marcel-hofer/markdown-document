@@ -16,10 +16,17 @@ export interface IPdfOptions {
 
     paperFormat?: string;
     paperOrientation?: string;
-    paperBorder?: string;
+    paperMargin?: string | IPdfMargin;
 
     renderDelay?: number;
     loadTimeout?: number;
+}
+
+export interface IPdfMargin {
+    top: string;
+    left: string;
+    bottom: string;
+    right: string;
 }
 
 export interface IDocumentInformation {
@@ -72,7 +79,7 @@ export class OptionsService {
 
                 paperFormat: 'A4',
                 paperOrientation: 'portrait',
-                paperBorder: '2cm',
+                paperMargin: '2cm',
 
                 renderDelay: 0,
                 loadTimeout: 10000
@@ -98,7 +105,7 @@ export class OptionsService {
 
             options.pdf.paperFormat = options.pdf.paperFormat || fallback.pdf.paperFormat;
             options.pdf.paperOrientation = options.pdf.paperOrientation || fallback.pdf.paperOrientation;
-            options.pdf.paperBorder = options.pdf.paperBorder || fallback.pdf.paperBorder;
+            options.pdf.paperMargin = options.pdf.paperMargin || fallback.pdf.paperMargin;
 
             options.pdf.renderDelay = options.pdf.renderDelay == null ? fallback.pdf.renderDelay : options.pdf.renderDelay;
             options.pdf.loadTimeout = options.pdf.loadTimeout == null ? fallback.pdf.loadTimeout : options.pdf.loadTimeout;

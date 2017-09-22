@@ -20,6 +20,10 @@
   version "8.0.28"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
 
+"@types/phantomjs@1.9.29":
+  version "1.9.29"
+  resolved "https://registry.yarnpkg.com/@types/phantomjs/-/phantomjs-1.9.29.tgz#6bfa9ea746a2d6ac1d908d6c5cdd4a226c24e4dd"
+
 "@types/q@1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.0.5.tgz#02b9d43a1a8e7503d15ed2fecb15ebb18c519b1d"
