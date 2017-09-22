@@ -8,9 +8,18 @@ export interface IOptions {
     document?: IDocumentInformation;
     layout?: string;
 
+    pdf?: IPdfOptions;
+}
+
+export interface IPdfOptions {
+    phantomPath?: string;
+
     paperFormat?: string;
     paperOrientation?: string;
     paperBorder?: string;
+
+    renderDelay?: number;
+    loadTimeout?: number;
 }
 
 export interface IDocumentInformation {
@@ -58,9 +67,16 @@ export class OptionsService {
 
     private fallbackOptionsToDefault(options: IOptions) {
         this.applyFallbackOptions(options, <IOptions>{
-            paperFormat: 'A4',
-            paperOrientation: 'portrait',
-            paperBorder: '2cm'
+            pdf: {
+                phantomPath: require('phantomjs-prebuilt').path,
+
+                paperFormat: 'A4',
+                paperOrientation: 'portrait',
+                paperBorder: '2cm',
+
+                renderDelay: 0,
+                loadTimeout: 10000
+            }
         });
     }
 
@@ -75,9 +91,18 @@ export class OptionsService {
     }
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
-        options.paperFormat = options.paperFormat || fallback.paperFormat;
-        options.paperOrientation = options.paperOrientation || fallback.paperOrientation;
-        options.paperBorder = options.paperBorder || fallback.paperBorder;
+        options.pdf = options.pdf || { };
+
+        if (fallback.pdf != null) {
+            options.pdf.phantomPath = options.pdf.phantomPath || fallback.pdf.phantomPath;
+
+            options.pdf.paperFormat = options.pdf.paperFormat || fallback.pdf.paperFormat;
+            options.pdf.paperOrientation = options.pdf.paperOrientation || fallback.pdf.paperOrientation;
+            options.pdf.paperBorder = options.pdf.paperBorder || fallback.pdf.paperBorder;
+
+            options.pdf.renderDelay = options.pdf.renderDelay == null ? fallback.pdf.renderDelay : options.pdf.renderDelay;
+            options.pdf.loadTimeout = options.pdf.loadTimeout == null ? fallback.pdf.loadTimeout : options.pdf.loadTimeout;
+        }
     }
 }
 

@@ -8,13 +8,17 @@ import { default as optionsService, IOptions } from "../../src/services/options-
 import * as mockFs from "mock-fs";
 
 describe('OptionsService', function() {
+    before(function() {
+        const phantonPath = require('phantomjs-prebuilt').path;
+    });
+
     describe('consolidateAsync', function() {
         it('fallbacks in correct order', async function() {
             // Arrange
             mockFs({
                 'default.html': 'content',
-                'document-props.json': JSON.stringify(<IOptions>{ paperFormat: 'A5', document: { title: 'title' } }),
-                'default-props.json': JSON.stringify(<IOptions>{ paperFormat: 'A6', paperOrientation: 'landscape' })
+                'document-props.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A5' }, document: { title: 'title' } }),
+                'default-props.json': JSON.stringify(<IOptions>{ pdf: { paperFormat: 'A6', paperOrientation: 'landscape' } })
             });
 
             const options = <IOptions>{
@@ -28,9 +32,11 @@ describe('OptionsService', function() {
             // Assert
             should(options.documentPath).be.equal('document.md');
             should(options.layout).be.equal('default.html');
-            should(options.paperFormat).be.equal('A5');
-            should(options.paperOrientation).be.equal('landscape');
-            should(options.paperBorder).be.equal('2cm');
+
+            should(options.pdf.phantomPath).not.be.null();
+            should(options.pdf.paperFormat).be.equal('A5');
+            should(options.pdf.paperOrientation).be.equal('landscape');
+            should(options.pdf.paperBorder).be.equal('2cm');
 
             should(options.document).not.be.null();
             should(options.document.title).be.equal('title');
