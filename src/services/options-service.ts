@@ -1,12 +1,12 @@
 import * as path from "path";
 
 import fileService from "./file-service";
-import templateService from "./template-service";
+import layoutService from "./layout-service";
 
 export interface IOptions {
     documentPath: string;
     document?: IDocumentInformation;
-    template?: string;
+    layout?: string;
 
     paperFormat?: string;
     paperOrientation?: string;
@@ -29,10 +29,10 @@ export class OptionsService {
     public async consolidateAsync(options: IOptions) {
         await this.fallbackOptionsToDocument(options);
 
-        // Set fallback template because this is needed for the template fallback
-        options.template = await this.getAndCheckTemplateExistanceAsync(options);
+        // Set fallback layout because this is needed for the layout fallback
+        options.layout = await this.getAndCheckLayoutExistanceAsync(options);
 
-        await this.fallbackOptionsToTemplate(options);
+        await this.fallbackOptionsToLayout(options);
         await this.fallbackOptionsToDefault(options);
     }
 
@@ -44,15 +44,15 @@ export class OptionsService {
         }
     }
 
-    private async getAndCheckTemplateExistanceAsync(options: IOptions) {
-        const template = options.template || 'default.html';
-        return await templateService.resolveTemplatePathAsync(template, options.documentPath);
+    private async getAndCheckLayoutExistanceAsync(options: IOptions) {
+        const layout = options.layout || 'default.html';
+        return await layoutService.resolveLayoutPathAsync(layout, options.documentPath);
     }
 
-    private async fallbackOptionsToTemplate(options: IOptions) {
-        const templateOptions = await this.loadOptionsByFile(options.template);
-        if (templateOptions != null) {
-            this.applyFallbackOptions(options, templateOptions);
+    private async fallbackOptionsToLayout(options: IOptions) {
+        const layoutOptions = await this.loadOptionsByFile(options.layout);
+        if (layoutOptions != null) {
+            this.applyFallbackOptions(options, layoutOptions);
         }
     }
 

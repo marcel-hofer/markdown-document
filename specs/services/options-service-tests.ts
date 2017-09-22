@@ -27,7 +27,7 @@ describe('OptionsService', function() {
 
             // Assert
             should(options.documentPath).be.equal('document.md');
-            should(options.template).be.equal('default.html');
+            should(options.layout).be.equal('default.html');
             should(options.paperFormat).be.equal('A5');
             should(options.paperOrientation).be.equal('landscape');
             should(options.paperBorder).be.equal('2cm');

@@ -5,12 +5,14 @@
   "dependencies": {
     "q": "1.5.0",
     "tmp": "0.0.33",
-    "remarkable": "1.7.1"
+    "remarkable": "1.7.1",
+    "handlebars": "4.0.10"
   },
   "devDependencies": {
     "@types/node": "8.0.28",
     "@types/q": "1.0.5",
     "@types/tmp": "0.0.33",
+    "@types/handlebars": "4.0.36",
     
     "gulp": "3.9.1",
     "gulp-typescript": "3.2.2",
