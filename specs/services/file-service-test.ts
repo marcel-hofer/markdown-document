@@ -1,8 +1,9 @@
 /// <reference path="../include.d.ts" />
 
 import * as should from "should";
+import * as fs from "fs";
 
-import fileService from "../../src/services/file-service";
+import { default as fileService, TempFile } from "../../src/services/file-service";
 import * as mockFs from "mock-fs";
 
 describe('FileService', function() {
@@ -90,6 +91,54 @@ describe('FileService', function() {
 
             // Assert
             await should(result).be.rejectedWith(Error);
+        });
+    });
+
+    describe('writeFileAsync', function() {
+        it('writes file', async function() {
+            // Arrange
+            mockFs({ });
+
+            // Act
+            await fileService.writeFileAsync('test.md', 'content');
+
+            // Assert
+            const writtenFile = fs.readFileSync('test.md');
+            should(writtenFile.toString()).be.equal('content');
+        });
+    })
+
+    describe('createTempFileAsync', function() {
+        let tempFile: TempFile;
+        
+        it('returns temporary file', async function() {
+            // Arrange
+            mockFs({ });
+
+            // Act
+            tempFile = await fileService.createTempFileAsync({ postfix: '.html' });
+
+            // Assert
+            should(tempFile).be.not.null();
+            should(tempFile.path).endWith('.html');
+        });
+
+        it('can write to temporary file', function() {
+            // Act
+            fs.writeFileSync(tempFile.path, 'content');
+
+            // Assert
+            const writtenFile = fs.readFileSync(tempFile.path);
+            should(writtenFile.toString()).be.equal('content');
+        });
+
+        it('can delete temporary file', function() {
+            // Act
+            tempFile.delete();
+            
+            // Assert
+            const writtenFileExists = fs.existsSync(tempFile.path);
+            should(writtenFileExists).be.false();
         });
     });
 

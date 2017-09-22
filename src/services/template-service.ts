@@ -1,6 +1,6 @@
 import * as path from "path";
 
-import { IOptions } from "../markdown-document";
+import { IOptions, IDocumentInformation } from "../markdown-document";
 import fileService from "./file-service";
 
 export class TemplateService {
@@ -36,6 +36,15 @@ export class TemplateService {
         }
 
         throw new Error(`Cannot find the template '${template}'.`);
+    }
+
+    public async applyTemplate(templatePath: string, markdown: string, document: IDocumentInformation, additionalData?: any) {
+        const data = Object.assign({
+            document: document
+        }, additionalData);
+
+        const template = await fileService.readFileAsync(templatePath);
+        const tempFile = await fileService.createTempFileAsync({ postfix: '.html'});
     }
 }
 

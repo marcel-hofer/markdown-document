@@ -11,4 +11,4 @@ export class MarkdownDocument {
     }
 }
 
-export { IOptions } from "./services/options-service";
+export { IOptions, IDocumentInformation } from "./services/options-service";

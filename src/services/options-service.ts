@@ -4,12 +4,22 @@ import fileService from "./file-service";
 import templateService from "./template-service";
 
 export interface IOptions {
-    document: string;
+    documentPath: string;
+    document?: IDocumentInformation;
     template?: string;
 
     paperFormat?: string;
     paperOrientation?: string;
     paperBorder?: string;
+}
+
+export interface IDocumentInformation {
+    title?: string;
+    subject?: string;
+    authors?: string[];
+    date?: string;
+
+    data?: any;
 }
 
 export class OptionsService {
@@ -27,15 +37,16 @@ export class OptionsService {
     }
 
     private async fallbackOptionsToDocument(options: IOptions) {
-        const documentOptions = await this.loadOptionsByFile(options.document);
+        const documentOptions = await this.loadOptionsByFile(options.documentPath);
         if (documentOptions != null) {
             this.applyFallbackOptions(options, documentOptions);
+            options.document = documentOptions.document || { };
         }
     }
 
     private async getAndCheckTemplateExistanceAsync(options: IOptions) {
         const template = options.template || 'default.html';
-        return await templateService.resolveTemplatePathAsync(template, options.document);
+        return await templateService.resolveTemplatePathAsync(template, options.documentPath);
     }
 
     private async fallbackOptionsToTemplate(options: IOptions) {

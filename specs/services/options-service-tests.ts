@@ -13,12 +13,12 @@ describe('OptionsService', function() {
             // Arrange
             mockFs({
                 'default.html': 'content',
-                'document-props.json': JSON.stringify(<IOptions>{ paperFormat: 'A5' }),
+                'document-props.json': JSON.stringify(<IOptions>{ paperFormat: 'A5', document: { title: 'title' } }),
                 'default-props.json': JSON.stringify(<IOptions>{ paperFormat: 'A6', paperOrientation: 'landscape' })
             });
 
             const options = <IOptions>{
-                document: 'document.md',
+                documentPath: 'document.md',
                 template: 'default.html'
             };
 
@@ -26,11 +26,14 @@ describe('OptionsService', function() {
             await optionsService.consolidateAsync(options);
 
             // Assert
-            should(options.document).be.equal('document.md');
+            should(options.documentPath).be.equal('document.md');
             should(options.template).be.equal('default.html');
             should(options.paperFormat).be.equal('A5');
             should(options.paperOrientation).be.equal('landscape');
             should(options.paperBorder).be.equal('2cm');
+
+            should(options.document).not.be.null();
+            should(options.document.title).be.equal('title');
         });
     });
 });

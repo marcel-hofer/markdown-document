@@ -1,5 +1,8 @@
 import * as fs from "fs";
+import * as tmp from "tmp";
 import * as q from "q";
+
+import { TempFile } from "../helpers/temp-file";
 
 export class FileService {
     public existsAsync(path: fs.PathLike) {
@@ -14,6 +17,24 @@ export class FileService {
         return q.nfcall<Buffer>(fs.readFile, path);
     }
 
+    public writeFileAsync(path: fs.PathLike, content: any) {
+        return q.nfcall<void>(fs.writeFile, path, content);
+    }
+
+    public createTempFileAsync(options: tmp.Options) {
+        const defer = q.defer<TempFile>();
+
+        tmp.file(options, (err, path, fd, cleanupCallback) => {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(new TempFile(path, cleanupCallback));
+            }
+        });
+
+        return defer.promise;
+    }
+    
     public changeExt(file: string, ext: string = '') {
         return file.replace(/\.[^/.]+$/, '') + ext;
     }
@@ -34,3 +55,5 @@ export class FileService {
 }
 
 export default new FileService();
+
+export { TempFile } from "../helpers/temp-file";
