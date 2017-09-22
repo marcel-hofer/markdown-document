@@ -5,6 +5,7 @@ import layoutService from "./layout-service";
 
 export interface IOptions {
     documentPath: string;
+    outputPath?: string;
     document?: IDocumentInformation;
     layout?: string;
 
@@ -73,6 +74,8 @@ export class OptionsService {
     }
 
     private fallbackOptionsToDefault(options: IOptions) {
+        options.outputPath = options.outputPath || fileService.changeExt(options.documentPath, '.pdf');
+
         this.applyFallbackOptions(options, <IOptions>{
             pdf: {
                 phantomPath: require('phantomjs-prebuilt').path,

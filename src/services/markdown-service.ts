@@ -32,3 +32,5 @@ export class MarkdownService {
         return md;
     }
 }
+
+export default new MarkdownService();
