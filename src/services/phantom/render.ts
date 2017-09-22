@@ -18,7 +18,7 @@ var os = system.os;
 var page = webpage.create();
 
 phantom.onError = function(err, stack) {
-    phantom.exit(0);
+    phantom.exit(-1);
 };
 
 var args = (function() {
@@ -45,32 +45,34 @@ page.setContent(html, 'http://localhost');
 var paperSize = <any>{
     format: args.paperFormat,
     orientation: args.paperOrientation,
-    margin: args.margin
+    margin: args.margin,
+    header: { },
+    footer: { }
 };
 
 /* check whether the loaded page overwrites the header/footer setting,
-        i.e. whether a PhantomJSPriting object exists. Use that then instead
-        of our defaults above.
-        example:
-        <html>
-            <head>
-            <script type="text/javascript">
-                var PhantomJSPrinting = {
-                    header: {
-                        height: "1cm",
-                        contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
-                    },
-                    footer: {
-                        height: "1cm",
-                        contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
-                    }
-                };
-            </script>
-            </head>
-            <body><h1>asdfadsf</h1><p>asdfadsfycvx</p></body>
-        </html>
-    */
-if (page.evaluate(function() { return typeof PhantomJSPrinting == "object"; })) {
+    i.e. whether a PhantomJSPriting object exists. Use that then instead
+    of our defaults above.
+    example:
+    <html>
+        <head>
+        <script type="text/javascript">
+            var PhantomJSPrinting = {
+                header: {
+                    height: "1cm",
+                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
+                },
+                footer: {
+                    height: "1cm",
+                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
+                }
+            };
+        </script>
+        </head>
+        <body><h1>asdfadsf</h1><p>asdfadsfycvx</p></body>
+    </html>
+*/
+if (page.evaluate(function() { return typeof PhantomJSPrinting === "object"; })) {
     paperSize.header.height = page.evaluate(function() {
         return PhantomJSPrinting.header.height;
     });

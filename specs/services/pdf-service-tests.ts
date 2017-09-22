@@ -16,7 +16,20 @@ describe('PdfService', function() {
             const tempPdfFile = path.join(__dirname, 'pdf-service-tests.pdf');
 
             await fileService.writeFileAsync(tempHtmlFile, `<html>
-    <head></head>
+    <head>
+        <script type="text/javascript">
+            var PhantomJSPrinting = {
+                header: {
+                    height: "1cm",
+                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
+                },
+                footer: {
+                    height: "1cm",
+                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
+                }
+            };
+        </script>
+    </head>
     <body>
             Here is the content
     </body>
