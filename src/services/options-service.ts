@@ -6,6 +6,7 @@ import layoutService from "./layout-service";
 export interface IOptions {
     documentPath: string;
     outputPath?: string;
+    tempPath?: string;
     document?: IDocumentInformation;
     layout?: string;
 
@@ -14,13 +15,11 @@ export interface IOptions {
 
 export interface IPdfOptions {
     phantomPath?: string;
+    cwd?: string,
 
     paperFormat?: string;
     paperOrientation?: string;
     paperMargin?: string | IPdfMargin;
-
-    renderDelay?: number;
-    loadTimeout?: number;
 }
 
 export interface IPdfMargin {
@@ -79,13 +78,11 @@ export class OptionsService {
         this.applyFallbackOptions(options, <IOptions>{
             pdf: {
                 phantomPath: require('phantomjs-prebuilt').path,
+                cwd: path.dirname(path.resolve(options.documentPath)).replace(/\\/g, '/') + '/',
 
                 paperFormat: 'A4',
                 paperOrientation: 'portrait',
-                paperMargin: '2cm',
-
-                renderDelay: 0,
-                loadTimeout: 10000
+                paperMargin: '2cm'
             }
         });
     }
@@ -105,13 +102,11 @@ export class OptionsService {
 
         if (fallback.pdf != null) {
             options.pdf.phantomPath = options.pdf.phantomPath || fallback.pdf.phantomPath;
+            options.pdf.cwd = options.pdf.cwd || fallback.pdf.cwd;
 
             options.pdf.paperFormat = options.pdf.paperFormat || fallback.pdf.paperFormat;
             options.pdf.paperOrientation = options.pdf.paperOrientation || fallback.pdf.paperOrientation;
             options.pdf.paperMargin = options.pdf.paperMargin || fallback.pdf.paperMargin;
-
-            options.pdf.renderDelay = options.pdf.renderDelay == null ? fallback.pdf.renderDelay : options.pdf.renderDelay;
-            options.pdf.loadTimeout = options.pdf.loadTimeout == null ? fallback.pdf.loadTimeout : options.pdf.loadTimeout;
         }
     }
 }

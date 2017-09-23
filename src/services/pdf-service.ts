@@ -18,14 +18,13 @@ export class PdfService {
             path.join(__dirname, 'phantom/render.js'),
             input,
             output,
+            options.cwd,
             options.paperFormat,
             options.paperOrientation,
             getMargin(margin => margin.top),
             getMargin(margin => margin.left),
             getMargin(margin => margin.bottom),
-            getMargin(margin => margin.right),
-            <any>options.renderDelay,
-            <any>options.loadTimeout
+            getMargin(margin => margin.right)
         ];
 
         const defer = q.defer<IRenderPdfResult>();

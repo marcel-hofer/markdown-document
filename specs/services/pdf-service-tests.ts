@@ -45,10 +45,7 @@ describe('PdfService', function() {
                     left: '2cm',
                     bottom: '3cm',
                     right: '4cm'
-                },
-
-                renderDelay: 0,
-                loadTimeout: 10000
+                }
             };
 
             // Act

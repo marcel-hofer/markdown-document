@@ -23,6 +23,7 @@ describe('MarkdownDocument', function() {
             const options = <IOptions>{
                 documentPath: path.join(__dirname, 'document.md'),
                 outputPath: path.join(__dirname, 'document.pdf'),
+                tempPath: path.join(__dirname, 'document.html'),
                 layout: 'document.html',
                 document: {
                     title: 'My awesome title',
@@ -37,12 +38,12 @@ describe('MarkdownDocument', function() {
             const service = new MarkdownDocument(options);
 
             // Act
-            await service.createPdf();
+            await service.createPdfAsync();
 
             // Assert
             const fileExists = await fileService.existsAsync(options.outputPath);
             should(fileExists).be.true();
-        })
+        });
     });
 });
 
