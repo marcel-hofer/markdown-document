@@ -18,7 +18,6 @@ export class PdfService {
             path.join(__dirname, 'phantom/render.js'),
             input,
             output,
-            options.cwd,
             options.paperFormat,
             options.paperOrientation,
             getMargin(margin => margin.top),

@@ -15,7 +15,6 @@ export interface IOptions {
 
 export interface IPdfOptions {
     phantomPath?: string;
-    cwd?: string,
 
     paperFormat?: string;
     paperOrientation?: string;
@@ -78,7 +77,6 @@ export class OptionsService {
         this.applyFallbackOptions(options, <IOptions>{
             pdf: {
                 phantomPath: require('phantomjs-prebuilt').path,
-                cwd: path.dirname(path.resolve(options.documentPath)).replace(/\\/g, '/') + '/',
 
                 paperFormat: 'A4',
                 paperOrientation: 'portrait',
@@ -102,7 +100,6 @@ export class OptionsService {
 
         if (fallback.pdf != null) {
             options.pdf.phantomPath = options.pdf.phantomPath || fallback.pdf.phantomPath;
-            options.pdf.cwd = options.pdf.cwd || fallback.pdf.cwd;
 
             options.pdf.paperFormat = options.pdf.paperFormat || fallback.pdf.paperFormat;
             options.pdf.paperOrientation = options.pdf.paperOrientation || fallback.pdf.paperOrientation;

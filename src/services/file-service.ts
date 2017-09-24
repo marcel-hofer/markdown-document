@@ -1,4 +1,6 @@
+import * as os from "os";
 import * as fs from "fs";
+import * as path from "path";
 import * as tmp from "tmp";
 import * as q from "q";
 
@@ -37,6 +39,13 @@ export class FileService {
     
     public changeExt(file: string, ext: string = '') {
         return file.replace(/\.[^/.]+$/, '') + ext;
+    }
+
+    public toAbsoluteFileUrl(url: string) {
+        const absoluteUrl = path.resolve(url).replace(/\\/g, '/');
+        const protocol = os.platform() === 'win32'  ? 'file:///' : 'file://';
+
+        return protocol + absoluteUrl;
     }
 
     private nfCallNoError<TValue>(nodeFunction: (...args: any[]) => any, ...args: any[]) {

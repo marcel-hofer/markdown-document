@@ -41,7 +41,7 @@ export class LayoutService {
 
     public async applyLayoutAsync(layoutPath: string, markdownAsHtml: string, document: IDocumentInformation, additionalData?: any) {
         const data = Object.assign({
-            layoutPath: 'file://' + path.dirname(path.resolve(layoutPath)).replace(/\\/g, '/') + '/',
+            layoutPath: path.dirname(fileService.toAbsoluteFileUrl(layoutPath)) + '/',
             markdown: markdownAsHtml,
             document: document
         }, additionalData);

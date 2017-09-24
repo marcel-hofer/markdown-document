@@ -26,7 +26,6 @@ var args = (function() {
     return {
         in: <string>system.args[i++],
         out: <string>system.args[i++],
-        cwd: <string>system.args[i++],
         paperFormat: <string>system.args[i++],
         paperOrientation: <string>system.args[i++],
         margin: {
@@ -39,7 +38,7 @@ var args = (function() {
 })();
 
 var html = fs.read(args.in);
-page.setContent(html, 'file://' + args.cwd + 'index.html');
+page.setContent(html, 'http://localhost/index.html');
 
 page.onLoadFinished = function(status: string) {
     if (status !== 'success') {
