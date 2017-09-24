@@ -1,8 +1,4 @@
 body {
-    color: red;
-}
-
-body {
     counter-reset: h2counter;
 }
 

@@ -3,6 +3,7 @@
 import { PathLike } from "fs";
 import { Remarkable as RemarkableCtor, IRemarkable } from "remarkable-types";
 const Remarkable: RemarkableCtor = require('remarkable');
+const hljs = require('highlight.js');
 
 import { IncludePlugin } from "./markdown/include-plugin";
 
@@ -24,12 +25,27 @@ export class MarkdownService {
 
     private createRemarkableInstance() {
         const md = new Remarkable({
-            xhtmlOut: true
+            xhtmlOut: true,
+            highlight: this.highlight
         });
 
         md.use(IncludePlugin.register);
 
         return md;
+    }
+
+    private highlight(str: string, lang: string): string {
+        if (lang && hljs.getLanguage(lang)) {
+            try {
+                return hljs.highlight(lang, str).value;
+            } catch (err) { }
+        }
+
+        try {
+            return hljs.highlightAuto(str).value;
+        } catch (err) { }
+
+        return ''; // use external default escaping
     }
 }
 

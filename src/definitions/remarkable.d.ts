@@ -8,7 +8,7 @@ declare module "remarkable-types" {
         linkTarget?: string;
         typographer?: boolean;
         quotes?: string;
-        highlight?: any;
+        highlight?(str: string, lang: string): string;
         maxNesting?: number;
     }
 

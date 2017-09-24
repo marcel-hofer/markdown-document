@@ -34,7 +34,7 @@ describe('MarkdownDocument', function() {
             await testTemplateGenerationAsync(options);
         });
 
-        it.only('renders document.html', async function() {
+        it('renders document.html', async function() {
             this.timeout(15000);
 
             // Arrange
