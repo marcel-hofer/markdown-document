@@ -34,7 +34,7 @@ describe('MarkdownDocument', function() {
             await testTemplateGenerationAsync(options);
         });
 
-        it('renders document.html', async function() {
+        it.only('renders document.html', async function() {
             this.timeout(15000);
 
             // Arrange
@@ -48,6 +48,9 @@ describe('MarkdownDocument', function() {
                     subject: 'An awesome subject',
                     date: '2017-09-22',
                     authors: ['John Doe', 'David Miller'],
+                    data: {
+                        location: 'Current Location'
+                    }
                 }
             };
 
