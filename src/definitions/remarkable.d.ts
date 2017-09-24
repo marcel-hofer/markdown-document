@@ -44,8 +44,12 @@ declare module "remarkable-types" {
 
     export interface IRenderer {
         rules: {
-            [name: string]: (tokens: IToken[], idx: number, options: IRemarkableOptions, env: any, renderer: IRenderer) => string;
+            [name: string]: IRendererFunc;
         }
+    }
+
+    export interface IRendererFunc {
+        (tokens: IToken[], idx: number, options: IRemarkableOptions, env: any, renderer: IRenderer): string;
     }
 
     export interface IState {

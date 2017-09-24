@@ -6,6 +6,7 @@ const Remarkable: RemarkableCtor = require('remarkable');
 const hljs = require('highlight.js');
 
 import { IncludePlugin } from "./markdown/include-plugin";
+import { LocalToAbsoluteImageSrcPlugin } from "./markdown/local-to-absolute-image-src-plugin";
 
 import fileService from "./file-service";
 
@@ -30,6 +31,7 @@ export class MarkdownService {
         });
 
         md.use(IncludePlugin.register);
+        md.use(LocalToAbsoluteImageSrcPlugin.register)
 
         return md;
     }
