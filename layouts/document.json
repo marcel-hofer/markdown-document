@@ -1,0 +1,12 @@
+{
+    "pdf": {
+        "paperFormat": "A4",
+        "paperOrientation": "portrait",
+        "paperMargin": {
+            "top": "2.5cm",
+            "left": "2.6cm",
+            "bottom": "2.5cm",
+            "right": "1.25cm"
+        }
+    }
+}

@@ -9,7 +9,9 @@ gulp.task('clean', function() {
     return del([
         'output', 
         'src/**/*.js',
-        'specs/**/*.js'
+        'specs/**/*.js',
+        'specs/**/*.html',
+        'specs/**/*.pdf'
     ]);
 });
 

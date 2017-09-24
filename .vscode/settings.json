@@ -8,6 +8,10 @@
         "**/*.js": { "when": "$(basename).ts"},
         "**/*.js.map": true,
 
+        "specs/**/*.pdf": true,
+        "specs/**/*.html": true,
+        "specs/**/*.md": true,
+
         ".vscode": true,
         "node_modules": true,
         "output": true
