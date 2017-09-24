@@ -16,6 +16,24 @@ describe('MarkdownDocument', function() {
     });
 
     describe('layouts', function() {
+        it('renders html5-boilerplate.html', async function() {
+            this.timeout(15000);
+
+            // Arrange
+            const options = <IOptions>{
+                documentPath: path.join(__dirname, 'html5-boilerplate.md'),
+                outputPath: path.join(__dirname, 'html5-boilerplate.pdf'),
+                tempPath: path.join(__dirname, 'html5-boilerplate.html'),
+                layout: 'html5-boilerplate.html',
+                document: {
+                    title: 'My awesome title'
+                }
+            };
+
+            // Act & Assert
+            await testTemplateGenerationAsync(options);
+        });
+
         it('renders document.html', async function() {
             this.timeout(15000);
 
@@ -33,19 +51,24 @@ describe('MarkdownDocument', function() {
                 }
             };
 
-            await fileService.writeFileAsync(options.documentPath, getTemplate());
-
-            const service = new MarkdownDocument(options);
-
-            // Act
-            await service.createPdfAsync();
-
-            // Assert
-            const fileExists = await fileService.existsAsync(options.outputPath);
-            should(fileExists).be.true();
+            // Act & Assert
+            await testTemplateGenerationAsync(options);
         });
     });
 });
+
+async function testTemplateGenerationAsync(options: IOptions) {
+    await fileService.writeFileAsync(options.documentPath, getTemplate());
+    
+    const service = new MarkdownDocument(options);
+
+    // Act
+    await service.createPdfAsync();
+
+    // Assert
+    const fileExists = await fileService.existsAsync(options.outputPath);
+    should(fileExists).be.true();
+}
 
 function getTemplate() {
     return `

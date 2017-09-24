@@ -6,7 +6,9 @@
     "q": "1.5.0",
     "tmp": "0.0.33",
     "remarkable": "1.7.1",
-    "handlebars": "4.0.10"
+    "handlebars": "4.0.10",
+
+    "html5-boilerplate": "h5bp/html5-boilerplate#v5.0.0"
   },
   "devDependencies": {
     "@types/node": "8.0.28",

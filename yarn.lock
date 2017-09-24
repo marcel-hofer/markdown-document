@@ -872,6 +872,10 @@ homedir-polyfill@^1.0.0, homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
+html5-boilerplate@h5bp/html5-boilerplate#v5.0.0:
+  version "5.0.0"
+  resolved "https://codeload.github.com/h5bp/html5-boilerplate/tar.gz/60a8ff033665e1207714d6670fcd7b65304ec02f"
+
 http-signature@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/http-signature/-/http-signature-1.1.1.tgz#df72e267066cd0ac67fb76adf8e134a8fbcf91bf"
