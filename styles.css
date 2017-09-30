@@ -1,0 +1,111 @@
+/* GLOBAL */
+body {
+    font-family: "Arial Narrow";
+    font-size: 10pt;
+}
+
+/* COVER */
+#cover {
+    position: relative;
+}
+
+#cover .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#cover .box .rectangle {
+    background: #943634;
+
+    width: 400px;
+    height: 125px;
+}
+
+#cover .box .rectangle .line {
+    display: inline-block;
+
+    margin-left: 125px;
+    border-right: 1px solid white;
+
+    height: 125px;
+}
+
+#cover .box .line {
+    display: inline-block;
+
+    margin-left: 125px;
+    border-right: 1px solid black;
+
+    height: 300px;
+}
+
+#cover .bottom {
+    position: absolute;
+    top: 1100px;
+}
+
+#cover .cover-title {
+    font-size: 36pt;
+    font-weight: bold;
+}
+
+#cover .cover-subject {
+    font-size: 26pt;
+    font-weight: bold;
+}
+
+/* CONTENT */
+#content {
+    counter-reset: h2counter;
+}
+
+#content h1 {
+    counter-reset: h2counter;
+}
+
+#content h2:before {
+    content: counter(h2counter) ".\0000a0\0000a0";
+    counter-increment: h2counter;
+    counter-reset: h3counter;
+}
+
+#content h3:before {
+    content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+    counter-increment: h3counter;
+}
+
+/* HEADER */
+#header hr {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#header .title {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+#header .subject {
+    font-size: 8pt;
+}
+
+#header .author {
+    font-size: 8pt;
+
+    float: right;
+}
+
+/* FOOTER */
+#footer {
+    font-size: 8pt;
+}
+
+#footer hr {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#footer .pages {
+    float: right;
+}

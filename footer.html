@@ -1,58 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css" rel="stylesheet">
-            .footer {
-            }
-
-            .footer hr {
-                margin-top: 1px;
-                margin-bottom: 1px;
-            }
-
-            .footer .footer-pages {
-                float: right;
-            }
-        </style>
-
-        <script type="text/javascript">
-            function subst() {
-                var vars = { };
-                var x = window.location.search.substring(1).split('&');
-                for (var i in x) {
-                    var z = x[i].split('=',2);
-                    vars[z[0]] = unescape(z[1]);
-                }
-
-                if (vars.page == '1') {
-                    var footers = document.getElementsByClassName('footer');
-                    footers[0].style.display = 'none';
-                    return;
-                }
-
-                var x = ['frompage','topage','page','webpage','section','subsection','subsubsection'];
-                
-                for (var i in x) {
-                    var y = document.getElementsByClassName(x[i]);
-                    for (var j = 0; j < y.length; ++j) {
-                        y[j].textContent = vars[x[i]];
-                    };
-                }
-            }
-        </script>
+        <link rel="stylesheet" href="file:///C:/Projects/markdown-document-experiments/styles.css" media="all" />
+        <script type="text/javascript" src="file:///C:/Projects/markdown-document-experiments/script.js"></script>
     </head>
-    <body onload="subst()">
-        <div class="footer">
-            <div class="footer-first-row">
-                <span class="footer-copyright">Copyright &copy; {{document/authors}}</span>
-                <span class="footer-pages">
-                    Page <span class="page"></span> of &nbsp;<span class="topage"></span>
-                </span>
-            </div>
-            <hr />
-            <div class="footer-second-row">
-                <span class="footer-subject">{{document/data/location}}, {{document/date}}</span>
-            </div>
+    <body id="footer" onload="applyVariables()">
+        <hr />
+        <div class="first-row">
+            <span class="copyright">Copyright &copy; {{document/authors}}</span>
+            <span class="pages">
+                Page <span class="page"></span> of &nbsp;<span class="topage"></span>
+            </span>
+        </div>
+        <div class="second-row">
+            <span class="location-date">{{document/data/location}}, {{document/date}}</span>
         </div>
     </body>
 </html>

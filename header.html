@@ -1,45 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css" rel="stylesheet">
-            .header {
-            }
-
-            .header hr {
-                margin-top: 1px;
-                margin-bottom: 1px;
-            }
-
-            .header .header-author {
-                float: right;
-            }
-        </style>
-        <script type="text/javascript">
-            function subst() {
-                var vars = { };
-                var x = window.location.search.substring(1).split('&');
-                for (var i in x) {
-                    var z = x[i].split('=',2);
-                    vars[z[0]] = unescape(z[1]);
-                }
-
-                if (vars.page == '1') {
-                    var headers = document.getElementsByClassName('header');
-                    headers[0].style.display = 'none';
-                }
-            }
-        </script>
+        <link rel="stylesheet" href="file:///C:/Projects/markdown-document-experiments/styles.css" media="all" />
     </head>
-    <body onload="subst()">
-        <div class="header">
-            <div class="header-first-row">
-                <span class="header-title">{{document/title}}</span>
-                <span class="header-author">{{document/authors}}</span>
-            </div>
-            <hr />
-            <div class="header-second-row">
-                <span class="header-subject">{{document/subject}}</span>
-            </div>
+    <body id="header">
+        <div class="first-row">
+            <span class="title">{{document/title}}</span>
+            <span class="author">{{document/authors}}</span>
+        </div>
+        <hr />
+        <div class="second-row">
+            <span class="subject">{{document/subject}}</span>
         </div>
     </body>
 </html>
