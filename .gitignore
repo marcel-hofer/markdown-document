@@ -1,0 +1,5 @@
+# External libs
+/node_modules
+
+# Build
+/**/*.pdf

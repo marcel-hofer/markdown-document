@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        // include the defaults from VS Code
+        "**/.git": true,
+
+        "**/*.pdf": true,
+
+        ".vscode": true,
+        "node_modules": true
+    }
+}
