@@ -11,7 +11,7 @@
             <head>
                 <title>Table of Contents</title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                <style>
+                <style type="text/css" rel="stylesheet">
                     body {
                         font-family: "Arial Narrow";
                     }
@@ -22,6 +22,23 @@
 
                         border-bottom: 1px solid #8EA138;
                     }
+
+                    /* DEBUG STYLES */
+                    /*li.level-1 div, li.level-1 div a {
+                        color: red;
+                    }
+
+                    li.level-2 div, li.level-2 div a {
+                        color: blue;
+                    }
+
+                    li.level-3 div, li.level-3 div a {
+                        color: green;
+                    }
+
+                    li.level-4 div, li.level-4 div a {
+                        color: brown;
+                    }*/
 
                     /* HIERARCHY */
                     ul {
@@ -36,8 +53,6 @@
 
                         margin-top: 18pt;
                         margin-bottom: 6pt;
-
-                        color: red;
                     }
 
                     li.level-1 div {
@@ -51,8 +66,6 @@
 
                         margin-top: 0;
                         margin-bottom: 0;
-
-                        color: blue;
                     }
 
                     li.level-1 div {
@@ -61,14 +74,6 @@
 
                     li.level-2 ul {
                         padding-left: 1em;
-                    }
-
-                    li.level-3 div {
-                        color: green;
-                    }
-
-                    li.level-4 div {
-                        color: black;
                     }
 
                     li.level-4 ul {
@@ -95,13 +100,25 @@
                         width: 0;
                         font-size: 6pt;
                         white-space: nowrap;
-                        content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+                        content: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ";
+                    }
+
+                    li.level-1 .before:before {
+                        margin-top: 12pt;
+                    }
+
+                    li.level-2 .before:before {
+                        margin-top: 2pt;
                     }
 
                     .after {
                         float:right;
-                        padding-left: 0.33em;
+                        padding-left: 0.2em;
                         background: white;
+                    }
+
+                    li.level-3 .after {
+                        padding-left: 1.2em;
                     }
 
                     /* NUMBERING */
