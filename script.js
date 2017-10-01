@@ -1,3 +1,4 @@
+/* HEADER / FOOTER */
 function applyVariables() {
     var vars = loadVariables();
 
@@ -30,4 +31,23 @@ function loadVariables() {
     }
 
     return vars;
+}
+
+/* CONTENT */
+function contentLoad() {
+    adjustParagraphsAfterFirstHeadings();
+}
+
+// Add class names to h1 and comment for the part headings (does not work with pure CSS)
+function adjustParagraphsAfterFirstHeadings() {
+    $('h1').each(function() {
+        var element = $(this);
+        var firstP = element.next();
+        
+        if (firstP.length > 0 && firstP.prop('tagName') == 'P') {
+            firstP.addClass('h1-comment');
+        } else {
+            element.addClass('no-comment');
+        }
+    });
 }
