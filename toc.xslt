@@ -122,13 +122,13 @@
                     }
 
                     /* NUMBERING */
-                    ul#top > li { counter-reset: h2; }
-                    ul#top > li > ul > li { counter-reset: h3; }
-                    ul#top > li > ul > li > ul > li { counter-reset: h4; }
+                    li.level-1 { counter-reset: h2; }
+                    li.level-2 { counter-reset: h3; }
+                    li.level-3 { counter-reset: h4; }
 
-                    ul#top > li > ul > li > div > a:before { counter-increment: h2; content: counter(h2) ". "; }
-                    ul#top > li > ul > li > ul > li > div > a:before { counter-increment: h3; content: counter(h2) "." counter(h3) ". "; }
-                    ul#top > li > ul > li > ul > li > ul > li > div > a:before { counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ". ";
+                    li.level-2 a:before { counter-increment: h2; content: counter(h2) ". "; }
+                    li.level-3 a:before { counter-increment: h3; content: counter(h2) "." counter(h3) ". "; }
+                    li.level-4 a:before { counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ". "; }
                 </style>
             </head>
             <body>
