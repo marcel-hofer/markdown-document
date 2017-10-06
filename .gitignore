@@ -8,3 +8,4 @@
 /specs/**/*.html
 /specs/**/*.pdf
 /specs/**/*.md
+/specs/**/temp

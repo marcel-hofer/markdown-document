@@ -2,33 +2,17 @@ import * as path from "path";
 import * as childProcess from "child_process";
 import * as q from "q";
 
-import { IPdfOptions, IPdfMargin } from "./options-service";
+import { IPdfOptions } from "./options-service";
+import { wkhtmltopdfArguments } from "../helpers/pdf-options-parser";
 
 export class PdfService {
-    public renderPdfAsync(input: string, output: string, options: IPdfOptions) {
-        let getMargin = (getter: (margin: IPdfMargin) => string) => {
-            if (typeof options.paperMargin === 'object') {
-                return getter(options.paperMargin);
-            } else {
-                return options.paperMargin;
-            }
-        }
-
-        const args: string[] = [
-            path.join(__dirname, 'phantom/render.js'),
-            input,
-            output,
-            options.paperFormat,
-            options.paperOrientation,
-            getMargin(margin => margin.top),
-            getMargin(margin => margin.left),
-            getMargin(margin => margin.bottom),
-            getMargin(margin => margin.right)
-        ];
+    public renderPdfAsync(layoutPath: string, outputPath: string, options: IPdfOptions) {
+        const args = wkhtmltopdfArguments(layoutPath, options);
+        args.push(outputPath);
 
         const defer = q.defer<IRenderPdfResult>();
 
-        childProcess.execFile(options.phantomPath, args, { timeout: 15000 }, function(error, stdout, stderr) {
+        childProcess.execFile(options.wkhtmltopdfPath, args, { timeout: 15000 }, function(error, stdout, stderr) {
             const data = {
                 error: error, 
                 stdout: stdout, 

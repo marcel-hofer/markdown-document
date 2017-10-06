@@ -73,27 +73,4 @@ describe('LayoutService', function() {
             should(result).be.rejectedWith(Error);
         });
     });
-
-    describe('applyLayoutAsync', function() {
-        it('can apply template data', async function() {
-            // Arrange
-            mockFs({
-                'layout.html': '{{document/title}} - {{markdown}} - {{otherProp}}'
-            });
-
-            const info = <IDocumentInformation>{
-                title: 'awesome title'
-            };
-
-            const additionalData = {
-                otherProp: 42
-            };
-
-            // Act
-            const result = await layoutService.applyLayoutAsync('layout.html', 'markdown-html', info, additionalData);
-
-            // Assert
-            should(result).be.equal('awesome title - markdown-html - 42');
-        });
-    });
 });

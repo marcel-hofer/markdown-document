@@ -2,6 +2,7 @@
 
 import * as should from "should";
 import * as fs from "fs";
+import * as path from "path";
 
 import { default as fileService, TempFile } from "../../src/services/file-service";
 import * as mockFs from "mock-fs";
@@ -107,6 +108,26 @@ describe('FileService', function() {
             should(writtenFile.toString()).be.equal('content');
         });
     })
+
+    describe('createDirectoryRecursiveAsync', function() {
+        it('creates directory recursive', async function() {
+            // Arrange
+            const directory1 = path.join(__dirname, 'temp/folder1');
+            const directory2 = path.join(__dirname, 'temp/folder1/folder2');
+
+            await fileService.deleteDirectoryRecursiveAsync(directory1);
+
+            // Act
+            await fileService.createDirectoryRecursiveAsync(directory2);
+
+            // Assert
+            const directory1Exists = fs.existsSync(directory1);
+            const directory2Exists = fs.existsSync(directory2);
+
+            should(directory1Exists).be.equal(true, 'directory1 exists');
+            should(directory2Exists).be.equal(true, 'directory2 exists');
+        })
+    });
 
     describe('createTempFileAsync', function() {
         let tempFile: TempFile;

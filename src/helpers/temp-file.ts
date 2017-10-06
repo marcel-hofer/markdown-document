@@ -1,3 +1,4 @@
+// TODO: Rename to TempPath
 export class TempFile {
     public readonly path: string;
 

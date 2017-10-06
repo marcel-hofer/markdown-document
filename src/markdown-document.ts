@@ -12,23 +12,11 @@ export class MarkdownDocument {
         await optionsService.consolidateAsync(this.options);
         
         const markdownAsHtml = await markdownService.renderFileAsync(this.options.documentPath);
-        const layout = await layoutService.applyLayoutAsync(this.options.layout, markdownAsHtml, this.options.document, { });
+        const tempPath = await layoutService.applyLayoutAsync(this.options.layout, markdownAsHtml, this.options, { });
 
-        
-        const tempFile = await this.getTempFileAsync();
-        await fileService.writeFileAsync(tempFile.path, layout);
+        await pdfService.renderPdfAsync(tempPath.path, this.options.outputPath, this.options.pdf);
 
-        await pdfService.renderPdfAsync(tempFile.path, this.options.outputPath, this.options.pdf);
-
-        tempFile.delete();
-    }
-
-    private async getTempFileAsync() {
-        if (this.options.tempPath == null) {
-            return await fileService.createTempFileAsync({ postfix: '.html' });
-        } else {
-            return new TempFile(this.options.tempPath)
-        }
+        tempPath.delete();
     }
 }
 

@@ -23,6 +23,75 @@ export class FileService {
         return q.nfcall<void>(fs.writeFile, path, content);
     }
 
+    public readDirectoryAsync(directory: string) {
+        return q.nfcall<string[]>(fs.readdir, directory);
+    }
+
+    public async isDirectoryAsync(directory: string) {
+        const stat = await q.nfcall<fs.Stats>(fs.lstat, directory);
+        return stat.isDirectory;
+    }
+
+    public async deleteDirectoryRecursiveAsync(directory: string) {
+        if (!await this.existsAsync(directory)) {
+            return;
+        }
+
+        const content = await this.readDirectoryAsync(directory);
+        for (let fileOrFolder of content) {
+            const fullPath = path.join(directory, fileOrFolder);
+
+            if (await this.isDirectoryAsync(fullPath)) {
+                await this.deleteDirectoryRecursiveAsync(fullPath);
+            } else {
+                await this.deleteFileAsync(fullPath);
+            }
+        }
+
+        await this.deleteDirectoryAsync(directory);
+    }
+
+    public async deleteDirectoryAsync(directory: string) {
+        return q.nfcall<void>(fs.rmdir, directory);
+    }
+
+    public async deleteFileAsync(file: string) {
+        return q.nfcall<void>(fs.unlink, file);
+    }
+
+    public async createDirectoryRecursiveAsync(directory: string) {
+        const normalizedDirectory = directory.replace(/\\\//g, path.sep);
+
+        let parentDir = path.isAbsolute(normalizedDirectory) ? path.sep : '';
+        const dirs = normalizedDirectory.split(path.sep);
+        
+        for (let childDir of dirs) {
+            parentDir = path.resolve(parentDir, childDir);
+
+            if (!await this.existsAsync(parentDir)) {
+                await this.createDirectoryAsync(parentDir);
+            }
+        }
+    }
+
+    public async createDirectoryAsync(directory: fs.PathLike) {
+        return q.nfcall<void>(fs.mkdir, directory);
+    }
+
+    public createTempDirectoryAsync() {
+        const defer = q.defer<TempFile>();
+        
+        tmp.dir((err, path, cleanupCallback) => {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(new TempFile(path, cleanupCallback));
+            }
+        });
+
+        return defer.promise;
+    }
+
     public createTempFileAsync(options: tmp.Options) {
         const defer = q.defer<TempFile>();
 
