@@ -183,11 +183,93 @@ describe('FileService', function() {
     });
 
     describe('deleteDirectoryRecursiveAsync', function() {
-        // TODO
+        it('deletes empty directory', async function() {
+            // Arrange
+            mockFs({
+                'folder': { }
+            });
+
+            // Act
+            await fileService.deleteDirectoryRecursiveAsync('folder');
+
+            // Assert
+            const result = await fileService.existsAsync('folder');
+            should(result).be.false();
+        });
+
+        it('deletes directory with sub directories', async function() {
+            // Arrange
+            mockFs({
+                'folder': { 
+                    'folder2': { },
+                    'folder3': { }
+                }
+            });
+
+            // Act
+            await fileService.deleteDirectoryRecursiveAsync('folder');
+
+            // Assert
+            const result = await fileService.existsAsync('folder');
+            should(result).be.false();
+        });
+
+        it('deletes directory with files', async function() {
+            // Arrange
+            mockFs({
+                'folder': { 
+                    'file1.md': 'content',
+                    'file2.md': 'content'
+                }
+            });
+
+            // Act
+            await fileService.deleteDirectoryRecursiveAsync('folder');
+
+            // Assert
+            const result = await fileService.existsAsync('folder');
+            should(result).be.false();
+        });
+
+        it('deletes multiple levels', async function() {
+            // Arrange
+            mockFs({
+                'folder': {
+                    'folder2': {
+                        'file1.md': 'content',
+                        'folder3': {
+                            'file1.md': 'content',
+                            'folder4': { }
+                        }
+                    },
+                    'file1.md': 'content',
+                    'file2.md': 'content'
+                }
+            });
+
+            // Act
+            await fileService.deleteDirectoryRecursiveAsync('folder');
+
+            // Assert
+            const result = await fileService.existsAsync('folder');
+            should(result).be.false();
+        });
     });
 
     describe('deleteDirectoryAsync', function() {
-        // TODO
+        it('deletes directory', async function() {
+            // Arrange
+            mockFs({
+                'folder': { }
+            });
+
+            // Act
+            await fileService.deleteDirectoryRecursiveAsync('folder');
+
+            // Assert
+            const result = await fileService.existsAsync('folder');
+            should(result).be.false();
+        });
     });
 
     describe('deleteFileAsync', function() {
