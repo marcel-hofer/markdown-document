@@ -393,7 +393,44 @@ describe('FileService', function() {
     });
 
     describe('createTempDirectoryAsync', function() {
-        // TODO
+        it('creates temporary directory', async function() {
+            // Arrange
+            mockFs();
+
+            // Act
+            const tempDirectory = await fileService.createTempDirectoryAsync();
+
+            // Assert
+            const exists = await fileService.existsAsync(tempDirectory.path);
+            should(exists).be.true();
+        });
+
+        it('can write files to it', async function() {
+            // Arrange
+            const tempDirectory = await fileService.createTempDirectoryAsync();
+            const file = path.join(tempDirectory.path, 'file1.txt');
+            
+            // Act
+            await fileService.writeFileAsync(file, 'content');
+
+            // Assert
+            const exists = await fileService.existsAsync(file);
+            should(exists).be.true();
+        });
+
+        xit('can cleanup', async function() {
+            // Arrange
+            const tempDirectory = await fileService.createTempDirectoryAsync();
+            const file = path.join(tempDirectory.path, 'file1.txt');
+            await fileService.writeFileAsync(file, 'content');
+
+            // Act
+            tempDirectory.delete();
+
+            // Assert
+            const exists = await fileService.existsAsync(tempDirectory.path);
+            should(exists).be.false();
+        });
     });
 
     describe('changeExt', function() {
