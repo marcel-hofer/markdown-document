@@ -110,7 +110,48 @@ describe('FileService', function() {
     })
 
     describe('readDirectoryAsync', function() {
-        // TODO:
+        it('lists content of empty directory', async function() {
+            // Arrange
+            mockFs({
+                'folder': { },
+                'folder2': {
+                    'file1.md': 'content',
+                    'file2.md': 'content'
+                }
+            });
+
+            // Act
+            const result = await fileService.readDirectoryAsync('folder');
+
+            // Assert
+            should(result).not.be.null();
+            should(result).be.lengthOf(0);
+        });
+
+        it('lists content of directory', async function() {
+            // Arrange
+            mockFs({
+                'folder': {
+                    'another-folder': {
+                        'file1.md': 'content'
+                    },
+                    'file1.md': 'content',
+                    'file2.md': 'content'
+                },
+                'folder2': { }
+            });
+
+            // Act
+            const result = await fileService.readDirectoryAsync('folder');
+
+            // Assert
+            should(result).not.be.null();
+            should(result).be.eql([
+                'another-folder',
+                'file1.md',
+                'file2.md'
+            ]);
+        });
     });
 
     describe('isDirectoryAsync', function() {
