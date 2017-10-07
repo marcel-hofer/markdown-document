@@ -29,7 +29,7 @@ export class FileService {
 
     public async isDirectoryAsync(directory: string) {
         const stat = await q.nfcall<fs.Stats>(fs.lstat, directory);
-        return stat.isDirectory;
+        return stat.isDirectory();
     }
 
     public async deleteDirectoryRecursiveAsync(directory: string) {
@@ -78,10 +78,10 @@ export class FileService {
         return q.nfcall<void>(fs.mkdir, directory);
     }
 
-    public createTempDirectoryAsync() {
+    public createTempFileAsync(options: tmp.Options) {
         const defer = q.defer<TempFile>();
-        
-        tmp.dir((err, path, cleanupCallback) => {
+
+        tmp.file(options, (err, path, fd, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
@@ -92,10 +92,10 @@ export class FileService {
         return defer.promise;
     }
 
-    public createTempFileAsync(options: tmp.Options) {
+    public createTempDirectoryAsync() {
         const defer = q.defer<TempFile>();
-
-        tmp.file(options, (err, path, fd, cleanupCallback) => {
+        
+        tmp.dir((err, path, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {

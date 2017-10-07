@@ -109,6 +109,50 @@ describe('FileService', function() {
         });
     })
 
+    describe('readDirectoryAsync', function() {
+        // TODO:
+    });
+
+    describe('isDirectoryAsync', function() {
+        it('returns true for a directory', async function() {
+            // Arrange
+            mockFs({
+                'folder': { }
+            });
+
+            // Act
+            const result = await fileService.isDirectoryAsync('folder');
+
+            // Assert
+            should(result).be.true();
+        });
+
+        it('returns false for a file', async function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = await fileService.isDirectoryAsync('document.md');
+
+            // Assert
+            should(result).be.false();
+        });
+    });
+
+    describe('deleteDirectoryRecursiveAsync', function() {
+        // TODO
+    });
+
+    describe('deleteDirectoryAsync', function() {
+        // TODO
+    });
+
+    describe('deleteFileAsync', function() {
+        // TODO
+    });
+
     describe('createDirectoryRecursiveAsync', function() {
         it('creates directory recursive', async function() {
             // Arrange
@@ -127,6 +171,10 @@ describe('FileService', function() {
             should(directory1Exists).be.equal(true, 'directory1 exists');
             should(directory2Exists).be.equal(true, 'directory2 exists');
         })
+    });
+
+    describe('createDirectoryAsync', function() {
+        // TODO
     });
 
     describe('createTempFileAsync', function() {
@@ -163,6 +211,10 @@ describe('FileService', function() {
         });
     });
 
+    describe('createTempDirectoryAsync', function() {
+        // TODO
+    });
+
     describe('changeExt', function() {
         it('changes test.md with .json to test.json', function() {
             // Act
@@ -195,5 +247,9 @@ describe('FileService', function() {
             // Assert
             should(result).be.equal('test.json');
         });
+    });
+
+    describe('toAbsoluteFileUrl', function() {
+        // TODO
     });
 });
