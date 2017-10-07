@@ -60,7 +60,7 @@ export class FileService {
     }
 
     public async createDirectoryRecursiveAsync(directory: string) {
-        const normalizedDirectory = directory.replace(/\\\//g, path.sep);
+        const normalizedDirectory = directory.replace(/[\\\/]/g, path.sep);
 
         let parentDir = path.isAbsolute(normalizedDirectory) ? path.sep : '';
         const dirs = normalizedDirectory.split(path.sep);

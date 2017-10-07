@@ -166,12 +166,12 @@ describe('FileService', function() {
     });
 
     describe('createDirectoryRecursiveAsync', function() {
-        it('creates directory recursive', async function() {
+        it('creates directory recursive absolute', async function() {
             // Arrange
             mockFs({ });
 
-            const directory1 = path.join(__dirname, 'temp/folder1');
-            const directory2 = path.join(__dirname, 'temp/folder1/folder2');
+            const directory1 = path.join(__dirname, 'folder1');
+            const directory2 = path.join(__dirname, 'folder1/folder2');
 
             // Act
             await fileService.createDirectoryRecursiveAsync(directory2);
@@ -182,11 +182,57 @@ describe('FileService', function() {
 
             should(directory1Exists).be.equal(true, 'directory1 exists');
             should(directory2Exists).be.equal(true, 'directory2 exists');
-        })
+        });
+
+        it('creates directory recursive relative', async function() {
+            // Arrange
+            mockFs({ });
+
+            const directory1 = 'folder1';
+            const directory2 = 'folder1/folder2';
+
+            // Act
+            await fileService.createDirectoryRecursiveAsync(directory2);
+
+            // Assert
+            const directory1Exists = fs.existsSync(directory1);
+            const directory2Exists = fs.existsSync(directory2);
+
+            should(directory1Exists).be.equal(true, 'directory1 exists');
+            should(directory2Exists).be.equal(true, 'directory2 exists');
+        });
     });
 
     describe('createDirectoryAsync', function() {
-        // TODO
+        xit('creates directory absolute', async function() {
+            // Arrange
+            mockFs({ });
+
+            const directory = path.join(__dirname, 'folder1');
+
+            // Act
+            await fileService.createDirectoryAsync(directory);
+
+            // Assert
+            const result = fs.existsSync(directory);
+
+            should(result).be.true();
+        });
+
+        it('creates directory relative', async function() {
+            // Arrange
+            mockFs({ });
+
+            const directory = 'folder1';
+
+            // Act
+            await fileService.createDirectoryAsync(directory);
+
+            // Assert
+            const result = fs.existsSync(directory);
+
+            should(result).be.true();
+        })
     });
 
     describe('createTempFileAsync', function() {
