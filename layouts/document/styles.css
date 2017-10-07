@@ -122,6 +122,9 @@ h4, h5, h6 {
 #header hr {
     margin-top: 1px;
     margin-bottom: 1px;
+
+    border: none;
+    border-top: 1px solid #808080;
 }
 
 #header .title {
@@ -148,6 +151,9 @@ h4, h5, h6 {
 #footer hr {
     margin-top: 1px;
     margin-bottom: 1px;
+
+    border: none;
+    border-top: 1px solid #808080;
 }
 
 #footer .pages {
