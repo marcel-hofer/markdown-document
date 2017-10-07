@@ -308,6 +308,16 @@ describe('FileService', function() {
     });
 
     describe('toAbsoluteFileUrl', function() {
-        // TODO
+        it('changes file path to absolute file url', function() {
+            // Arrange
+            const filePath = 'C:\\path\\to\\file.css';
+
+            // Act
+            const result = fileService.toAbsoluteFileUrl(filePath);
+
+            // Assert
+            should(result).startWith('file://');
+            should(result).not.containEql('\\');
+        });
     });
 });
