@@ -4,7 +4,7 @@ import * as should from "should";
 import * as path from "path";
 
 import { default as pdfService, IPdfOptions } from "../../src/services/pdf-service";
-import { default as fileService, TempFile } from "../../src/services/file-service";
+import { default as fileService } from "../../src/services/file-service";
 
 describe('PdfService', function() {
     describe('renderPdfAsync', function() {

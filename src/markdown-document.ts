@@ -1,7 +1,7 @@
 import { default as optionsService, IOptions } from "./services/options-service";
 import markdownService from "./services/markdown-service";
 import layoutService from "./services/layout-service";
-import { default as fileService, TempFile } from "./services/file-service";
+import { default as fileService, TempPath } from "./services/file-service";
 import pdfService from "./services/pdf-service";
 
 export class MarkdownDocument {
@@ -16,7 +16,7 @@ export class MarkdownDocument {
 
         await pdfService.renderPdfAsync(tempPath.path, this.options.outputPath, this.options.pdf);
 
-        tempPath.delete();
+        await tempPath.deleteAsync();
     }
 }
 

@@ -4,7 +4,7 @@ import * as path from "path";
 import * as tmp from "tmp";
 import * as q from "q";
 
-import { TempFile } from "../helpers/temp-file";
+import { TempPath } from "../helpers/temp-path";
 
 export class FileService {
     public existsAsync(path: fs.PathLike) {
@@ -79,13 +79,13 @@ export class FileService {
     }
 
     public createTempFileAsync(options: tmp.Options) {
-        const defer = q.defer<TempFile>();
+        const defer = q.defer<TempPath>();
 
         tmp.file(options, (err, path, fd, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
-                defer.resolve(new TempFile(path, cleanupCallback));
+                defer.resolve(new TempPath(path, () => this.deleteFileAsync(path)));
             }
         });
 
@@ -93,13 +93,13 @@ export class FileService {
     }
 
     public createTempDirectoryAsync() {
-        const defer = q.defer<TempFile>();
+        const defer = q.defer<TempPath>();
         
         tmp.dir((err, path, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
-                defer.resolve(new TempFile(path, cleanupCallback));
+                defer.resolve(new TempPath(path, () => this.deleteDirectoryRecursiveAsync(path)));
             }
         });
 
@@ -134,4 +134,4 @@ export class FileService {
 
 export default new FileService();
 
-export { TempFile } from "../helpers/temp-file";
+export { TempPath } from "../helpers/temp-path";

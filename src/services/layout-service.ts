@@ -1,7 +1,7 @@
 import * as path from "path";
 
 import { IOptions, IDocumentInformation } from "../markdown-document";
-import { default as fileService, TempFile } from "./file-service";
+import { default as fileService, TempPath } from "./file-service";
 import templateService from "./template-service";
 import { allPaths } from "../helpers/pdf-options-parser";
 
@@ -56,7 +56,7 @@ export class LayoutService {
         return tempDirectory;
     }
 
-    private async applyLayoutInternalAsync(directory: TempFile, layoutFile: string, data: any) {
+    private async applyLayoutInternalAsync(directory: TempPath, layoutFile: string, data: any) {
         const template = await fileService.readFileAsync(layoutFile);
         const targetFile = path.join(directory.path, path.basename(layoutFile));
 
@@ -70,7 +70,7 @@ export class LayoutService {
             return await fileService.createTempDirectoryAsync();
         } else {
             await fileService.createDirectoryRecursiveAsync(options.tempPath);
-            return new TempFile(options.tempPath)
+            return new TempPath(options.tempPath)
         }
     }
 }

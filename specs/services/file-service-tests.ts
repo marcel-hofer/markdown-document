@@ -4,7 +4,7 @@ import * as should from "should";
 import * as fs from "fs";
 import * as path from "path";
 
-import { default as fileService, TempFile } from "../../src/services/file-service";
+import { default as fileService, TempPath } from "../../src/services/file-service";
 import * as mockFs from "mock-fs";
 
 describe('FileService', function() {
@@ -359,21 +359,23 @@ describe('FileService', function() {
     });
 
     describe('createTempFileAsync', function() {
-        let tempFile: TempFile;
-        
         it('returns temporary file', async function() {
             // Arrange
             mockFs({ });
 
             // Act
-            tempFile = await fileService.createTempFileAsync({ postfix: '.html' });
+            const tempFile = await fileService.createTempFileAsync({ postfix: '.html' });
 
             // Assert
             should(tempFile).be.not.null();
             should(tempFile.path).endWith('.html');
         });
 
-        it('can write to temporary file', function() {
+        it('can write to temporary file', async function() {
+            // Arrange
+            mockFs({ });
+            const tempFile = await fileService.createTempFileAsync({ postfix: '.html' });
+
             // Act
             fs.writeFileSync(tempFile.path, 'content');
 
@@ -382,9 +384,14 @@ describe('FileService', function() {
             should(writtenFile.toString()).be.equal('content');
         });
 
-        it('can delete temporary file', function() {
+        it('can delete temporary file', async function() {
+            // Arrange
+            mockFs({ });
+            const tempFile = await fileService.createTempFileAsync({ postfix: '.html' });
+            fs.writeFileSync(tempFile.path, 'content');
+
             // Act
-            tempFile.delete();
+            await tempFile.deleteAsync();
             
             // Assert
             const writtenFileExists = fs.existsSync(tempFile.path);
@@ -418,14 +425,14 @@ describe('FileService', function() {
             should(exists).be.true();
         });
 
-        xit('can cleanup', async function() {
+        it('can cleanup', async function() {
             // Arrange
             const tempDirectory = await fileService.createTempDirectoryAsync();
             const file = path.join(tempDirectory.path, 'file1.txt');
             await fileService.writeFileAsync(file, 'content');
 
             // Act
-            tempDirectory.delete();
+            await tempDirectory.deleteAsync();
 
             // Assert
             const exists = await fileService.existsAsync(tempDirectory.path);
