@@ -150,7 +150,19 @@ describe('FileService', function() {
     });
 
     describe('deleteFileAsync', function() {
-        // TODO
+        it('deletes file', async function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });;
+
+            // Act
+            await fileService.deleteFileAsync('document.md');
+
+            // Assert
+            const result = await fileService.existsAsync('document.md');
+            should(result).be.false();
+        });
     });
 
     describe('createDirectoryRecursiveAsync', function() {
