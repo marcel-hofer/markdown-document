@@ -7,7 +7,12 @@
     <body id="footer" onload="applyVariables()">
         <hr />
         <div class="first-row">
-            <span class="copyright">Copyright &copy; {{document/authors}}</span>
+            <span class="copyright">
+                Copyright &copy; 
+                {{#each document/authors}}
+                    {{this}}{{#unless @last}}, {{/unless}}
+                {{/each}}
+            </span>
             <span class="pages">
                 Page <span class="page"></span> of &nbsp;<span class="topage"></span>
             </span>
