@@ -168,10 +168,10 @@ describe('FileService', function() {
     describe('createDirectoryRecursiveAsync', function() {
         it('creates directory recursive', async function() {
             // Arrange
+            mockFs({ });
+
             const directory1 = path.join(__dirname, 'temp/folder1');
             const directory2 = path.join(__dirname, 'temp/folder1/folder2');
-
-            await fileService.deleteDirectoryRecursiveAsync(directory1);
 
             // Act
             await fileService.createDirectoryRecursiveAsync(directory2);
