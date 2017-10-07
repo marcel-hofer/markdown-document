@@ -17,7 +17,6 @@
     "@types/q": "1.0.5",
     "@types/tmp": "0.0.33",
     "@types/handlebars": "4.0.36",
-    "@types/phantomjs": "1.9.29",
     
     "gulp": "3.9.1",
     "gulp-typescript": "3.2.2",
@@ -29,7 +28,6 @@
     "mocha": "3.5.3",
     "should": "13.0.1",
     "mock-fs": "4.4.1",
-    "phantomjs-prebuilt": "2.1.15",
     "@types/mocha": "2.2.43",
     "@types/mock-fs": "3.6.30"
   },
