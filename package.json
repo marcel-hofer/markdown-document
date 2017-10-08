@@ -2,15 +2,17 @@
   "name": "markdown-document",
   "version": "0.0.1",
   "description": "Markdown document",
+  "main": "output/markdown-document.js",
   "dependencies": {
     "q": "1.5.0",
     "tmp": "0.0.33",
     "remarkable": "1.7.1",
     "handlebars": "4.0.10",
-
     "wkhtmltopdf-installer": "0.3.1",
 
-    "highlight.js": "9.12.0"
+    "highlight.js": "9.12.0",
+
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "8.0.28",
@@ -34,6 +36,12 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
-    "test": "gulp test"
+    "test": "gulp test",
+    "prepublish": "gulp build",
+    
+    "cli": "gulp build && node ./bin/converter.js generate"
+  },
+  "bin": {
+    "markdown-document": "bin/converter.js"
   }
 }
