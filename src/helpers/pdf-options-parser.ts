@@ -113,5 +113,9 @@ export function* allPaths(options: IPdfOptions) {
         if (part.html != null) {
             yield part.html;
         }
+
+        if (part.type == 'toc' && (<IPdfTocPart>part).xslStyleSheet != null) {
+            yield (<IPdfTocPart>part).xslStyleSheet;
+        }
     }
 }
