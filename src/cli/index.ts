@@ -14,7 +14,7 @@ let argv = yargs
                 default: 'document.pdf'
             })
             .option('layout', {
-                default: 'document.html'
+                default: 'document'
             });
     }, (argv: any) => {
         cli.generate(argv);
