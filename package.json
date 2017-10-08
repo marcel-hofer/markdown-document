@@ -1,8 +1,14 @@
 {
   "name": "markdown-document",
   "version": "0.0.1",
-  "description": "Markdown document",
+  "description": "Converts markdown files to PDF documents using HTML templates.",
   "main": "output/markdown-document.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcel-hofer/markdown-document.git"
+  },
+  "keywords": ["markdown", "md", "document", "pdf", "convert", "layout", "html"],
+  "license": "MIT",
   "dependencies": {
     "q": "1.5.0",
     "tmp": "0.0.33",
