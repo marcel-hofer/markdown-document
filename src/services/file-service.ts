@@ -4,7 +4,7 @@ import * as path from "path";
 import * as tmp from "tmp";
 import * as q from "q";
 
-import { TempFile } from "../helpers/temp-file";
+import { TempPath } from "../helpers/temp-path";
 
 export class FileService {
     public existsAsync(path: fs.PathLike) {
@@ -23,14 +23,83 @@ export class FileService {
         return q.nfcall<void>(fs.writeFile, path, content);
     }
 
+    public readDirectoryAsync(directory: string) {
+        return q.nfcall<string[]>(fs.readdir, directory);
+    }
+
+    public async isDirectoryAsync(directory: string) {
+        const stat = await q.nfcall<fs.Stats>(fs.lstat, directory);
+        return stat.isDirectory();
+    }
+
+    public async deleteDirectoryRecursiveAsync(directory: string) {
+        if (!await this.existsAsync(directory)) {
+            return;
+        }
+
+        const content = await this.readDirectoryAsync(directory);
+        for (let fileOrFolder of content) {
+            const fullPath = path.join(directory, fileOrFolder);
+
+            if (await this.isDirectoryAsync(fullPath)) {
+                await this.deleteDirectoryRecursiveAsync(fullPath);
+            } else {
+                await this.deleteFileAsync(fullPath);
+            }
+        }
+
+        await this.deleteDirectoryAsync(directory);
+    }
+
+    public async deleteDirectoryAsync(directory: string) {
+        return q.nfcall<void>(fs.rmdir, directory);
+    }
+
+    public async deleteFileAsync(file: string) {
+        return q.nfcall<void>(fs.unlink, file);
+    }
+
+    public async createDirectoryRecursiveAsync(directory: string) {
+        const normalizedDirectory = directory.replace(/[\\\/]/g, path.sep);
+
+        let parentDir = path.isAbsolute(normalizedDirectory) ? path.sep : '';
+        const dirs = normalizedDirectory.split(path.sep);
+        
+        for (let childDir of dirs) {
+            parentDir = path.resolve(parentDir, childDir);
+
+            if (!await this.existsAsync(parentDir)) {
+                await this.createDirectoryAsync(parentDir);
+            }
+        }
+    }
+
+    public async createDirectoryAsync(directory: fs.PathLike) {
+        return q.nfcall<void>(fs.mkdir, directory);
+    }
+
     public createTempFileAsync(options: tmp.Options) {
-        const defer = q.defer<TempFile>();
+        const defer = q.defer<TempPath>();
 
         tmp.file(options, (err, path, fd, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
-                defer.resolve(new TempFile(path, cleanupCallback));
+                defer.resolve(new TempPath(path, () => this.deleteFileAsync(path)));
+            }
+        });
+
+        return defer.promise;
+    }
+
+    public createTempDirectoryAsync() {
+        const defer = q.defer<TempPath>();
+        
+        tmp.dir((err, path, cleanupCallback) => {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(new TempPath(path, () => this.deleteDirectoryRecursiveAsync(path)));
             }
         });
 
@@ -65,4 +134,4 @@ export class FileService {
 
 export default new FileService();
 
-export { TempFile } from "../helpers/temp-file";
+export { TempPath } from "../helpers/temp-path";

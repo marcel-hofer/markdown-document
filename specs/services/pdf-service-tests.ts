@@ -4,7 +4,7 @@ import * as should from "should";
 import * as path from "path";
 
 import { default as pdfService, IPdfOptions } from "../../src/services/pdf-service";
-import { default as fileService, TempFile } from "../../src/services/file-service";
+import { default as fileService } from "../../src/services/file-service";
 
 describe('PdfService', function() {
     describe('renderPdfAsync', function() {
@@ -17,39 +17,26 @@ describe('PdfService', function() {
 
             await fileService.writeFileAsync(tempHtmlFile, `<html>
     <head>
-        <script type="text/javascript">
-            var PhantomJSPrinting = {
-                header: {
-                    height: "1cm",
-                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
-                },
-                footer: {
-                    height: "1cm",
-                    contents: function(pageNum, numPages) { return pageNum + "/" + numPages; }
-                }
-            };
-        </script>
+        <title>Awesome title!</title>
     </head>
     <body>
-            Here is the content
+        Here is the content
     </body>
 </html>`);
 
             const options = <IPdfOptions>{
-                phantomPath: require('phantomjs-prebuilt').path,
+                wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
 
-                paperFormat: 'A4',
-                paperOrientation: 'portrait',
-                paperMargin: {
-                    top: '1cm',
-                    left: '2cm',
-                    bottom: '3cm',
-                    right: '4cm'
+                parts: {
+                    'content': {
+                        type: 'content',
+                        html: 'pdf-service-tests.html'
+                    }
                 }
             };
 
             // Act
-            await pdfService.renderPdfAsync(tempHtmlFile, tempPdfFile, options);
+            await pdfService.renderPdfAsync(__dirname, tempPdfFile, options);
 
             // Assert
             const pdfExists = await fileService.existsAsync(tempPdfFile);

@@ -1,0 +1,11 @@
+{
+    "document": {
+        "title": "My awesome title",
+        "subject": "An awesome subject",
+        "date": "2017-09-22",
+        "authors": ["John Doe", "David Miller"],
+        "data": {
+            "location": "Current Location"
+        }
+    }
+}

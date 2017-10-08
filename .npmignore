@@ -1,4 +1,5 @@
 /src
 /specs
+/samples/**/*.pdf
 /.idea
 /.vscode

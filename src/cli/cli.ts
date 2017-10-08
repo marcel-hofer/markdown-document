@@ -5,7 +5,7 @@ export class Cli {
     public generate(yargs: any): void {
         let options = <IOptions>{
             documentPath: path.resolve(yargs.in),
-            outputPath: path.join(process.cwd(), yargs.out),
+            outputPath: yargs.out == null ? null : path.join(process.cwd(), yargs.out),
             layout: yargs.layout
         };
 

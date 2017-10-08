@@ -1,8 +1,9 @@
 import * as path from "path";
 
-import { IDocumentInformation } from "../markdown-document";
-import fileService from "./file-service";
+import { IOptions, IDocumentInformation } from "../markdown-document";
+import { default as fileService, TempPath } from "./file-service";
 import templateService from "./template-service";
+import { allPaths } from "../helpers/pdf-options-parser";
 
 export class LayoutService {
     public readonly layoutPath = path.join(__dirname, '../../layouts');
@@ -39,17 +40,38 @@ export class LayoutService {
         throw new Error(`Cannot find the layout '${layout}'.`);
     }
 
-    public async applyLayoutAsync(layoutPath: string, markdownAsHtml: string, document: IDocumentInformation, additionalData?: any) {
+    public async applyLayoutAsync(layoutPath: string, markdownAsHtml: string, options: IOptions, additionalData?: any) {
         const data = Object.assign({
-            layoutPath: path.dirname(fileService.toAbsoluteFileUrl(layoutPath)) + '/',
+            layoutPath: fileService.toAbsoluteFileUrl(layoutPath) + '/',
             markdown: markdownAsHtml,
-            document: document
+            document: options.document
         }, additionalData);
 
-        const template = await fileService.readFileAsync(layoutPath);
-        const tempFile = await fileService.createTempFileAsync({ postfix: '.html'});
+        const tempDirectory = await this.getTempDirectoryAsync(options);
 
-        return await templateService.applyTemplate(template.toString(), data);
+        for (let file of allPaths(options.pdf)) {
+            await this.applyLayoutInternalAsync(tempDirectory, path.join(layoutPath, file), data);
+        }
+
+        return tempDirectory;
+    }
+
+    private async applyLayoutInternalAsync(directory: TempPath, layoutFile: string, data: any) {
+        const template = await fileService.readFileAsync(layoutFile);
+        const targetFile = path.join(directory.path, path.basename(layoutFile));
+
+        const content = templateService.applyTemplate(template.toString(), data);
+
+        await fileService.writeFileAsync(targetFile, content);
+    }
+
+    private async getTempDirectoryAsync(options: IOptions) {
+        if (options.tempPath == null) {
+            return await fileService.createTempDirectoryAsync();
+        } else {
+            await fileService.createDirectoryRecursiveAsync(options.tempPath);
+            return new TempPath(options.tempPath)
+        }
     }
 }
 

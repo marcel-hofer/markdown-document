@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{layoutPath}}styles.css" media="all" />
+        <script type="text/javascript" src="{{layoutPath}}script.js"></script>
+    </head>
+    <body id="footer" onload="applyVariables()">
+        <hr />
+        <div class="first-row">
+            <span class="copyright">
+                Copyright &copy; 
+                {{#each document/authors}}
+                    {{this}}{{#unless @last}}, {{/unless}}
+                {{/each}}
+            </span>
+            <span class="pages">
+                Page <span class="page"></span> of &nbsp;<span class="topage"></span>
+            </span>
+        </div>
+        <div class="second-row">
+            <span class="location-date">{{document/data/location}}, {{document/date}}</span>
+        </div>
+    </body>
+</html>

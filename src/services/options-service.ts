@@ -4,7 +4,7 @@ import fileService from "./file-service";
 import layoutService from "./layout-service";
 
 export interface IOptions {
-    documentPath: string;
+    documentPath?: string;
     outputPath?: string;
     tempPath?: string;
     document?: IDocumentInformation;
@@ -14,18 +14,44 @@ export interface IOptions {
 }
 
 export interface IPdfOptions {
-    phantomPath?: string;
+    wkhtmltopdfPath?: string;
 
-    paperFormat?: string;
-    paperOrientation?: string;
-    paperMargin?: string | IPdfMargin;
+    marginBottom?: number;
+    marginLeft?: number;
+    marginRight?: number;
+    marginTop?: number;
+
+    orientation?: 'Landscape' | 'Portrait';
+    pageSize?: string;
+    pageHeight?: number;
+    pageWidth?: number;
+
+    header?: IPdfHeaderFooterOptions;
+    footer?: IPdfHeaderFooterOptions;
+
+    parts?: {
+        [key: string]: IPdfPart;
+    };
 }
 
-export interface IPdfMargin {
-    top: string;
-    left: string;
-    bottom: string;
-    right: string;
+export interface IPdfHeaderFooterOptions {
+    html?: string;
+    spacing?: number;
+}
+
+export interface IPdfPart {
+    type?: 'cover' | 'toc' | 'content';
+    html?: string;
+}
+
+export interface IPdfCoverPart extends IPdfPart {
+}
+
+export interface IPdfTocPart extends IPdfPart {
+    xslStyleSheet?: string;
+}
+
+export interface IPdfContentPart extends IPdfPart {
 }
 
 export interface IDocumentInformation {
@@ -38,7 +64,8 @@ export interface IDocumentInformation {
 }
 
 export class OptionsService {
-    private readonly OPTIONS_POSTFIX = '.json';
+    private readonly OPTIONS_FILE = 'options.json';
+    private readonly OPTIONS_EXT = '.json';
 
     // TODO: Is there a better naming for fallback & check
     public async consolidateAsync(options: IOptions) {
@@ -52,7 +79,7 @@ export class OptionsService {
     }
 
     private async fallbackOptionsToDocument(options: IOptions) {
-        const documentOptions = await this.loadOptionsByFile(options.documentPath);
+        const documentOptions = await this.loadOptionsByFile(fileService.changeExt(options.documentPath, this.OPTIONS_EXT));
         if (documentOptions != null) {
             this.applyFallbackOptions(options, documentOptions);
             options.document = documentOptions.document || { };
@@ -65,9 +92,9 @@ export class OptionsService {
     }
 
     private async fallbackOptionsToLayout(options: IOptions) {
-        const layoutOptions = await this.loadOptionsByFile(options.layout);
+        const layoutOptions = await this.loadOptionsByFile(path.join(options.layout, this.OPTIONS_FILE));
         if (layoutOptions != null) {
-            this.applyFallbackOptions(options, layoutOptions);
+            this.applyFallbackOptions(options, { pdf: layoutOptions });
         }
     }
 
@@ -76,34 +103,80 @@ export class OptionsService {
 
         this.applyFallbackOptions(options, <IOptions>{
             pdf: {
-                phantomPath: require('phantomjs-prebuilt').path,
+                wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
 
-                paperFormat: 'A4',
-                paperOrientation: 'portrait',
-                paperMargin: '2cm'
+                pageSize: 'A4',
+                orientation: 'Portrait'
             }
         });
     }
 
     private async loadOptionsByFile(file: string) {
-        const optionsFile = fileService.changeExt(file, this.OPTIONS_POSTFIX);
-        if (!await fileService.existsAsync(optionsFile)) {
+        if (!await fileService.existsAsync(file)) {
             return null;
         }
 
-        let content = await fileService.readFileAsync(optionsFile);
+        let content = await fileService.readFileAsync(file);
         return JSON.parse(content.toString());
     }
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
         options.pdf = options.pdf || { };
+        options.pdf.header = options.pdf.header || <any>{ };
+        options.pdf.footer = options.pdf.footer || <any>{ };
+        options.pdf.parts = options.pdf.parts || { };
 
-        if (fallback.pdf != null) {
-            options.pdf.phantomPath = options.pdf.phantomPath || fallback.pdf.phantomPath;
+        if (fallback.pdf == null) {
+            return;
+        }
 
-            options.pdf.paperFormat = options.pdf.paperFormat || fallback.pdf.paperFormat;
-            options.pdf.paperOrientation = options.pdf.paperOrientation || fallback.pdf.paperOrientation;
-            options.pdf.paperMargin = options.pdf.paperMargin || fallback.pdf.paperMargin;
+        options.pdf.wkhtmltopdfPath = options.pdf.wkhtmltopdfPath || fallback.pdf.wkhtmltopdfPath;
+        
+        options.pdf.marginBottom = options.pdf.marginBottom || fallback.pdf.marginBottom;
+        options.pdf.marginLeft = options.pdf.marginLeft || fallback.pdf.marginLeft;
+        options.pdf.marginRight = options.pdf.marginRight || fallback.pdf.marginRight;
+        options.pdf.marginTop = options.pdf.marginTop || fallback.pdf.marginTop;
+
+        options.pdf.orientation = options.pdf.orientation || fallback.pdf.orientation;
+        options.pdf.pageSize = options.pdf.pageSize || fallback.pdf.pageSize;
+        options.pdf.pageHeight = options.pdf.pageHeight || fallback.pdf.pageHeight;
+        options.pdf.pageWidth = options.pdf.pageWidth || fallback.pdf.pageWidth;
+        
+        if (fallback.pdf.header != null) {
+            options.pdf.header.html = options.pdf.header.html || fallback.pdf.header.html;
+            options.pdf.header.spacing = options.pdf.header.spacing || fallback.pdf.header.spacing;
+        }
+        
+        if (fallback.pdf.footer != null) {
+            options.pdf.footer.html = options.pdf.footer.html || fallback.pdf.footer.html;
+            options.pdf.footer.spacing = options.pdf.footer.spacing || fallback.pdf.footer.spacing;
+        }
+
+        if (fallback.pdf.parts == null) {
+            return;
+        }
+
+        for (let key in fallback.pdf.parts) {
+            if (fallback.pdf.parts[key] === false) {
+                delete options.pdf.parts[key];
+                continue;
+            }
+
+            if (options.pdf.parts[key] == null) {
+                options.pdf.parts[key] = fallback.pdf.parts[key];
+                continue;
+            }
+
+            options.pdf.parts[key].type = options.pdf.parts[key].type || fallback.pdf.parts[key].type;
+            options.pdf.parts[key].html = options.pdf.parts[key].html || fallback.pdf.parts[key].html;
+            switch (options.pdf.parts[key].type) {
+                case 'toc':
+                    const optionsToc = <IPdfTocPart>options.pdf.parts[key];
+                    const fallbackToc = <IPdfTocPart>fallback.pdf.parts[key];
+
+                    optionsToc.xslStyleSheet = optionsToc.xslStyleSheet || fallbackToc.xslStyleSheet;
+                    break;
+            }
         }
     }
 }
