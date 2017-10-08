@@ -27,7 +27,12 @@ describe('PdfService', function() {
             const options = <IPdfOptions>{
                 wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
 
-                content: { content: 'pdf-service-tests.html' }
+                parts: {
+                    'content': {
+                        type: 'content',
+                        html: 'pdf-service-tests.html'
+                    }
+                }
             };
 
             // Act

@@ -1,5 +1,5 @@
 import * as path from "path";
-import { IPdfOptions, IPdfHeaderFooterOptions } from "./../services/options-service";
+import { IPdfOptions, IPdfHeaderFooterOptions, IPdfCoverPart, IPdfTocPart, IPdfContentPart } from "./../services/options-service";
 
 class WkhtmltopdfArguments {
     private args: string[] = [];
@@ -8,9 +8,7 @@ class WkhtmltopdfArguments {
         this.parseGlobal();
         this.parseHeader();
         this.parseFooter();
-        this.parseCover();
-        this.parseToc();
-        this.parseContent();
+        this.parseParts();
     }
 
     public get arguments() {
@@ -27,15 +25,7 @@ class WkhtmltopdfArguments {
         this.addArgument('--page-height', this.options.pageHeight);
         this.addArgument('--page-width', this.options.pageWidth);
     }
-
-    private parseCover() {
-        if (this.options.cover == null || this.options.cover.cover == null) {
-            return;
-        }
-
-        this.addArgument('cover', path.join(this.layoutPath, this.options.cover.cover));
-    }
-
+    
     private parseHeader() {
         this.parseHeaderFooter('header', this.options.header);
     }
@@ -53,24 +43,45 @@ class WkhtmltopdfArguments {
         this.addArgument(`--${prefix}-spacing`, options.spacing);
     }
 
-    private parseToc() {
-        if (this.options.toc == null || this.options.toc.toc != true) {
-            return;
-        }
+    private parseParts() {
+        for (let key in this.options.parts) {
+            const part = this.options.parts[key];
 
+            if (part == null) {
+                continue;
+            }
+
+            switch (part.type) {
+                case 'cover':
+                    this.parseCover(part);
+                    break;
+                case 'toc':
+                    this.parseToc(part);
+                    break;
+                case 'content':
+                    this.parseContent(part);
+                    break;
+                default:
+                    throw new Error(`Unsupported part type '${part.type}' for part '${key}'!`);
+                    break;
+            }
+        }
+    }
+
+    private parseCover(part: IPdfCoverPart) {
+        this.addArgument('cover', path.join(this.layoutPath, part.html));
+    }
+
+    private parseToc(part: IPdfTocPart) {
         this.args.push('toc');
         
-        if (this.options.toc.xslStyleSheet != null) {
-            this.addArgument('--xsl-style-sheet', path.join(this.layoutPath, this.options.toc.xslStyleSheet));
+        if (part.xslStyleSheet != null) {
+            this.addArgument('--xsl-style-sheet', path.join(this.layoutPath, part.xslStyleSheet));
         }
     }
     
-    private parseContent() {
-        if (this.options.content == null || this.options.content.content == null) {
-            return;
-        }
-
-        this.args.push(path.join(this.layoutPath, this.options.content.content));
+    private parseContent(part: IPdfContentPart) {
+        this.args.push(path.join(this.layoutPath, part.html));
     }
 
     private addArgument(name: string, value: any) {
@@ -88,10 +99,6 @@ export function wkhtmltopdfArguments(layoutPath: string, options: IPdfOptions) {
 }
 
 export function* allPaths(options: IPdfOptions) {
-    if (options.cover != null && options.cover.cover != null) {
-        yield options.cover.cover;
-    }
-
     if (options.header != null && options.header.html != null) {
         yield options.header.html;
     }
@@ -100,11 +107,11 @@ export function* allPaths(options: IPdfOptions) {
         yield options.footer.html;
     }
 
-    if (options.content != null && options.content.content != null) {
-        yield options.content.content;
-    }
+    for (let key in options.parts) {
+        const part = options.parts[key];
 
-    if (options.toc != null && options.toc.xslStyleSheet != null) {
-        yield options.toc.xslStyleSheet
+        if (part.html != null) {
+            yield part.html;
+        }
     }
 }

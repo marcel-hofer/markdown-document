@@ -13,7 +13,6 @@ export interface IOptions {
     pdf?: IPdfOptions;
 }
 
-// TODO: Change options schema
 export interface IPdfOptions {
     wkhtmltopdfPath?: string;
 
@@ -27,29 +26,32 @@ export interface IPdfOptions {
     pageHeight?: number;
     pageWidth?: number;
 
-    cover?: IPdfCoverOptions;
-    toc?: IPdfTocOptions;
-    content?: IPdfContentOptions;
     header?: IPdfHeaderFooterOptions;
     footer?: IPdfHeaderFooterOptions;
-}
 
-export interface IPdfCoverOptions {
-    cover?: string;
-}
-
-export interface IPdfTocOptions {
-    toc?: boolean;
-    xslStyleSheet?: string;
-}
-
-export interface IPdfContentOptions {
-    content?: string;
+    parts?: {
+        [key: string]: IPdfPart;
+    };
 }
 
 export interface IPdfHeaderFooterOptions {
     html?: string;
     spacing?: number;
+}
+
+export interface IPdfPart {
+    type?: 'cover' | 'toc' | 'content';
+    html?: string;
+}
+
+export interface IPdfCoverPart extends IPdfPart {
+}
+
+export interface IPdfTocPart extends IPdfPart {
+    xslStyleSheet?: string;
+}
+
+export interface IPdfContentPart extends IPdfPart {
 }
 
 export interface IDocumentInformation {
@@ -103,9 +105,8 @@ export class OptionsService {
             pdf: {
                 wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
 
-                // paperFormat: 'A4',
-                // paperOrientation: 'portrait',
-                // paperMargin: '2cm'
+                pageSize: 'A4',
+                orientation: 'Portrait'
             }
         });
     }
@@ -121,46 +122,60 @@ export class OptionsService {
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
         options.pdf = options.pdf || { };
-        options.pdf.cover = options.pdf.cover || <any>{ };
-        options.pdf.toc = options.pdf.toc || <any>{ };
-        options.pdf.content = options.pdf.content || <any>{ };
         options.pdf.header = options.pdf.header || <any>{ };
         options.pdf.footer = options.pdf.footer || <any>{ };
+        options.pdf.parts = options.pdf.parts || { };
 
-        if (fallback.pdf != null) {
-            options.pdf.wkhtmltopdfPath = options.pdf.wkhtmltopdfPath || fallback.pdf.wkhtmltopdfPath;
+        if (fallback.pdf == null) {
+            return;
+        }
 
-            options.pdf.marginBottom = options.pdf.marginBottom || fallback.pdf.marginBottom;
-            options.pdf.marginLeft = options.pdf.marginLeft || fallback.pdf.marginLeft;
-            options.pdf.marginRight = options.pdf.marginRight || fallback.pdf.marginRight;
-            options.pdf.marginTop = options.pdf.marginTop || fallback.pdf.marginTop;
+        options.pdf.wkhtmltopdfPath = options.pdf.wkhtmltopdfPath || fallback.pdf.wkhtmltopdfPath;
+        
+        options.pdf.marginBottom = options.pdf.marginBottom || fallback.pdf.marginBottom;
+        options.pdf.marginLeft = options.pdf.marginLeft || fallback.pdf.marginLeft;
+        options.pdf.marginRight = options.pdf.marginRight || fallback.pdf.marginRight;
+        options.pdf.marginTop = options.pdf.marginTop || fallback.pdf.marginTop;
 
-            options.pdf.orientation = options.pdf.orientation || fallback.pdf.orientation;
-            options.pdf.pageSize = options.pdf.pageSize || fallback.pdf.pageSize;
-            options.pdf.pageHeight = options.pdf.pageHeight || fallback.pdf.pageHeight;
-            options.pdf.pageWidth = options.pdf.pageWidth || fallback.pdf.pageWidth;
+        options.pdf.orientation = options.pdf.orientation || fallback.pdf.orientation;
+        options.pdf.pageSize = options.pdf.pageSize || fallback.pdf.pageSize;
+        options.pdf.pageHeight = options.pdf.pageHeight || fallback.pdf.pageHeight;
+        options.pdf.pageWidth = options.pdf.pageWidth || fallback.pdf.pageWidth;
+        
+        if (fallback.pdf.header != null) {
+            options.pdf.header.html = options.pdf.header.html || fallback.pdf.header.html;
+            options.pdf.header.spacing = options.pdf.header.spacing || fallback.pdf.header.spacing;
+        }
+        
+        if (fallback.pdf.footer != null) {
+            options.pdf.footer.html = options.pdf.footer.html || fallback.pdf.footer.html;
+            options.pdf.footer.spacing = options.pdf.footer.spacing || fallback.pdf.footer.spacing;
+        }
 
-            if (fallback.pdf.content != null) {
-                options.pdf.cover.cover = options.pdf.cover.cover || fallback.pdf.cover.cover;
+        if (fallback.pdf.parts == null) {
+            return;
+        }
+
+        for (let key in fallback.pdf.parts) {
+            if (fallback.pdf.parts[key] === false) {
+                delete options.pdf.parts[key];
+                continue;
             }
-            
-            if (fallback.pdf.toc != null) {
-                options.pdf.toc.toc = options.pdf.toc.toc == null ? fallback.pdf.toc.toc : options.pdf.toc.toc;
-                options.pdf.toc.xslStyleSheet = options.pdf.toc.xslStyleSheet || fallback.pdf.toc.xslStyleSheet;
+
+            if (options.pdf.parts[key] == null) {
+                options.pdf.parts[key] = fallback.pdf.parts[key];
+                continue;
             }
 
-            if (fallback.pdf.content != null) {
-                options.pdf.content.content = options.pdf.content.content || fallback.pdf.content.content;
-            }
-            
-            if (fallback.pdf.header != null) {
-                options.pdf.header.html = options.pdf.header.html || fallback.pdf.header.html;
-                options.pdf.header.spacing = options.pdf.header.spacing || fallback.pdf.header.spacing;
-            }
-            
-            if (fallback.pdf.footer != null) {
-                options.pdf.footer.html = options.pdf.footer.html || fallback.pdf.footer.html;
-                options.pdf.footer.spacing = options.pdf.footer.spacing || fallback.pdf.footer.spacing;
+            options.pdf.parts[key].type = options.pdf.parts[key].type || fallback.pdf.parts[key].type;
+            options.pdf.parts[key].html = options.pdf.parts[key].html || fallback.pdf.parts[key].html;
+            switch (options.pdf.parts[key].type) {
+                case 'toc':
+                    const optionsToc = <IPdfTocPart>options.pdf.parts[key];
+                    const fallbackToc = <IPdfTocPart>fallback.pdf.parts[key];
+
+                    optionsToc.xslStyleSheet = optionsToc.xslStyleSheet || fallbackToc.xslStyleSheet;
+                    break;
             }
         }
     }
