@@ -8,12 +8,15 @@ let argv = yargs
     .command("generate", "Generates an pdf from an markdown file.", (yargs: any) => {
         yargs
             .option('in', {
+                describe: 'The input markdown file',
                 default: 'document.md'
             })
             .option('out', {
-                default: 'document.pdf'
+                describe: 'The output path for the PDF (defaults to <input>.pdf)',
+                default: null
             })
             .option('layout', {
+                describe: 'The layout used for rendering the PDF',
                 default: 'document'
             });
     }, (argv: any) => {
