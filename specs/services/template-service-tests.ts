@@ -5,10 +5,10 @@ import * as should from "should";
 import { TemplateService } from "../../src/services/template-service";
 
 describe('TemplateService', function() {
-    describe('applyTemplate', function() {
-        it('applies template', function() {
+    describe('applyTemplateAsync', function() {
+        it('applies template', async function() {
             // Arrange
-            const service = new TemplateService();
+            const service = new TemplateService({ layout: 'document' });
 
             const template = 'Hello {{firstname}} {{lastname}}';
             const data = {
@@ -17,7 +17,7 @@ describe('TemplateService', function() {
             };
 
             // Act
-            const result = service.applyTemplate(template, data);
+            const result = await service.applyTemplateAsync(template, data);
 
             // Assert
             should(result).be.equal('Hello John Doe');

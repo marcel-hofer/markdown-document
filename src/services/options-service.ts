@@ -10,6 +10,8 @@ export interface IOptions {
     document?: IDocumentInformation;
     layout?: string;
 
+    language?: string;
+
     pdf?: IPdfOptions;
 }
 
@@ -87,7 +89,7 @@ export class OptionsService {
     }
 
     private async getAndCheckLayoutExistanceAsync(options: IOptions) {
-        const layout = options.layout || 'default.html';
+        const layout = options.layout || 'document';
         return await layoutService.resolveLayoutPathAsync(layout, options.documentPath);
     }
 
@@ -121,6 +123,8 @@ export class OptionsService {
     }
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
+        options.language = options.language || fallback.language;
+
         options.pdf = options.pdf || { };
         options.pdf.header = options.pdf.header || <any>{ };
         options.pdf.footer = options.pdf.footer || <any>{ };

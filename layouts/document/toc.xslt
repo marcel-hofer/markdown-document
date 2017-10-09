@@ -9,7 +9,7 @@
     <xsl:template match="outline:outline">
         <html>
             <head>
-                <title>Table of Contents</title>
+                <title>{{i18n 'TOC'}}</title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <style type="text/css" rel="stylesheet">
                     body {
@@ -132,7 +132,7 @@
                 </style>
             </head>
             <body>
-                <div class="h1">Table of Contents</div>
+                <div class="h1">{{i18n 'TOC'}}</div>
                 <ul id="top">
                     <xsl:apply-templates select="outline:item/outline:item" />
                 </ul>
