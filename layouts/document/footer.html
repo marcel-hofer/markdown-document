@@ -8,13 +8,13 @@
         <hr />
         <div class="first-row">
             <span class="copyright">
-                Copyright &copy; 
+                {{i18n 'Copyright'}} &copy; 
                 {{#each document/authors}}
                     {{this}}{{#unless @last}}, {{/unless}}
                 {{/each}}
             </span>
             <span class="pages">
-                Page <span class="page"></span> of &nbsp;<span class="topage"></span>
+                {{i18n 'Page'}} <span class="page"></span> {{i18n 'PageOf'}} &nbsp;<span class="topage"></span>
             </span>
         </div>
         <div class="second-row">
