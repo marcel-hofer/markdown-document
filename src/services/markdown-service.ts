@@ -31,7 +31,7 @@ export class MarkdownService {
         });
 
         md.use(IncludePlugin.register);
-        md.use(LocalToAbsoluteImageSrcPlugin.register)
+        md.use(LocalToAbsoluteImageSrcPlugin.register);
 
         return md;
     }
