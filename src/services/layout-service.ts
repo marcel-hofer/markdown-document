@@ -2,7 +2,7 @@ import * as path from "path";
 
 import { IOptions, IDocumentInformation } from "../markdown-document";
 import { default as fileService, TempPath } from "./file-service";
-import templateService from "./template-service";
+import { TemplateService } from "./template-service";
 import { allPaths } from "../helpers/pdf-options-parser";
 
 export class LayoutService {
@@ -48,21 +48,18 @@ export class LayoutService {
         }, additionalData);
 
         const tempDirectory = await this.getTempDirectoryAsync(options);
+        const templateService = new TemplateService(options);
 
         for (let file of allPaths(options.pdf)) {
-            await this.applyLayoutInternalAsync(tempDirectory, path.join(layoutPath, file), data);
+            const template = await fileService.readFileAsync(path.join(layoutPath, file));
+            const targetFile = path.join(tempDirectory.path, path.basename(path.join(layoutPath, file)));
+    
+            const content = await templateService.applyTemplateAsync(template.toString(), data);
+    
+            await fileService.writeFileAsync(targetFile, content);
         }
 
         return tempDirectory;
-    }
-
-    private async applyLayoutInternalAsync(directory: TempPath, layoutFile: string, data: any) {
-        const template = await fileService.readFileAsync(layoutFile);
-        const targetFile = path.join(directory.path, path.basename(layoutFile));
-
-        const content = templateService.applyTemplate(template.toString(), data);
-
-        await fileService.writeFileAsync(targetFile, content);
     }
 
     private async getTempDirectoryAsync(options: IOptions) {

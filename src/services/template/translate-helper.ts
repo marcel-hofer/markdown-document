@@ -4,12 +4,13 @@ import * as q from "q";
 import { createInstance, InitOptions, TranslationFunction } from "i18next";
 import * as Backend from "i18next-node-fs-backend";
 
-import * as handlebars from "handlebars";
+import { IHandlebarHelper } from "../template-service";
 
-export class TranslateHelper {
+export class TranslateHelper implements IHandlebarHelper {
+    public name: string = 'i18n';
     public t: TranslationFunction;
 
-    constructor(private layoutDirectory: string) {
+    constructor(private layoutDirectory: string, private language: string) {
     }
 
     public async init() {
@@ -17,8 +18,10 @@ export class TranslateHelper {
 
         const translationDirectory = path.join(this.layoutDirectory, 'i18n/{{lng}}.json');
         const config = <InitOptions>{
+            lng: this.language,
             fallbackLng: 'en',
-            backend: {
+
+            backend: <i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions>{
                 loadPath: translationDirectory
             }
         };
@@ -26,23 +29,30 @@ export class TranslateHelper {
         const translator = createInstance();
         translator.use(Backend);
 
+        // translator.loadLanguages(['en', this.language], (error, t)=> {
+        // });
+
         translator.init(config, (error, t) => {
             this.t = t;
 
-            if (error) {
-                defer.reject(error);
-            } else {
-                defer.resolve();
-            }
+            defer.resolve();
         });
+        
+
+        // translator.init(config, (error, t) => {
+        //     this.t = t;
+
+        //     if (error) {
+        //         defer.reject(error);
+        //     } else {
+        //         defer.resolve();
+        //     }
+        // });
 
         return defer.promise;
     }
 
-    public register() {
-        const that = this;
-        handlebars.registerHelper('i18n', function(key: string, options: { hash: any }) {
-            return that.t(key, options.hash);
-        });
+    public onExecute(key: string, options: { hash: any }) {
+        return this.t(key, options.hash);
     }
 }
