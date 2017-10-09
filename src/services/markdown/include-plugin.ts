@@ -25,10 +25,10 @@ export class IncludePlugin {
     }
 
     public parse(state: IState, startLine: number, endLine: number, silent: boolean): boolean {
-        let beginPos = state.bMarks[startLine];
-        let endPos = state.eMarks[startLine];
+        const beginPos = state.bMarks[startLine];
+        const endPos = state.eMarks[startLine];
 
-        let content = state.src.substring(beginPos, endPos);
+        const content = state.src.substring(beginPos, endPos);
 
         const match = IncludePlugin.regex.exec(content);
         if (!match) {
@@ -82,10 +82,10 @@ export class IncludePlugin {
     }
 
     public static register(md: IRemarkable) {
-        var plugin = new IncludePlugin(md);
+        const plugin = new IncludePlugin(md);
 
         md.block.ruler.before('paragraph', 'include', plugin.parse.bind(plugin));
-        md.renderer.rules.include = plugin.render.bind(plugin);
+        md.renderer.rules['include'] = plugin.render.bind(plugin);
 
         return plugin;
     }
