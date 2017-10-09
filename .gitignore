@@ -9,4 +9,5 @@
 /specs/**/*.pdf
 /specs/**/*.md
 /specs/**/temp
+!/specs/testfiles/**
 /samples/**/*.pdf
