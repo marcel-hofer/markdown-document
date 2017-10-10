@@ -7,50 +7,54 @@
     "type": "git",
     "url": "https://github.com/marcel-hofer/markdown-document.git"
   },
-  "keywords": ["markdown", "md", "document", "pdf", "convert", "layout", "html"],
+  "keywords": [
+    "markdown",
+    "md",
+    "document",
+    "pdf",
+    "convert",
+    "layout",
+    "html"
+  ],
   "license": "MIT",
   "dependencies": {
-    "q": "1.5.0",
-    "tmp": "0.0.33",
-    "remarkable": "1.7.1",
+    "dist-exiftool": "10.53.0",
     "handlebars": "4.0.10",
+    "highlight.js": "9.12.0",
     "i18next": "9.1.0",
     "i18next-node-fs-backend": "1.0.0",
     "node-exiftool": "2.3.0",
-
+    "q": "1.5.0",
+    "remarkable": "1.7.1",
+    "remarkable-katex": "^1.0.1",
+    "tmp": "0.0.33",
     "wkhtmltopdf-installer": "0.3.1",
-    "dist-exiftool": "10.53.0",
-
-    "highlight.js": "9.12.0",
     "yargs": "^9.0.1"
   },
   "devDependencies": {
-    "@types/node": "8.0.28",
-    "@types/q": "1.0.5",
-    "@types/tmp": "0.0.33",
     "@types/handlebars": "4.0.36",
     "@types/i18next": "8.4.2",
     "@types/i18next-node-fs-backend": "0.0.29",
-    
-    "gulp": "3.9.1",
-    "gulp-typescript": "3.2.2",
-    "gulp-mocha": "4.3.1",
-    "del": "3.0.0",
-    "merge-stream": "1.0.1",
-    "typescript": "2.5.2",
-
-    "mocha": "3.5.3",
-    "should": "13.0.1",
-    "mock-fs": "4.4.1",
     "@types/mocha": "2.2.43",
-    "@types/mock-fs": "3.6.30"
+    "@types/mock-fs": "3.6.30",
+    "@types/node": "8.0.28",
+    "@types/q": "1.0.5",
+    "@types/tmp": "0.0.33",
+    "del": "3.0.0",
+    "gulp": "3.9.1",
+    "gulp-mocha": "4.3.1",
+    "gulp-typescript": "3.2.2",
+    "merge-stream": "1.0.1",
+    "mocha": "3.5.3",
+    "mock-fs": "4.4.1",
+    "should": "13.0.1",
+    "typescript": "2.5.2"
   },
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
     "test": "gulp test",
     "prepublish": "gulp build",
-    
     "cli": "gulp build && node ./bin/converter.js generate"
   },
   "bin": {
