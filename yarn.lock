@@ -242,6 +242,10 @@ capture-stack-trace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.0.tgz#4a6fa07399c26bba47f0b2496b4d0fb408c5550d"
 
+catchment@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/catchment/-/catchment-1.0.0.tgz#3061f71be0102710be84328d2f94363a165f8c4b"
+
 caw@^1.0.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/caw/-/caw-1.2.0.tgz#ffb226fe7efc547288dc62ee3e97073c212d1034"
@@ -469,6 +473,15 @@ diff@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.2.0.tgz#c9ce393a4b7cbd0b058a725c93df299027868ff9"
 
+dist-exiftool@10.53.0:
+  version "10.53.0"
+  resolved "https://registry.yarnpkg.com/dist-exiftool/-/dist-exiftool-10.53.0.tgz#8bd17bac1e43deacd81d9adacd0f1e24c690100f"
+  dependencies:
+    platform-dependent-modules "0.0.14"
+  optionalDependencies:
+    exiftool.exe "10.53"
+    exiftool.pl "10.53"
+
 download@^4.0.0:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/download/-/download-4.4.3.tgz#aa55fdad392d95d4b68e8c2be03e0c2aa21ba9ac"
@@ -572,6 +585,14 @@ executable@^1.0.0:
   resolved "https://registry.yarnpkg.com/executable/-/executable-1.1.0.tgz#877980e9112f3391066da37265de7ad8434ab4d9"
   dependencies:
     meow "^3.1.0"
+
+exiftool.exe@10.53:
+  version "10.53.0"
+  resolved "https://registry.yarnpkg.com/exiftool.exe/-/exiftool.exe-10.53.0.tgz#22b1ce60fb8db589469d1aa5b0a1fe09a35bc454"
+
+exiftool.pl@10.53:
+  version "10.53.0"
+  resolved "https://registry.yarnpkg.com/exiftool.pl/-/exiftool.pl-10.53.0.tgz#63c1646b3ad0aed1ce1313d7b5d07da4d7b13d84"
 
 expand-brackets@^0.1.4:
   version "0.1.5"
@@ -1275,7 +1296,7 @@ is-retry-allowed@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-retry-allowed/-/is-retry-allowed-1.1.0.tgz#11a060568b67339444033d0125a61a20d564fb34"
 
-is-stream@^1.0.0, is-stream@^1.0.1, is-stream@^1.1.0:
+is-stream@1.1.0, is-stream@^1.0.0, is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
 
@@ -1582,6 +1603,10 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
+makepromise@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/makepromise/-/makepromise-1.0.0.tgz#bc6bb6a3e06fd706df51c2923b6936fabd70aa7f"
+
 map-cache@^0.2.0:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -1710,6 +1735,14 @@ multipipe@^0.1.2:
 natives@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.0.tgz#e9ff841418a6b2ec7a495e939984f78f163e6e31"
+
+node-exiftool@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/node-exiftool/-/node-exiftool-2.3.0.tgz#d5142d34de6f1683b4655198b648e7e3ee6e80ac"
+  dependencies:
+    is-stream "1.1.0"
+    restream "1.2.0"
+    wrote "0.6.1"
 
 node-status-codes@^1.0.0:
   version "1.0.0"
@@ -1957,6 +1990,10 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
+platform-dependent-modules@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/platform-dependent-modules/-/platform-dependent-modules-0.0.14.tgz#3c53d0415d81ce22dcfde15665d0cfd541d41617"
+
 prepend-http@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
@@ -2132,6 +2169,10 @@ resolve@^1.1.6, resolve@^1.1.7:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.4.0.tgz#a75be01c53da25d934a98ebd0e4c4a7312f92a86"
   dependencies:
     path-parse "^1.0.5"
+
+restream@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/restream/-/restream-1.2.0.tgz#fd13b031a54e80cc65d1878c43149f1b3a40efbb"
 
 right-align@^0.1.1:
   version "0.1.3"
@@ -2676,6 +2717,13 @@ wrap-fn@^0.1.0:
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
+
+wrote@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/wrote/-/wrote-0.6.1.tgz#eff11efdd6f18424a70baea2df4322af375b8fbe"
+  dependencies:
+    catchment "1.0.0"
+    makepromise "1.0.0"
 
 "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"

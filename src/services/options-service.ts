@@ -7,11 +7,12 @@ export interface IOptions {
     documentPath?: string;
     outputPath?: string;
     tempPath?: string;
-    document?: IDocumentInformation;
+    
     layout?: string;
-
     language?: string;
+    writeMetadata?: boolean;
 
+    document?: IDocumentInformation;
     pdf?: IPdfOptions;
 }
 
@@ -60,6 +61,7 @@ export interface IDocumentInformation {
     title?: string;
     subject?: string;
     authors?: string[];
+    keywords?: string[];
     date?: string;
 
     data?: any;
@@ -104,6 +106,9 @@ export class OptionsService {
         options.outputPath = options.outputPath || fileService.changeExt(options.documentPath, '.pdf');
 
         this.applyFallbackOptions(options, <IOptions>{
+            language: 'en',
+            writeMetadata: true,
+
             pdf: {
                 wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
 
@@ -124,6 +129,7 @@ export class OptionsService {
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
         options.language = options.language || fallback.language;
+        options.writeMetadata = options.writeMetadata == null ? fallback.writeMetadata : options.writeMetadata;
 
         options.pdf = options.pdf || { };
         options.pdf.header = options.pdf.header || <any>{ };

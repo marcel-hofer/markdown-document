@@ -11,7 +11,8 @@ gulp.task('clean', function() {
         'src/**/*.js',
         'specs/**/*.js',
         'specs/**/*.html',
-        'specs/**/*.pdf'
+        'specs/**/*.pdf',
+        '!specs/testfiles/**'
     ]);
 });
 

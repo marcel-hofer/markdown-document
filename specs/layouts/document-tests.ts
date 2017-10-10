@@ -17,12 +17,15 @@ describe('Layout <document>', function() {
             documentPath: path.join(__dirname, 'document.md'),
             outputPath: path.join(__dirname, 'document.pdf'),
             tempPath: path.join(__dirname, 'temp/document'),
+
             layout: 'document',
+
             document: {
                 title: 'My awesome title',
                 subject: 'An awesome subject',
                 date: '2017-09-22',
                 authors: ['John Doe', 'David Miller'],
+                keywords: ['markdown', 'document', 'pdf'],
                 data: {
                     location: 'Current Location'
                 }
