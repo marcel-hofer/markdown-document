@@ -44,3 +44,5 @@ export interface IPdfMetadata extends exiftool.IDefaultMetadata {
     Keywords?: string[];
     Language?: string;
 }
+
+export default new MetadataService();

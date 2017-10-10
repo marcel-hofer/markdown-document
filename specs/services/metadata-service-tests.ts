@@ -5,7 +5,7 @@ import * as fs from "fs";
 
 import * as should from "should";
 
-import { MetadataService, IPdfMetadata } from "../../src/services/metadata-service";
+import { default as metadataService, IPdfMetadata } from "../../src/services/metadata-service";
 
 describe('MetadataService', function() {
     describe('getMetadataAsync', function() {
@@ -14,10 +14,9 @@ describe('MetadataService', function() {
 
             // Arrange
             const pdfFile = path.join(__dirname, '../testfiles/pdf-metadata.pdf');
-            const service = new MetadataService();
 
             // Act
-            const result = await service.getMetadataAsync<IPdfMetadata>(pdfFile);
+            const result = await metadataService.getMetadataAsync<IPdfMetadata>(pdfFile);
 
             // Assert
             should(result).not.be.null;
@@ -44,10 +43,9 @@ describe('MetadataService', function() {
 
             // Arrange
             fs.createReadStream(originalFile).pipe(fs.createWriteStream(pdfFile));
-            const service = new MetadataService();
 
             // Act
-            await service.setMetadataAsync<IPdfMetadata>(pdfFile, {
+            await metadataService.setMetadataAsync<IPdfMetadata>(pdfFile, {
                 Title: 'This is the title',
                 Subject: 'This is the subject',
                 Author: 'john@doe.com;jane@smith.com',
@@ -58,12 +56,9 @@ describe('MetadataService', function() {
 
         it('wrote correct metadata', async function() {
             this.timeout(1000);
-            
-            // Arrange
-            const service = new MetadataService();
 
             // Act
-            const result = await service.getMetadataAsync<IPdfMetadata>(pdfFile);
+            const result = await metadataService.getMetadataAsync<IPdfMetadata>(pdfFile);
 
             // Assert
             should(result).not.be.null;
