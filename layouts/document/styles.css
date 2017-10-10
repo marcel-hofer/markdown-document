@@ -1,0 +1,161 @@
+/* GLOBAL */
+body {
+    font-family: "Arial Narrow";
+    font-size: 10pt;
+}
+
+/* COVER */
+#cover {
+    position: relative;
+}
+
+#cover .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#cover .box .rectangle {
+    background: #943634;
+
+    width: 400px;
+    height: 125px;
+}
+
+#cover .box .rectangle .line {
+    display: inline-block;
+
+    margin-left: 125px;
+    border-right: 1px solid white;
+
+    height: 125px;
+}
+
+#cover .box .line {
+    display: inline-block;
+
+    margin-left: 125px;
+    border-right: 1px solid black;
+
+    height: 300px;
+}
+
+#cover .bottom {
+    position: absolute;
+    top: 1100px;
+}
+
+#cover .cover-title {
+    font-size: 36pt;
+    font-weight: bold;
+}
+
+#cover .cover-subject {
+    font-size: 26pt;
+    font-weight: bold;
+}
+
+/* CONTENT */
+h1 { counter-reset: h2; }
+h2 { counter-reset: h3; }
+h3 { counter-reset: h4; }
+h4 { counter-reset: h5; }
+h5 { counter-reset: h6; }
+
+h2:before { counter-increment: h2; content: counter(h2) ".\0000a0"; }
+h3:before { counter-increment: h3; content: counter(h2) "." counter(h3) ".\0000a0"; }
+h4:before { counter-increment: h4; content: counter(h2) "." counter(h3) "." counter(h4) ".\0000a0"; }
+h5:before { counter-increment: h5; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ".\0000a0"; }
+h6:before { counter-increment: h6; content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) ".\0000a0"; }
+
+h1 {
+    font-size: 20pt;
+    font-weight: bold;
+
+    border-bottom: 1px solid #8EA138;
+
+    page-break-before: always;
+    padding-top: 444pt;
+    padding-bottom: 1pt;
+    margin-bottom: 6pt;
+}
+
+h1.no-comment {
+    page-break-after: always;
+}
+
+p.h1-comment {
+    font-size: 12pt;
+    font-style: italic;
+
+    page-break-after: always;
+}
+
+h2 {
+    font-size: 16pt;
+    font-weight: bold;
+
+    border-bottom: 1px solid #8EA138;
+}
+
+h3 {
+    font-size: 14pt;
+    font-weight: bold;
+
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+}
+
+h4, h5, h6 {
+    font-size: 11pt;
+    font-weight: bold;
+
+    margin-top: 9pt;
+    margin-bottom: 3pt;
+}
+
+/* HEADER */
+#header {
+    color: #808080;
+}
+
+#header hr {
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+    border: none;
+    border-top: 1px solid #808080;
+}
+
+#header .title {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+#header .subject {
+    font-size: 8pt;
+}
+
+#header .author {
+    font-size: 8pt;
+
+    float: right;
+}
+
+/* FOOTER */
+#footer {
+    color: #808080;
+    font-size: 8pt;
+}
+
+#footer hr {
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+    border: none;
+    border-top: 1px solid #808080;
+}
+
+#footer .pages {
+    float: right;
+}

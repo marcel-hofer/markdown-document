@@ -1,0 +1,19 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        // include the defaults from VS Code
+        "**/.git": true,
+
+        // exclude .js and .js.map files, when in a TypeScript project
+        "**/*.js": { "when": "$(basename).ts"},
+        "**/*.js.map": true,
+
+        "specs/**/*.pdf": true,
+        "specs/**/*.html": true,
+        "specs/**/*.md": true,
+
+        ".vscode": true,
+        "node_modules": true,
+        "output": true
+    }
+}

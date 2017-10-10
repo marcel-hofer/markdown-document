@@ -1,0 +1,29 @@
+{
+    "marginTop": 25,
+    "marginLeft": 12,
+    "marginBottom": 12,
+    "marginRight": 12,
+    "orientation": "Portrait",
+    "pageSize": "A4",
+    "header": {
+        "html": "header.html",
+        "spacing": 10
+    },
+    "footer": {
+        "html": "footer.html"
+    },
+    "parts": {
+        "cover": {
+            "type": "cover",
+            "html": "cover.html"
+        },
+        "toc": {
+            "type": "toc",
+            "xslStyleSheet": "toc.xslt"
+        },
+        "content": {
+            "type": "content",
+            "html": "content.html"
+        }
+    }
+}

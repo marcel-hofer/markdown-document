@@ -1,0 +1,13 @@
+# External libs
+/node_modules
+
+# Build
+/output/**
+/src/**/*.js
+/specs/**/*.js
+/specs/**/*.html
+/specs/**/*.pdf
+/specs/**/*.md
+/specs/**/temp
+!/specs/testfiles/**
+/samples/**/*.pdf
