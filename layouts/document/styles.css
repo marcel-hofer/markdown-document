@@ -55,6 +55,39 @@ body {
     font-weight: bold;
 }
 
+/* INFO */
+#info table {
+    font-size: 10pt;
+
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+table.document-info td:first-child,
+table.document-info td:nth-child(3) {
+    font-weight: bold;
+
+    width: 10%;
+}
+
+table.document-info td:nth-child(2):not([colspan]),
+table.document-info td:nth-child(4) {
+    width: 40%;
+}
+
+table.document-history th:not(:nth-child(4)) {
+    width: 15%;
+}
+
+table.document-references th:not(:first-child) {
+    width: 20%;
+}
+
+table.document-abbreviations th:first-child {
+    width: 30%;
+}
+
 /* CONTENT */
 h1 { counter-reset: h2; }
 h2 { counter-reset: h3; }
@@ -129,6 +162,10 @@ blockquote {
 
 table {
     border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 2px 5px;
 }
 
 table th:not(:first-child),

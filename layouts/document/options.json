@@ -17,6 +17,10 @@
             "type": "cover",
             "html": "cover.html"
         },
+        "info": {
+            "type": "content",
+            "html": "info.html"
+        },
         "toc": {
             "type": "toc",
             "xslStyleSheet": "toc.xslt"

@@ -2,5 +2,22 @@
     "TOC": "Inhaltsverzeichnis",
     "Copyright": "Copyright",
     "Page": "Seite",
-    "PageOf": "von"
+    "PageOf": "von",
+    
+    "DocumentInformation": "Dokumentinformationen",
+    "VersionHistory": "Änderungskontrolle",
+    "ReferencedDocuments": "Referenzierte Dokumente",
+    "Abbreviations": "Verwendete Abkürzungen / Ausdrücke",
+    "Filename": "Dateiname",
+    "Version": "Version",
+    "Date": "Datum",
+    "Classification": "Klassifizierung",
+    "State": "Status",
+    "Author": "Author",
+    "DistributionList": "Verteiler",
+    "Comment": "Bemerkung",
+    "TitleFilenameVersion": "Titel / Dateiname / Version",
+    "Abbreviation": "Abkürzung",
+    "Meaning": "Bedeutung",
+    "CopyrightNotice": "Änderungen vorbehalten. Dieses Dokument darf nur mit ausdrücklicher, schriftlicher Genehmigung ganz oder auszugsweise reproduziert und weiterverarbeitet werden."
 }

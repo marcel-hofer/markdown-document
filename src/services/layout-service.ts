@@ -45,7 +45,11 @@ export class LayoutService {
         const data = Object.assign({
             layoutPath: fileService.toAbsoluteFileUrl(layoutPath) + '/',
             markdown: markdownAsHtml,
-            document: options.document
+            document: options.document,
+            env: {
+                inputFile: path.basename(options.documentPath),
+                outputFile: path.basename(options.outputPath)
+            }
         }, additionalData);
 
         const tempDirectory = await this.getTempDirectoryAsync(options);
