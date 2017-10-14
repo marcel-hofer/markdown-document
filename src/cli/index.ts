@@ -18,6 +18,10 @@ let argv = yargs
             .option('layout', {
                 describe: 'The layout used for rendering the PDF',
                 default: 'document'
+            })
+            .option('log-level', {
+                describe: 'Configures the log level',
+                default: 'info'
             });
     }, (argv: any) => {
         cli.generate(argv);

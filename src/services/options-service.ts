@@ -1,4 +1,5 @@
 import * as path from "path";
+import * as winston from "winston";
 
 import fileService from "./file-service";
 import layoutService from "./layout-service";
@@ -77,14 +78,17 @@ export class OptionsService {
 
         // Set fallback layout because this is needed for the layout fallback
         options.layout = await this.getAndCheckLayoutExistanceAsync(options);
+        winston.debug('Resolved layout', options.layout);
 
         await this.fallbackOptionsToLayout(options);
         await this.fallbackOptionsToDefault(options);
     }
 
     private async fallbackOptionsToDocument(options: IOptions) {
-        const documentOptions = await this.loadOptionsByFile(fileService.changeExt(options.documentPath, this.OPTIONS_EXT));
+        const documentOptionsFile = fileService.changeExt(options.documentPath, this.OPTIONS_EXT);
+        const documentOptions = await this.loadOptionsByFile(documentOptionsFile);
         if (documentOptions != null) {
+            winston.debug('Loading document options', documentOptionsFile);
             this.applyFallbackOptions(options, documentOptions);
             options.document = documentOptions.document || { };
         }
@@ -96,8 +100,10 @@ export class OptionsService {
     }
 
     private async fallbackOptionsToLayout(options: IOptions) {
-        const layoutOptions = await this.loadOptionsByFile(path.join(options.layout, this.OPTIONS_FILE));
+        const layoutOptionsFile = path.join(options.layout, this.OPTIONS_FILE);
+        const layoutOptions = await this.loadOptionsByFile(layoutOptionsFile);
         if (layoutOptions != null) {
+            winston.debug('Loading layout options', layoutOptionsFile);
             this.applyFallbackOptions(options, { pdf: layoutOptions });
         }
     }

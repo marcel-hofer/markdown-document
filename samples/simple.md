@@ -15,3 +15,6 @@ Test test test
 
 ## Sample 1
 Test test test
+
+## Include 1
+@(include include.md)

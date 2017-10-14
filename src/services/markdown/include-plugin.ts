@@ -1,4 +1,6 @@
 import * as path from "path";
+import * as winston from "winston";
+
 import { IRemarkable, IRemarkableOptions, IState, IToken, IRenderer } from "remarkable-types";
 
 import fileService from "../file-service";
@@ -61,6 +63,8 @@ export class IncludePlugin {
         const currentFile = this.currentFile(env);
         const currentBasePath = path.dirname(currentFile);
         const fullIncludeFileName = path.join(currentBasePath, includeFileName);
+
+        winston.debug('Include markdown file %s relative to %s', includeFileName, currentBasePath);
 
         this.dependencyManager.with(currentFile);
         this.dependencyManager.check(fullIncludeFileName);

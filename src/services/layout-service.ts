@@ -1,4 +1,5 @@
 import * as path from "path";
+import * as winston from "winston";
 
 import { IOptions, IDocumentInformation } from "../markdown-document";
 import { default as fileService, TempPath } from "./file-service";
@@ -51,6 +52,8 @@ export class LayoutService {
         const templateService = new TemplateService(options);
 
         for (let file of allPaths(options.pdf)) {
+            winston.debug('Applying template to', file);
+
             const template = await fileService.readFileAsync(path.join(layoutPath, file));
             const targetFile = path.join(tempDirectory.path, path.basename(path.join(layoutPath, file)));
     
