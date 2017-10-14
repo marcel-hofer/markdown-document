@@ -64,24 +64,37 @@ body {
     margin-bottom: 20px;
 }
 
+#info table th {
+    text-align: left;
+}
+
 table.document-info td:first-child,
 table.document-info td:nth-child(3) {
     font-weight: bold;
 
-    width: 10%;
+    width: 15%;
 }
 
 table.document-info td:nth-child(2):not([colspan]),
 table.document-info td:nth-child(4) {
-    width: 40%;
+    width: 35%;
 }
 
-table.document-history th:not(:nth-child(4)) {
+table.document-history th:nth-child(1),
+table.document-history th:nth-child(2) {
+    width: 10%;
+}
+
+table.document-history th:nth-child(3) {
     width: 15%;
 }
 
-table.document-references th:not(:first-child) {
-    width: 20%;
+table.document-references th:nth-child(2) {
+    width: 10%;
+}
+
+table.document-references th:nth-child(3) {
+    width: 15%;
 }
 
 table.document-abbreviations th:first-child {
