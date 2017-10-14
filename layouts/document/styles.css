@@ -114,6 +114,36 @@ h4, h5, h6 {
     margin-bottom: 3pt;
 }
 
+a {
+    color: #548DD4;
+    text-decoration: none;
+    border-bottom: 1px dotted #548DD4;
+}
+
+blockquote {
+    color: #404040;
+    font-style: italic;
+
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th:not(:first-child),
+table td:not(:first-child) {
+    border-left: 1px solid black;
+}
+
+table th {
+    border-bottom: 1px solid black;
+}
+
+table td {
+    border-bottom: 1px solid #BFBFBF;
+}
+
 /* HEADER */
 #header {
     color: #808080;
