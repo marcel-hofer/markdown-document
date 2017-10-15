@@ -8,3 +8,10 @@ Converts markdown files to PDF documents using HTML templates.
 [npm-url]: https://npmjs.org/package/markdown-document
 [downloads-image]: https://img.shields.io/npm/dm/markdown-document.svg
 [downloads-url]: https://npmjs.org/package/markdown-document
+
+### Run dev build
+You can use the current build version as cli like this:
+
+    yarn run cli -- --in=samples/simple.md --temp=tmp --out=my-dcoument.pdf
+
+
