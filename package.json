@@ -19,8 +19,6 @@
   "license": "MIT",
   "dependencies": {
     "dist-exiftool": "10.53.0",
-    "winston": "2.4.0",
-    "tmp": "0.0.33",
     "handlebars": "4.0.10",
     "highlight.js": "9.12.0",
     "i18next": "9.1.0",
@@ -30,6 +28,7 @@
     "remarkable": "1.7.1",
     "remarkable-katex": "^1.0.1",
     "tmp": "0.0.33",
+    "winston": "2.4.0",
     "wkhtmltopdf-installer": "0.3.1",
     "yargs": "^9.0.1"
   },
