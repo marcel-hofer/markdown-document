@@ -17,5 +17,5 @@ yarn markdown-document generate --help
 ## Development
 You can use the current build version as cli like this:
 ```
-yarn run cli -- --in=samples/simple.md --temp=tmp --out=my-dcoument.pdf
+yarn run cli -- --in=samples/simple.md --temp=tmp --out=my-document.pdf
 ```
