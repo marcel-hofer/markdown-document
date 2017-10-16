@@ -15,6 +15,10 @@ export class MarkdownDocument {
         let timer = winston.startTimer();
         await optionsService.consolidateAsync(this.options);
         timer.done('Loading options finished');
+
+        timer = winston.startTimer();
+        await this.checkPreconditionsAsync();
+        timer.done('Checked preconditions');
         
         timer = winston.startTimer();
         const markdownAsHtml = await markdownService.renderFileAsync(this.options.documentPath);
@@ -36,10 +40,21 @@ export class MarkdownDocument {
                 Author: this.options.document.authors.join(';'),
                 Keywords: this.options.document.keywords || []
             });
-            timer.done('Setting pdf finished');
+            timer.done('Setting pdf metadata finished');
         }
 
         await tempPath.deleteAsync();
+    }
+
+    private async checkPreconditionsAsync() {
+        if (await fileService.existsAsync(this.options.outputPath)) {
+            try {
+                await fileService.deleteFileAsync(this.options.outputPath);
+            }
+            catch {
+                throw new Error(`The output file '${this.options.outputPath}' is not writable!`);
+            }
+        }
     }
 }
 
