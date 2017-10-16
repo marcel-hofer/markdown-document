@@ -7,6 +7,7 @@ const hljs = require('highlight.js');
 
 import { IncludePlugin } from "./markdown/include-plugin";
 import { LocalToAbsoluteImageSrcPlugin } from "./markdown/local-to-absolute-image-src-plugin";
+const RemarkableKatex = require('remarkable-katex');
 
 import fileService from "./file-service";
 
@@ -32,6 +33,7 @@ export class MarkdownService {
 
         md.use(IncludePlugin.register);
         md.use(LocalToAbsoluteImageSrcPlugin.register);
+        md.use(RemarkableKatex);
 
         return md;
     }

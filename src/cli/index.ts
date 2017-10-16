@@ -22,6 +22,10 @@ let argv = yargs
             .option('log-level', {
                 describe: 'Configures the log level',
                 default: 'info'
+            })
+            .option('temp', {
+                describe: 'Set the tempo output path for the generated html files (e.g. for debugging)',
+                default: null
             });
     }, (argv: any) => {
         cli.generate(argv);

@@ -43,7 +43,7 @@ export class LocalToAbsoluteImageSrcPlugin {
     }
 
     public static register(md: IRemarkable) {
-        var plugin = new LocalToAbsoluteImageSrcPlugin(md, md.renderer.rules['image']);
+        const plugin = new LocalToAbsoluteImageSrcPlugin(md, md.renderer.rules['image']);
 
         md.renderer.rules['image'] = plugin.render.bind(plugin);
 
