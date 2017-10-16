@@ -19,6 +19,7 @@ describe('Layout <document>', function() {
             tempPath: path.join(__dirname, 'temp/document'),
 
             layout: 'document',
+            language: 'en',
 
             document: {
                 title: 'My awesome title',
@@ -27,7 +28,24 @@ describe('Layout <document>', function() {
                 authors: ['John Doe', 'David Miller'],
                 keywords: ['markdown', 'document', 'pdf'],
                 data: {
-                    location: 'Current Location'
+                    location: 'Current Location',
+
+                    version: '1.2',
+                    classification: 'Not Classified',
+                    state: 'Final',
+                    distribution: ['Project Members', 'John Doe', 'someone@example.com'],
+                    history: [
+                        { version: '0.1', date: '2017-01-01', author: 'John Doe', comment: 'Document created' },
+                        { version: '1.0', date: '2017-03-15', author: 'John Doe', comment: 'Finished document' },
+                        { version: '1.1', date: '2017-09-22', author: 'James Smith', comment: 'Added section 2' },
+                    ],
+                    references: [
+                        { title: 'Requirements v2.pdf', date: '2016-10-30', author: 'Jane Smith' }
+                    ],
+                    abbreviations: [
+                        { abbreviation: 'HTML', meaning: 'Hypertext Markup Language' },
+                        { abbreviation: 'MD', meaning: 'Shorthand for Markdown' }
+                    ]
                 }
             }
         };

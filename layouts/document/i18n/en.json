@@ -2,5 +2,22 @@
     "TOC": "Table of Contents",
     "Copyright": "Copyright",
     "Page": "Page",
-    "PageOf": "of"
+    "PageOf": "of",
+    
+    "DocumentInformation": "Document information",
+    "VersionHistory": "History",
+    "ReferencedDocuments": "Referenced documents",
+    "Abbreviations": "Abbreviations",
+    "Filename": "Filename",
+    "Version": "Version",
+    "Date": "Date",
+    "Classification": "Classification",
+    "State": "State",
+    "Author": "Author",
+    "DistributionList": "Distribution list",
+    "Comment": "Comment",
+    "TitleFilenameVersion": "Title / Filename / Version",
+    "Abbreviation": "Abbreviation",
+    "Meaning": "Meaning",
+    "CopyrightNotice": "Subject to change without notice. This document may only be reproduced and processed in its entirety or in parts with explicit permission."
 }

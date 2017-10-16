@@ -36,6 +36,7 @@ function loadVariables() {
 /* CONTENT */
 function contentLoad() {
     adjustParagraphsAfterFirstHeadings();
+    addHighlightJsToCodeElements();
 }
 
 // Add class names to h1 and comment for the part headings (does not work with pure CSS)
@@ -50,4 +51,8 @@ function adjustParagraphsAfterFirstHeadings() {
             element.addClass('no-comment');
         }
     });
+}
+
+function addHighlightJsToCodeElements() {
+    $('code').addClass('hljs');
 }

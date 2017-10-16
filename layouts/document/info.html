@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+        <link rel="stylesheet" href="{{layoutPath}}styles.css" media="all" />
+    </head>
+    <body id="info">
+        <strong>{{i18n 'DocumentInformation'}}:</strong>
+        <table class="document-info">
+            <tr>
+                <td>{{i18n 'Filename'}}:</td>
+                <td colspan="3">{{env.outputFile}}</td>
+            </tr>
+            <tr>
+                <td>{{i18n 'Version'}}:</td>
+                <td>{{document/data/version}}</td>
+                <td>{{i18n 'Date'}}:</td>
+                <td>{{document/date}}</td>
+            </tr>
+            <tr>
+                <td>{{i18n 'Classification'}}:</td>
+                <td>{{document/data/classification}}</td>
+                <td>{{i18n 'State'}}:</td>
+                <td>{{document/data/state}}</td>
+            </tr>
+            <tr>
+                <td>{{i18n 'Author'}}:</td>
+                <td colspan="3">
+                    {{#each document/authors}}
+                        {{this}}{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                </td>
+            </tr>
+            <tr>
+                <td>{{i18n 'DistributionList'}}:</td>
+                <td colspan="3">
+                    {{#each document/data/distribution}}
+                        {{this}}{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                </td>
+            </tr>
+        </table>
+
+        {{#if document/data/history}}
+        <strong>{{i18n 'VersionHistory'}}:</strong>
+        <table class="document-history">
+            <tr>
+                <th>{{i18n 'Version'}}</th>
+                <th>{{i18n 'Date'}}</th>
+                <th>{{i18n 'Author'}}</th>
+                <th>{{i18n 'Comment'}}</th>
+            </tr>
+            {{#each document/data/history}}
+            <tr>
+                <td>{{version}}</td>
+                <td>{{date}}</td>
+                <td>{{author}}</td>
+                <td>{{comment}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{#if document/data/references}}
+        <strong>{{i18n 'ReferencedDocuments'}}:</strong>
+        <table class="document-references">
+            <tr>
+                <th>{{i18n 'TitleFilenameVersion'}}</th>
+                <th>{{i18n 'Date'}}</th>
+                <th>{{i18n 'Author'}}</th>
+            </tr>
+            {{#each document/data/references}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{date}}</td>
+                <td>{{author}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{#if document/data/abbreviations}}
+        <strong>{{i18n 'Abbreviations'}}:</strong>
+        <table class="document-abbreviations">
+            <tr>
+                <th>{{i18n 'Abbreviation'}}</th>
+                <th>{{i18n 'Meaning'}}</th>
+            </tr>
+            {{#each document/data/abbreviations}}
+            <tr>
+                <td>{{abbreviation}}</td>
+                <td>{{meaning}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        <p>{{i18n 'CopyrightNotice'}}</p>
+    </body>
+</html>
