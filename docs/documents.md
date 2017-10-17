@@ -43,3 +43,41 @@ The `.json` file must be in the same directory and use the same name as the docu
     }
 }
 ```
+
+## Markdown
+Because the written documents can grow really fast and markdown will soon reach the limits, there are a few extensions built in.
+
+### Include
+To split large documents into small parts, you can take advantages of the *Include* plugin.
+
+Given the following two markdown files:
+
+- `main.md`
+```markdown
+# Title
+@(include include.md)
+```
+
+```markdown
+This is the included content
+```
+
+When the document is generated using `main.md` as main entry point, the following markdown will be merged:
+```markdown
+# Title
+This is the included content
+```
+
+#### Include paths
+The pathds for the include file are relative to the containing markdown file.
+
+### Formulas
+Thanks to [bradhowes/remarkable-katex](https://github.com/bradhowes/remarkable-katex) formulas are supported the following way:
+
+```markdown
+You can use inline formulas like this $c = \pm\sqrt{a^2 + b^2}$
+
+$$
+f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+$$
+```
