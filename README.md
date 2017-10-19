@@ -26,10 +26,9 @@ See the [docs](docs) directory for detailed documentation.
 - [Command line usage](docs/command-line.md)
 - [Library usage](docs/library.md)
 - [Writing documents](docs/documents.md)
-- [Creating layouts](docs/layouts.md)
+- [Layouts](docs/layouts.md)
 
 ## License
-
 [MIT](https://github.com/marcel-hofer/markdown-document/blob/master/LICENSE)
 
 [npm-image]: https://img.shields.io/npm/v/markdown-document.svg

@@ -14,7 +14,10 @@ The `.json` file must be in the same directory and use the same name as the docu
 ### Example properties
 ```json
 {
-    // Define the layout to use
+    // Define the layout to use. Supported are:
+    // - Absolute paths to layout folder
+    // - Relative path from document location
+    // - A document from the built-in documnets
     "layout": "document",
     // Set the language (basically for layout translations)
     // Fallback is EN if no specific translation can be found
