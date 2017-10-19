@@ -18,7 +18,8 @@ export async function testTemplateGenerationAsync(options: IOptions, markdown: s
     should(fileExists).be.true();
 }
 
-export const basicTemplate =  `
+export function basicTemplate(imagePath: string = '../') {
+    return `
 # Heading 1
 This is a paragraph!
 
@@ -70,5 +71,6 @@ Some text to show that the reference links can follow later.
 > This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote. 
 
 ## Heading 1.3
-![pexels-photo-548383](../images/pexels-photo-548383.jpeg)
+![pexels-photo-548383](${imagePath}images/pexels-photo-548383.jpeg)
 `.trim();
+}

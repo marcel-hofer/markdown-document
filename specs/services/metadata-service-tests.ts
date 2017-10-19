@@ -6,11 +6,12 @@ import * as fs from "fs";
 import * as should from "should";
 
 import { default as metadataService, IPdfMetadata } from "../../src/services/metadata-service";
+import { PDF_METADATA_WRITE_TIMEOUT } from "../constants";
 
 describe('MetadataService', function() {
     describe('getMetadataAsync', function() {
         it('returns metadata for pdf', async function() {
-            this.timeout(1000);
+            this.timeout(PDF_METADATA_WRITE_TIMEOUT);
 
             // Arrange
             const pdfFile = path.join(__dirname, '../testfiles/pdf-metadata.pdf');
@@ -39,7 +40,7 @@ describe('MetadataService', function() {
         });
 
         it('can write metadata', async function() {
-            this.timeout(1000);
+            this.timeout(PDF_METADATA_WRITE_TIMEOUT);
 
             // Arrange
             fs.createReadStream(originalFile).pipe(fs.createWriteStream(pdfFile));
@@ -55,7 +56,7 @@ describe('MetadataService', function() {
         });
 
         it('wrote correct metadata', async function() {
-            this.timeout(1000);
+            this.timeout(PDF_METADATA_WRITE_TIMEOUT);
 
             // Act
             const result = await metadataService.getMetadataAsync<IPdfMetadata>(pdfFile);

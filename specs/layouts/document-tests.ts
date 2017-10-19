@@ -7,10 +7,11 @@ import { IOptions, MarkdownDocument } from "../../src/markdown-document";
 import fileService from "../../src/services/file-service";
 
 import { testTemplateGenerationAsync, basicTemplate } from "./helpers";
+import { PDF_GENERATION_TIMEOUT } from "../constants";
 
 describe('Layout <document>', function() {
     it('renders', async function() {
-        this.timeout(15000);
+        this.timeout(PDF_GENERATION_TIMEOUT);
 
         // Arrange
         const options = <IOptions>{
@@ -51,6 +52,6 @@ describe('Layout <document>', function() {
         };
 
         // Act & Assert
-        await testTemplateGenerationAsync(options, basicTemplate);
+        await testTemplateGenerationAsync(options, basicTemplate());
     });
 });
