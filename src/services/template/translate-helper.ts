@@ -29,25 +29,11 @@ export class TranslateHelper implements IHandlebarHelper {
         const translator = createInstance();
         translator.use(Backend);
 
-        // translator.loadLanguages(['en', this.language], (error, t)=> {
-        // });
-
         translator.init(config, (error, t) => {
             this.t = t;
 
             defer.resolve();
         });
-        
-
-        // translator.init(config, (error, t) => {
-        //     this.t = t;
-
-        //     if (error) {
-        //         defer.reject(error);
-        //     } else {
-        //         defer.resolve();
-        //     }
-        // });
 
         return defer.promise;
     }
