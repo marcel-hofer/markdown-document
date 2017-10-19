@@ -32,7 +32,7 @@ export class MarkdownDocument {
         await pdfService.renderPdfAsync(tempPath.path, this.options.outputPath, this.options.pdf);
         timer.done('Rendering pdf finished');
 
-        if (this.options.writeMetadata) {
+        if (this.options.writeMetadata && this.options.document != null) {
             timer = winston.startTimer();
             await metadataService.setMetadataAsync<IPdfMetadata>(this.options.outputPath, {
                 Title: this.options.document.title,
