@@ -19,8 +19,6 @@ The best way to create a new layout is when you copy an existing one. All built-
 ## Parts of the layout
 The main configuration file of a layout is the `options.json` file. This file consists of general layout page settings like paper size, orientation, margins and the definition of each part of the layout.
 
-External files like `CSS` / `JavaScript` / Images must be linked using absolute `file:///` links. You can use the `{{layoutPath}}` templating variable to link to these files.
-
 ### Part header & footer
 With these two parts you can define how the header and footer should appear. The relevant data is passed through `GET` parameters.
 
@@ -110,6 +108,20 @@ The following data object is passed to every part:
         "outputFile": "document.pdf"
     }
 }
+```
+
+### External files
+External files like `CSS` / `JavaScript` / Images must be linked using absolute `file:///` links. You can use the `{{layoutPath}}` templating variable to link to these files.
+
+If you want to use external files from other node packages, you should use the `resolve` helper.
+
+#### Resolve helper
+The `resolve` helper resolves the path to a file of other node packages.
+
+The following snippet shows how the file `styles/github.css` of the node package `highlight.js` can be resolved:
+
+```html
+<link rel="stylesheet" href="{{resolve 'highlight.js' file='styles/github.css'}}" media="all" />
 ```
 
 ### Translations

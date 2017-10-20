@@ -131,7 +131,7 @@ describe('TranslateHelper', function() {
             // Assert
             should(result).be.equal('Result: title');
         });
-    })
+    });
 });
 
 function mockTranslations() {
@@ -157,7 +157,7 @@ async function initHelper(language: string = 'en') {
     const instance = createHandlebarsInstance();
 
     const helper = new TranslateHelper('document', language);
-    await helper.init();
+    await helper.initAsync();
     instance.registerHelper(helper.name, helper.onExecute.bind(helper));
 
     return instance;

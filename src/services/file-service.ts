@@ -3,10 +3,15 @@ import * as fs from "fs";
 import * as path from "path";
 import * as tmp from "tmp";
 import * as q from "q";
+import * as process from "process";
 
 import { TempPath } from "../helpers/temp-path";
 
 export class FileService {
+    public exists(path: fs.PathLike) {
+        return fs.existsSync(path);
+    }
+
     public existsAsync(path: fs.PathLike) {
         return this.nfCallNoError<boolean>(fs.exists, path);
     }
@@ -115,6 +120,20 @@ export class FileService {
         const protocol = os.platform() === 'win32'  ? 'file:///' : 'file://';
 
         return protocol + absoluteUrl;
+    }
+
+    public resolveModuleDirectory(module: string) {
+        const directories: string[] = (<any>process.mainModule).paths;
+
+        for (let directory of directories) {
+            const fullPath = path.join(directory, module);
+
+            if (this.exists(fullPath)) {
+                return fullPath;
+            }
+        }
+
+        throw new Error(`Could not find module '${module}'!`);
     }
 
     private nfCallNoError<TValue>(nodeFunction: (...args: any[]) => any, ...args: any[]) {

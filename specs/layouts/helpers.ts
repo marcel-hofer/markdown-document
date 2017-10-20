@@ -72,5 +72,12 @@ Some text to show that the reference links can follow later.
 
 ## Heading 1.3
 ![pexels-photo-548383](${imagePath}images/pexels-photo-548383.jpeg)
-`.trim();
+
+## Formulas
+
+You can use inline formulas like this $c = \\pm\\sqrt{a^2 + b^2}$
+
+$$
+f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi
+$$`.trim();
 }
