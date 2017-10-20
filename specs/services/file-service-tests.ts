@@ -8,6 +8,35 @@ import { default as fileService, TempPath } from "../../src/services/file-servic
 import * as mockFs from "mock-fs";
 
 describe('FileService', function() {
+    describe('exists', function() {
+        it('returns true if file exists', function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = fileService.exists('document.md');
+
+            // Assert
+            should(result).be.true();
+        });
+
+        
+        it('returns false if file does not exists', function() {
+            // Arrange
+            mockFs({
+                'document.md': 'content'
+            });
+
+            // Act
+            const result = fileService.exists('document2.md');
+
+            // Assert
+            should(result).be.false();
+        });
+    });
+
     describe('existsAsync', function() {
         it('returns true if file exists', async function() {
             // Arrange
@@ -485,6 +514,28 @@ describe('FileService', function() {
             // Assert
             should(result).startWith('file://');
             should(result).not.containEql('\\');
+        });
+    });
+
+    describe('resolveModuleDirectory', function() {
+        it('returns resolved module directory', function() {
+            // Arrange
+            const resolvedPath = require.resolve('mocha');
+            const expected = resolvedPath.substr(0, resolvedPath.lastIndexOf(path.sep));
+
+            // Act
+            const result = fileService.resolveModuleDirectory('mocha');
+
+            // Assert
+            should(result).be.equal(expected);
+        });
+
+        it('fails if module does not exist', function() {
+            // Act
+            const act = () => fileService.resolveModuleDirectory('asdf42fdsa');
+
+            // Assert
+            should.throws(act);
         });
     });
 });
