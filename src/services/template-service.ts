@@ -1,4 +1,5 @@
 import { create as createHandlebarsInstance } from "handlebars";
+import { ResolveHelper } from "./template/resolve-helper";
 import { TranslateHelper } from "./template/translate-helper"
 import { IOptions } from "./options-service"
 
@@ -23,8 +24,12 @@ export class TemplateService {
 
         this.handlebars = createHandlebarsInstance();
 
+        const resolveHelper = new ResolveHelper();
         const translateHelper = new TranslateHelper(this.options.layout, this.options.language);
-        await translateHelper.init();
+
+        await translateHelper.initAsync();
+        
+        this.registerHelper(resolveHelper);
         this.registerHelper(translateHelper);
     }
 

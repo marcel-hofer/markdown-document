@@ -13,7 +13,7 @@ export class TranslateHelper implements IHandlebarHelper {
     constructor(private layoutDirectory: string, private language: string) {
     }
 
-    public async init() {
+    public async initAsync() {
         const defer = q.defer<void>();
 
         const translationDirectory = path.join(this.layoutDirectory, 'i18n/{{lng}}.json');
