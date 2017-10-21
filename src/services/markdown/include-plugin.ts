@@ -20,7 +20,7 @@ import fileService from "../file-service";
  * ## subtitle
  */
 export class IncludePlugin {
-    public static readonly regex = /^\w*@\(include ([\w\/]+\.md)\)\w*/;
+    public static readonly regex = /^\s*@\(include \s*([\w\/]+\.md)\s*\)\s*$/;
     private readonly dependencyManager = new DependencyManager();
 
     constructor(private md: IRemarkable) {
