@@ -9,7 +9,7 @@ const Remarkable: RemarkableCtor = require('remarkable');
 import { IncludePlugin } from "../../../src/services/markdown/include-plugin";
 
 describe('IncludePlugin', function() {
-    describe('regex', function() {
+    describe('REGEX', function() {
         const tests = [
             // Optimal case
             { input: '@(include file.md)', match: true, file: 'file.md' },
@@ -44,7 +44,7 @@ describe('IncludePlugin', function() {
                 // Arrange
 
                 // Act
-                const match = IncludePlugin.regex.exec(test.input);
+                const match = IncludePlugin.REGEX.exec(test.input);
                 
                 // Assert
                 if (test.match) {
