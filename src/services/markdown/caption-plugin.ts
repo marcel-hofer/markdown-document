@@ -41,7 +41,7 @@ export class CaptionPlugin {
     }
 
     public parseInline(state: IState, silent: boolean): boolean {
-        const content = state.src.slice(state.pos);
+        const content = state.src.slice(state.pos).split('\n')[0];
         const match = CaptionPlugin.REGEX.exec(content);
 
         if (!match) {

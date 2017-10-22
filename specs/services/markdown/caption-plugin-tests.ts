@@ -207,7 +207,7 @@ $$
             ]);
         });
 
-        xit('works when inline parser has additional content', function() {
+        it('works when inline parser has additional content', function() {
             // Arrange
             const document = `@(caption figure:Abc)
 Some text
@@ -218,6 +218,9 @@ Other text`;
             const result = md.render(document);
 
             // Assert
+            should(result).containEql('Some text');
+            should(result).containEql('Other text');
+
             assertMetadata(md, 'figure', [
                 { index: 1, link: 'figure-1', title: 'Abc' },
                 { index: 2, link: 'figure-2', title: 'Cba' }
