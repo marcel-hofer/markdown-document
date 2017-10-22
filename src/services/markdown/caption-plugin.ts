@@ -11,7 +11,7 @@ export class CaptionPlugin {
         this.md.meta.captions = this.md.meta.captions || { };
     }
 
-    public parse(state: IState, startLine: number, endLine: number, silent: boolean): boolean {
+    public parseBlock(state: IState, startLine: number, endLine: number, silent: boolean): boolean {
         const beginPos = state.bMarks[startLine];
         const endPos = state.eMarks[startLine];
 
@@ -40,6 +40,31 @@ export class CaptionPlugin {
         return true;
     }
 
+    public parseInline(state: IState, silent: boolean): boolean {
+        const content = state.src.slice(state.pos);
+        const match = CaptionPlugin.REGEX.exec(content);
+
+        if (!match) {
+            return false;
+        }
+
+        state.pos += match[0].length;
+
+        // don't insert any tokens in silent mode
+        if (silent) {
+            return true;
+        }
+
+        state.tokens.push({
+            type: CaptionPlugin.IDENTIFIER,
+            meta: {
+                match: match
+            }
+        });
+
+        return true;
+    }
+
     public render(tokens: IToken[], idx: number, options: IRemarkableOptions, env: any, renderer: IRenderer): string {
         const token = tokens[idx];
         const match: RegExpExecArray = token.meta.match;
@@ -58,7 +83,8 @@ export class CaptionPlugin {
     public static register(md: IRemarkable) {
         const plugin = new CaptionPlugin(md);
 
-        md.block.ruler.before('code', CaptionPlugin.IDENTIFIER, plugin.parse.bind(plugin));
+        md.block.ruler.before('code', CaptionPlugin.IDENTIFIER, plugin.parseBlock.bind(plugin));
+        md.inline.ruler.push(CaptionPlugin.IDENTIFIER, plugin.parseInline.bind(plugin));
         md.renderer.rules[CaptionPlugin.IDENTIFIER] = plugin.render.bind(plugin);
 
         return plugin;

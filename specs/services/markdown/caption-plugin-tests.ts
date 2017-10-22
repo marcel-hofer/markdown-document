@@ -135,7 +135,7 @@ describe('CaptionPlugin', function() {
             ]);
         });
 
-        xit('works when using with images', function() {
+        it('works when using with images', function() {
             // Arrange
             const document = `@(caption figure:Abc)
 ![alt text](image.png)
@@ -151,7 +151,7 @@ describe('CaptionPlugin', function() {
             ]);
         });
 
-        xit('works when using with tables', function() {
+        it('works when using with tables', function() {
             // Arrange
             const document = `@(caption table:Abc)
 | | Col 1 | Col 2|
@@ -188,7 +188,7 @@ alert(value.toString());
             ]);
         });
 
-        xit('works when using with formulas', function() {
+        it('works when using with formulas', function() {
             // Arrange
             md.use(RemarkableKatex);
             const document = `@(caption formula:Abc)
@@ -204,6 +204,23 @@ $$
             assertMetadata(md, 'formula', [
                 { index: 1, link: 'formula-1', title: 'Abc' },
                 { index: 2, link: 'formula-2', title: 'Cba' }
+            ]);
+        });
+
+        xit('works when inline parser has additional content', function() {
+            // Arrange
+            const document = `@(caption figure:Abc)
+Some text
+@(caption figure:Cba)
+Other text`;
+            
+            // Act
+            const result = md.render(document);
+
+            // Assert
+            assertMetadata(md, 'figure', [
+                { index: 1, link: 'figure-1', title: 'Abc' },
+                { index: 2, link: 'figure-2', title: 'Cba' }
             ]);
         });
 
