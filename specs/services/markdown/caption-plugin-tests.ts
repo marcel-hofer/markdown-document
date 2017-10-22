@@ -8,6 +8,7 @@ const Remarkable: RemarkableCtor = require('remarkable');
 
 import { CaptionPlugin, ICaptionMeta } from "../../../src/services/markdown/caption-plugin";
 import { IncludePlugin } from "../../../src/services/markdown/include-plugin";
+const RemarkableKatex = require('remarkable-katex');
 
 describe('CaptionPlugin', function() {
     describe('REGEX', function() {
@@ -165,6 +166,44 @@ describe('CaptionPlugin', function() {
             assertMetadata(md, 'table', [
                 { index: 1, link: 'table-1', title: 'Abc' },
                 { index: 2, link: 'table-2', title: 'Cba' }
+            ]);
+        });
+
+        it('works when using with code', function() {
+            // Arrange
+            const document = `@(caption code:Abc)
+\`\`\`javascript
+var value = 42;
+alert(value.toString());
+\`\`\`
+@(caption code:Cba)`;
+                        
+            // Act
+            const result = md.render(document);
+
+            // Assert
+            assertMetadata(md, 'code', [
+                { index: 1, link: 'code-1', title: 'Abc' },
+                { index: 2, link: 'code-2', title: 'Cba' }
+            ]);
+        });
+
+        xit('works when using with formulas', function() {
+            // Arrange
+            md.use(RemarkableKatex);
+            const document = `@(caption formula:Abc)
+$$
+f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi
+$$
+@(caption formula:Cba)`;
+                        
+            // Act
+            const result = md.render(document);
+
+            // Assert
+            assertMetadata(md, 'formula', [
+                { index: 1, link: 'formula-1', title: 'Abc' },
+                { index: 2, link: 'formula-2', title: 'Cba' }
             ]);
         });
 
