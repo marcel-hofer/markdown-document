@@ -23,6 +23,8 @@ declare module "remarkable-types" {
         block: IParser<IBlockParserFunc>,
         core: IParser<IInlineParserFunc>,
         renderer: IRenderer;
+
+        meta: any;
     }
 
     export interface IParser<TParserFunc> {
