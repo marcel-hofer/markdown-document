@@ -4,6 +4,8 @@ import { ResolveHelper } from "./template/resolve-helper";
 import { TranslateHelper } from "./template/translate-helper"
 import { IOptions } from "./options-service"
 
+import { TranslationService } from "./translation-service";
+
 export class TemplateService {
     private isInitialized: boolean = false;
     private handlebars: typeof Handlebars;
@@ -23,13 +25,14 @@ export class TemplateService {
             return;
         }
 
+        const translationService = new TranslationService(this.options.layout, this.options.language);
+        await translationService.initAsync();
+
         this.handlebars = createHandlebarsInstance();
 
         const lookupHelper = new LookupHelper();
         const resolveHelper = new ResolveHelper();
-        const translateHelper = new TranslateHelper(this.options.layout, this.options.language);
-
-        await translateHelper.initAsync();
+        const translateHelper = new TranslateHelper(translationService);
         
         this.registerHelper(lookupHelper);
         this.registerHelper(resolveHelper);
