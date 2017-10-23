@@ -66,6 +66,73 @@ describe('TranslationService', function() {
             should(result).be.equal('title');
         });
     });
+
+    describe('custom translations', function() {
+        it('should overwrite existing key', async function() {
+            // Arrange
+            mockTranslations();
+            const service = await initServiceAsync('de');
+    
+            // Act
+            service.overwriteTranslations({
+                title: 'My custom translation'
+            })
+    
+            // Assert
+            const result = service.translate('title');
+            should(result).be.equal('My custom translation');
+        });
+
+        it('should extend non existing keys (with fallback)', async function() {
+            // Arrange
+            mockTranslations();
+            const service = await initServiceAsync('de');
+    
+            // Act
+            service.overwriteTranslations({
+                subtitle: 'My custom translation'
+            })
+    
+            // Assert
+            const result = service.translate('subtitle');
+            should(result).be.equal('My custom translation');
+
+            const result2 = service.translate('title');
+            should(result2).be.equal('Das ist der titel');
+        });
+
+        it('should extend non existing keys (without fallback)', async function() {
+            // Arrange
+            mockTranslations();
+            const service = await initServiceAsync('de');
+    
+            // Act
+            service.overwriteTranslations({
+                invalid: 'My custom translation'
+            })
+    
+            // Assert
+            const result = service.translate('invalid');
+            should(result).be.equal('My custom translation');
+        });
+
+        it('should work deep', async function() {
+            // Arrange
+            mockTranslations();
+            const service = await initServiceAsync('de');
+    
+            // Act
+            service.overwriteTranslations({
+                child: {
+                    title: 'My custom translation'
+                }
+            })
+    
+            // Assert
+            const result = service.translate('child.title');
+            should(result).be.equal('My custom translation');
+        });
+    });
 });
 
 export function mockTranslations() {
