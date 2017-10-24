@@ -22,10 +22,11 @@ export class MarkdownDocument {
         
         timer = winston.startTimer();
         const markdownAsHtml = await markdownService.renderFileAsync(this.options.documentPath);
+        const markdownMeta = markdownService.getMetadata();
         timer.done('Render markdown to html finished');
 
         timer = winston.startTimer();
-        const tempPath = await layoutService.applyLayoutAsync(this.options.layout, markdownAsHtml, this.options, { });
+        const tempPath = await layoutService.applyLayoutAsync(this.options.layout, markdownAsHtml, this.options, { meta: markdownMeta });
         timer.done('Applying layout finished');
 
         timer = winston.startTimer();

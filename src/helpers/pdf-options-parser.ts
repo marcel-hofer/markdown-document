@@ -94,28 +94,33 @@ class WkhtmltopdfArguments {
     }
 }
 
+interface IFileWithData {
+    path: string;
+    data: any;
+}
+
 export function wkhtmltopdfArguments(layoutPath: string, options: IPdfOptions) {
     return new WkhtmltopdfArguments(layoutPath, options).arguments;
 }
 
-export function* allPaths(options: IPdfOptions) {
+export function* allPaths(options: IPdfOptions): IterableIterator<IFileWithData> {
     if (options.header != null && options.header.html != null) {
-        yield options.header.html;
+        yield { path: options.header.html, data: options.header.data };
     }
     
     if (options.footer != null && options.footer.html != null) {
-        yield options.footer.html;
+        yield { path: options.footer.html, data: options.footer.data };
     }
 
     for (let key in options.parts) {
         const part = options.parts[key];
 
         if (part.html != null) {
-            yield part.html;
+            yield { path: part.html, data: part.data };
         }
 
         if (part.type == 'toc' && (<IPdfTocPart>part).xslStyleSheet != null) {
-            yield (<IPdfTocPart>part).xslStyleSheet;
+            yield { path: (<IPdfTocPart>part).xslStyleSheet, data: part.data };
         }
     }
 }

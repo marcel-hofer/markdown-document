@@ -32,6 +32,7 @@ This is a paragraph!
 - Item 3
 
 ### Heading 1.1.1
+@(caption table:First Table)
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
@@ -39,6 +40,7 @@ This is a paragraph!
 | zebra stripes | are neat      |    $1 |
 
 ### Heading 1.1.2
+@(caption code:Syntax Highlighting)
 \`\`\`javascript
 var s = "JavaScript syntax highlighting";
 alert(s);
@@ -72,6 +74,7 @@ Some text to show that the reference links can follow later.
 
 ## Heading 1.3
 ![pexels-photo-548383](${imagePath}images/pexels-photo-548383.jpeg)
+@(caption figure:Sample picture)
 
 ## Formulas
 
@@ -79,5 +82,6 @@ You can use inline formulas like this $c = \\pm\\sqrt{a^2 + b^2}$
 
 $$
 f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi
-$$`.trim();
+$$
+@(caption formula:Awesome formula)`.trim();
 }

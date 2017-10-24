@@ -19,5 +19,14 @@
     "TitleFilenameVersion": "Title / Filename / Version",
     "Abbreviation": "Abbreviation",
     "Meaning": "Meaning",
-    "CopyrightNotice": "Subject to change without notice. This document may only be reproduced and processed in its entirety or in parts with explicit permission."
+    "CopyrightNotice": "Subject to change without notice. This document may only be reproduced and processed in its entirety or in parts with explicit permission.",
+
+    "Miscellaneous": "Miscellaneous",
+    "MiscellaneousDescription": "Various additional information and attachments",
+    "Captions": {
+        "table": "Table index",
+        "figure": "Table of figures",
+        "code": "Code snippets",
+        "formula": "Formulas"
+    }
 }

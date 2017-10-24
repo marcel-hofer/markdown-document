@@ -12,5 +12,27 @@
     </head>
     <body id="content" onload="contentLoad()">
         {{{markdown}}}
+
+        {{#unless (isEmpty layoutData/captions)}}
+            {{#unless (isEmpty meta/captions)}}
+                <h1>{{i18n 'Miscellaneous'}}</h1>
+                <p>{{i18n 'MiscellaneousDescription'}}</p>
+            {{/unless}}
+        {{/unless}}
+
+        {{#each layoutData/captions as |caption|}}
+            {{#if (lookup ../meta/captions caption)}}
+                <h2>{{i18n (concat 'Captions.' caption)}}</h2>
+                <ul>
+                    {{#each (lookup ../meta/captions caption)}}
+                        <li>
+                            <a href="#{{link}}">
+                                {{index}}. {{title}}
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+        {{/each}}
     </body>
 </html>

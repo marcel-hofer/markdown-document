@@ -41,11 +41,13 @@ export interface IPdfOptions {
 export interface IPdfHeaderFooterOptions {
     html?: string;
     spacing?: number;
+    data?: any;
 }
 
 export interface IPdfPart {
     type?: 'cover' | 'toc' | 'content';
     html?: string;
+    data?: any;
 }
 
 export interface IPdfCoverPart extends IPdfPart {
