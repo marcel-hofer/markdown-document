@@ -1,4 +1,6 @@
 import { create as createHandlebarsInstance } from "handlebars";
+import { ConcatHelper } from "./template/concat-helper";
+import { IsEmptyHelper } from "./template/is-empty-helper";
 import { LookupHelper } from "./template/lookup-helper";
 import { ResolveHelper } from "./template/resolve-helper";
 import { TranslateHelper } from "./template/translate-helper"
@@ -30,10 +32,14 @@ export class TemplateService {
 
         this.handlebars = createHandlebarsInstance();
 
+        const concatHelper = new ConcatHelper();
+        const isEmptyHelper = new IsEmptyHelper();
         const lookupHelper = new LookupHelper();
         const resolveHelper = new ResolveHelper();
         const translateHelper = new TranslateHelper(translationService);
         
+        this.registerHelper(concatHelper);
+        this.registerHelper(isEmptyHelper);
         this.registerHelper(lookupHelper);
         this.registerHelper(resolveHelper);
         this.registerHelper(translateHelper);
