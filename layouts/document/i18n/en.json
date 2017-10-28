@@ -24,9 +24,11 @@
     "Miscellaneous": "Miscellaneous",
     "MiscellaneousDescription": "Various additional information and attachments",
     "Captions": {
-        "table": "Table index",
-        "figure": "Table of figures",
-        "code": "Code snippets",
-        "formula": "Formulas"
+        "Separator": ": ",
+        
+        "table": { "Title": "Table index", "Abbreviation": "Table " },
+        "figure": { "Title": "Table of figures", "Abbreviation": "Figure " },
+        "code": { "Title": "Code snippets", "Abbreviation": "Snippet " },
+        "formula": { "Title": "Formulas", "Abbreviation": "Formula " }
     }
 }

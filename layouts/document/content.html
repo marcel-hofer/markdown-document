@@ -9,6 +9,15 @@
         <link rel="stylesheet" href="{{resolve 'katex' file='dist/katex.min.css'}}" media="all"/>
         <script type="text/javascript" src="{{resolve 'jquery' file='dist/jquery.min.js'}}"></script>
         <script type="text/javascript" src="{{layoutPath}}script.js"></script>
+
+        <style type="text/css" media="all">
+            {{#each layoutData/captions as |caption|}}
+                .caption.caption-{{caption}}:before {
+                    counter-increment: {{caption}}; 
+                    content: "{{i18n (concat 'Captions.' caption '.Abbreviation')}}" counter({{caption}}) "{{i18n 'Captions.Separator'}}";
+                }
+            {{/each}}
+        </style>
     </head>
     <body id="content" onload="contentLoad()">
         {{{markdown}}}
@@ -22,12 +31,12 @@
 
         {{#each layoutData/captions as |caption|}}
             {{#if (lookup ../meta/captions caption)}}
-                <h2>{{i18n (concat 'Captions.' caption)}}</h2>
+                <h2>{{i18n (concat 'Captions.' caption '.Title')}}</h2>
                 <ul>
                     {{#each (lookup ../meta/captions caption)}}
                         <li>
                             <a href="#{{link}}">
-                                {{index}}. {{title}}
+                                {{i18n (concat 'Captions.' caption '.Abbreviation')}}{{index}}{{i18n 'Captions.Separator'}}{{title}}
                             </a>
                         </li>
                     {{/each}}
