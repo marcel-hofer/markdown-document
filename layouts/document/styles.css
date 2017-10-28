@@ -194,6 +194,16 @@ table td {
     border-bottom: 1px solid #BFBFBF;
 }
 
+.caption-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.caption-list a {
+    color: black;
+    border-bottom: none;
+}
+
 /* HEADER */
 #header {
     color: #808080;

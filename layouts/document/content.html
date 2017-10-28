@@ -32,7 +32,7 @@
         {{#each layoutData/captions as |caption|}}
             {{#if (lookup ../meta/captions caption)}}
                 <h2>{{i18n (concat 'Captions.' caption '.Title')}}</h2>
-                <ul>
+                <ul class="caption-list caption-list-{{caption}}">
                     {{#each (lookup ../meta/captions caption)}}
                         <li>
                             <a href="#{{link}}">
