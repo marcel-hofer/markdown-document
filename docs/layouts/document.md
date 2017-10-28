@@ -4,6 +4,7 @@ This layout consists of the following parts:
 - TOC
 - Document information page (see below)
 - Header and footers
+- Different listings (tables, images, formulas, ...)
 
 ## Document information
 The following information is used by the layout:

@@ -35,11 +35,13 @@ The following parameters are available:
 ```json
 "header": {
     "html": "header.html",
-    "spacing": 10
+    "spacing": 10,
+    "data": { ... }
 },
 "footer": {
     "html": "footer.html",
-    "spacing": 10
+    "spacing": 10,
+    "data": { ... }
 }
 ```
 
@@ -51,7 +53,8 @@ The cover is the first part of the document. It is basically the same as every *
 "parts": {
     "cover": {
         "type": "cover",
-        "html": "cover.html"
+        "html": "cover.html",
+        "data": { ... }
     },
     ...
 }
@@ -66,7 +69,8 @@ The `toc` part is for generating a table of contents. This is done using a `xslt
     ...,
     "toc": {
         "type": "toc",
-        "xslStyleSheet": "toc.xslt"
+        "xslStyleSheet": "toc.xslt",
+        "data": { ... }
     },
     ...
 }
@@ -81,12 +85,14 @@ A `content` part is the only part you can define multiple times.
     ...,
     "info": {
         "type": "content",
-        "html": "info.html"
+        "html": "info.html",
+        "data": { ... }
     },
     ...,
     "content": {
         "type": "content",
-        "html": "content.html"
+        "html": "content.html",
+        "data": { ... }
     }
     ...
 }
@@ -106,6 +112,19 @@ The following data object is passed to every part:
     "env": {
         "inputFile": "document.md",
         "outputFile": "document.pdf"
+    },
+    // The data of the current part
+    "data": { ... },
+    // Metadata provided during markdown processing
+    "meta": {
+        // Caption data provided by CaptionHelper
+        "captions": {
+            "table": [
+                { "index": 1, "link": "table-1", "title": "Table title" },
+                ...
+            ],
+            ...
+        }
     }
 }
 ```
@@ -115,7 +134,7 @@ External files like `CSS` / `JavaScript` / Images must be linked using absolute 
 
 If you want to use external files from other node packages, you should use the `resolve` helper.
 
-#### Resolve helper
+### Resolve helper
 The `resolve` helper resolves the path to a file of other node packages.
 
 The following snippet shows how the file `styles/github.css` of the node package `highlight.js` can be resolved:
@@ -143,3 +162,51 @@ The following syntax can be used:
 - `{{i18n 'pageOf' current=currentPage max=maxPages}}` replaces the parameters `current` and `max` of the translation `pageOf`. Example translation: `"Page {{current}} of {{max}}"`
 
 Additional features can be found on the [i18next](https://www.i18next.com/) website.
+
+### Concat helper
+This helper concats strings (constants or variables):
+
+```html
+{{concat 'a' 'b' 'c'}}
+```
+
+### IsEmpty helper
+Checks if a value is null or empty (including objects and arrays).
+
+Usage:
+```html
+{{#if (isEmpty data)}}
+    Data is null / empty array / empty object
+{{/if}}`
+```
+
+### LookupHelper
+Returns the property of an object by passing it's name (by literal or variable).
+
+#### Example
+Using the following data:
+```json
+{
+    "users": ["john", "david"],
+    "data": {
+        "john": [1, 2, 3],
+        "david": [4, 5, 6]
+    }
+}
+```
+
+The helper can be used like this:
+```html
+{{#each users as |user|}}
+    {{user}}:
+    {{#each (lookup ../data user) as |number|}}
+        {{number}},
+    {{/each}}
+{{/each}}
+```
+
+The result will look something like this (whitespaces ignored):
+```
+john:1,2,3,
+david:4,5,6,
+```

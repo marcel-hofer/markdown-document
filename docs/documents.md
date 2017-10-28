@@ -84,3 +84,17 @@ $$
 f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 $$
 ```
+
+### Captions
+*Captions* allows to define table / figure / formula / ... captions like in normal documents. Some of the template will support a listing of all captions defined inside the document.
+
+Captions can be defined the following way:
+```markdown
+@(caption type:title)
+```
+
+Examples:
+- Tables: `@(caption table:Large table)`
+- Figures: `@(caption figure:Sample picture)`
+- Formulas: `@(caption formula:Awesome formula)`
+- Snippets: `@(caption code:Hacky snippet)`
