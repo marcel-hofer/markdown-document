@@ -23,13 +23,12 @@ yarn run cli -- --in=samples/simple.md --temp=tmp --out=my-document.pdf
 ## Adjust log output
 The command `generate` has the option `--log-level`, which enables you to adjust the output log level according to your needs. The following log levels are available:
 * error
-*  warn
-*  info 
-*  verbose
-*  debug
-*  silly
+* warn
+* info 
+* verbose
+* debug
+* silly
 > Note: The log level of npm are used. For further information, consult [wintsonjs documentation](https://github.com/winstonjs/winston#logging-levels) (used logging framework).
-
 
 *Usage:*
 ```
