@@ -58,10 +58,11 @@ export class LayoutService {
         for (let file of allPaths(options.pdf)) {
             winston.debug('Applying template to', file);
 
-            const template = await fileService.readFileAsync(path.join(layoutPath, file));
-            const targetFile = path.join(tempDirectory.path, path.basename(path.join(layoutPath, file)));
+            const template = await fileService.readFileAsync(path.join(layoutPath, file.path));
+            const targetFile = path.join(tempDirectory.path, path.basename(path.join(layoutPath, file.path)));
     
-            const content = await templateService.applyTemplateAsync(template.toString(), data);
+            const fileData = Object.assign({ layoutData: file.data }, data);
+            const content = await templateService.applyTemplateAsync(template.toString(), fileData);
     
             await fileService.writeFileAsync(targetFile, content);
         }

@@ -27,7 +27,10 @@
         },
         "content": {
             "type": "content",
-            "html": "content.html"
+            "html": "content.html",
+            "data": {
+                "captions": ["table", "figure", "code", "formula"]
+            }
         }
     }
 }

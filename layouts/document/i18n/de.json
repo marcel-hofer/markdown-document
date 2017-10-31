@@ -19,5 +19,16 @@
     "TitleFilenameVersion": "Titel / Dateiname / Version",
     "Abbreviation": "Abkürzung",
     "Meaning": "Bedeutung",
-    "CopyrightNotice": "Änderungen vorbehalten. Dieses Dokument darf nur mit ausdrücklicher, schriftlicher Genehmigung ganz oder auszugsweise reproduziert und weiterverarbeitet werden."
+    "CopyrightNotice": "Änderungen vorbehalten. Dieses Dokument darf nur mit ausdrücklicher, schriftlicher Genehmigung ganz oder auszugsweise reproduziert und weiterverarbeitet werden.",
+
+    "Miscellaneous": "Verschiedenes",
+    "MiscellaneousDescription": "Verschiedene zusätzliche Informationen und Anhänge",
+    "Captions": {
+        "Separator": ": ",
+
+        "table": { "Title": "Tabellenverzeichnis", "Abbreviation": "Tabelle " },
+        "figure": { "Title": "Abbildungsverzeichnis", "Abbreviation": "Abbildung " },
+        "code": { "Title": "Code-Snippets", "Abbreviation": "Snippet " },
+        "formula": { "Title": "Formeln", "Abbreviation": "Formel " }
+    }
 }

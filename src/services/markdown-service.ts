@@ -5,6 +5,7 @@ import { Remarkable as RemarkableCtor, IRemarkable } from "remarkable-types";
 const Remarkable: RemarkableCtor = require('remarkable');
 const hljs = require('highlight.js');
 
+import { CaptionPlugin } from "./markdown/caption-plugin";
 import { IncludePlugin } from "./markdown/include-plugin";
 import { LocalToAbsoluteImageSrcPlugin } from "./markdown/local-to-absolute-image-src-plugin";
 const RemarkableKatex = require('remarkable-katex');
@@ -25,12 +26,17 @@ export class MarkdownService {
         return renderedMarkdown;
     }
 
+    public getMetadata() {
+        return this.md.meta;
+    }
+
     private createRemarkableInstance() {
         const md = new Remarkable({
             xhtmlOut: true,
             highlight: this.highlight
         });
 
+        md.use(CaptionPlugin.register);
         md.use(IncludePlugin.register);
         md.use(LocalToAbsoluteImageSrcPlugin.register);
         md.use(RemarkableKatex);

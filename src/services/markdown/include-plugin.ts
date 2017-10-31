@@ -20,7 +20,9 @@ import fileService from "../file-service";
  * ## subtitle
  */
 export class IncludePlugin {
-    public static readonly regex = /^\w*@\(include ([\w\/]+\.md)\)\w*/;
+    public static readonly IDENTIFIER = 'include';
+    public static readonly REGEX = /^\s*@\(include \s*([\w\/]+\.md)\s*\)\s*$/;
+
     private readonly dependencyManager = new DependencyManager();
 
     constructor(private md: IRemarkable) {
@@ -32,7 +34,7 @@ export class IncludePlugin {
 
         const content = state.src.substring(beginPos, endPos);
 
-        const match = IncludePlugin.regex.exec(content);
+        const match = IncludePlugin.REGEX.exec(content);
         if (!match) {
             return false;
         }
@@ -44,7 +46,7 @@ export class IncludePlugin {
 
         state.line = startLine + 1;
         state.tokens.push({
-            type: 'include',
+            type: IncludePlugin.IDENTIFIER,
             lines: [ startLine ],
             level: state.level,
             meta: {
@@ -88,8 +90,8 @@ export class IncludePlugin {
     public static register(md: IRemarkable) {
         const plugin = new IncludePlugin(md);
 
-        md.block.ruler.before('paragraph', 'include', plugin.parse.bind(plugin));
-        md.renderer.rules['include'] = plugin.render.bind(plugin);
+        md.block.ruler.before('code', IncludePlugin.IDENTIFIER, plugin.parse.bind(plugin));
+        md.renderer.rules[IncludePlugin.IDENTIFIER] = plugin.render.bind(plugin);
 
         return plugin;
     }
