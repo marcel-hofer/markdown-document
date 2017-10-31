@@ -20,7 +20,7 @@ let argv = yargs
                 default: 'document'
             })
             .option('log-level', {
-                describe: 'Configures the log level',
+                describe: 'Configures the log level. \nUsage: --log-level [silly|debug|verbose|info|warn|error]',
                 default: 'info'
             })
             .option('temp', {
