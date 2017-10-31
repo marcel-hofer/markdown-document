@@ -1,6 +1,6 @@
 {
   "name": "markdown-document",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Converts markdown files to PDF documents using HTML templates.",
   "main": "output/markdown-document.js",
   "repository": {
