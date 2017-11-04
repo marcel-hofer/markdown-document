@@ -23,6 +23,10 @@ describe('IncludePlugin', function() {
 
             // Special cases
             { input: '@(include path/to/file.md)', match: true, file: 'path/to/file.md' },
+            { input: '@(include file_1.md)', match: true, file: 'file_1.md' },
+            { input: '@(include file-1.md)', match: true, file: 'file-1.md' },
+            { input: '@(include file.1.md)', match: true, file: 'file.1.md' },
+            { input: '@(include file 1.md)', match: true, file: 'file 1.md' },
 
             // Non-matching cases
             { input: '# Title', match: false, file: '' },
@@ -227,6 +231,4 @@ describe('IncludePlugin', function() {
             should.throws(act);
         });
     });
-
-    
 });
