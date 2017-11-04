@@ -80,7 +80,7 @@ Some other content.
 ```
 
 #### Include paths
-The pathds for the include file are relative to the containing markdown file.
+The paths for the include file are relative to the containing markdown file.
 
 ### Formulas
 Thanks to [bradhowes/remarkable-katex](https://github.com/bradhowes/remarkable-katex) formulas are supported the following way:
