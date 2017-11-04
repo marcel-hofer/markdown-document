@@ -21,7 +21,7 @@ import fileService from "../file-service";
  */
 export class IncludePlugin {
     public static readonly IDENTIFIER = 'include';
-    public static readonly REGEX = /^\s*@\(include \s*([\w\/]+\.md)\s*\)\s*$/;
+    public static readonly REGEX = /^\s*@\(include \s*([\w\.\- \/]+\.md)\s*\)\s*$/;
 
     private readonly dependencyManager = new DependencyManager();
 
