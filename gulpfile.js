@@ -17,12 +17,12 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build', ['clean'], function() {
-    let tsProject = ts.createProject('tsconfig.json');
+    let tsProject = ts.createProject('tsconfig.json', {
+		declaration: true
+	});
 
     let build = gulp.src('src/**/*.ts')
-        .pipe(tsProject({
-            declaration: true
-        }));
+        .pipe(tsProject());
 
     let copyPackageJson = gulp.src('package.json')
         .pipe(gulp.dest('.'));

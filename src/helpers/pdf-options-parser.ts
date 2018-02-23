@@ -94,7 +94,7 @@ class WkhtmltopdfArguments {
     }
 }
 
-interface IFileWithData {
+export interface IFileWithData {
     path: string;
     data: any;
 }
