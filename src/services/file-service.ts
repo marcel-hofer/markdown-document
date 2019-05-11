@@ -1,7 +1,7 @@
 import * as os from "os";
 import * as fs from "fs";
 import * as path from "path";
-import * as tmp from "tmp";
+import { TmpNameOptions, file as tmpFile, dir as tmpDir } from "tmp";
 import * as q from "q";
 import * as process from "process";
 
@@ -69,7 +69,7 @@ export class FileService {
 
         let parentDir = path.isAbsolute(normalizedDirectory) ? path.sep : '';
         const dirs = normalizedDirectory.split(path.sep);
-        
+
         for (let childDir of dirs) {
             parentDir = path.resolve(parentDir, childDir);
 
@@ -83,10 +83,10 @@ export class FileService {
         return q.nfcall<void>(fs.mkdir, directory);
     }
 
-    public createTempFileAsync(options: tmp.Options) {
+    public createTempFileAsync(options: TmpNameOptions) {
         const defer = q.defer<TempPath>();
 
-        tmp.file(options, (err, path, fd, cleanupCallback) => {
+        tmpFile(options, (err, path, fd, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
@@ -99,8 +99,8 @@ export class FileService {
 
     public createTempDirectoryAsync() {
         const defer = q.defer<TempPath>();
-        
-        tmp.dir((err, path, cleanupCallback) => {
+
+        tmpDir((err, path, cleanupCallback) => {
             if (err) {
                 defer.reject(err);
             } else {
@@ -110,7 +110,7 @@ export class FileService {
 
         return defer.promise;
     }
-    
+
     public changeExt(file: string, ext: string = '') {
         return file.replace(/\.[^/.]+$/, '') + ext;
     }

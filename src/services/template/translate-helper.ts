@@ -1,9 +1,3 @@
-import * as path from "path";
-import * as q from "q";
-
-import { createInstance, InitOptions, TranslationFunction } from "i18next";
-import * as Backend from "i18next-node-fs-backend";
-
 import { IHandlebarHelper } from "../template-service";
 import { TranslationService } from "../translation-service";
 

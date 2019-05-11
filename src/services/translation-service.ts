@@ -1,12 +1,12 @@
 import * as path from "path";
 import * as q from "q";
 
-import { createInstance, InitOptions, TranslationFunction, i18n } from "i18next";
+import i18next from "i18next";
 import * as Backend from "i18next-node-fs-backend";
 
 export class TranslationService {
-    private translator: i18n;
-    private t: TranslationFunction;
+    private translator: i18next.i18n;
+    private t: i18next.TFunction;
 
     constructor(private layoutDirectory: string, private language: string) {
     }
@@ -15,7 +15,7 @@ export class TranslationService {
         const defer = q.defer<void>();
 
         const translationDirectory = path.join(this.layoutDirectory, 'i18n/{{lng}}.json');
-        const config = <InitOptions>{
+        const config = <i18next.InitOptions>{
             lng: this.language,
             fallbackLng: 'en',
 
@@ -24,7 +24,7 @@ export class TranslationService {
             }
         };
 
-        this.translator = createInstance();
+        this.translator = i18next.createInstance();
         this.translator.use(Backend);
 
         this.translator.init(config, (error, t) => {

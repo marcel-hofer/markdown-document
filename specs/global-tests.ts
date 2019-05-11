@@ -6,9 +6,7 @@ import * as winston from "winston";
 before(function() {
     winston.configure({
         level: 'silly',
-        transports: [
-            new winston.transports.Memory({ })
-        ]
+        transports: [ ]
     });
 });
 

@@ -8,9 +8,7 @@ export class Cli {
         winston.configure({
             level: yargs.logLevel,
             transports: [
-                new winston.transports.Console({
-                    colorize: true
-                })
+                new winston.transports.Console()
             ]
         });
 
