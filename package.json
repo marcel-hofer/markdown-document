@@ -7,7 +7,15 @@
     "type": "git",
     "url": "https://github.com/marcel-hofer/markdown-document.git"
   },
-  "keywords": ["markdown", "md", "document", "pdf", "convert", "layout", "html"],
+  "keywords": [
+    "markdown",
+    "md",
+    "document",
+    "pdf",
+    "convert",
+    "layout",
+    "html"
+  ],
   "license": "MIT",
   "dependencies": {
     "q": "1.5.0",
@@ -19,13 +27,10 @@
     "i18next": "9.1.0",
     "i18next-node-fs-backend": "1.0.0",
     "node-exiftool": "2.3.0",
-
-    "wkhtmltopdf-installer": "0.3.1",
+    "wkhtmltopdf-installer": "0.3.2",
     "dist-exiftool": "10.53.0",
-
     "highlight.js": "9.12.0",
     "jquery": "3.2.1",
-
     "yargs": "^9.0.1"
   },
   "devDependencies": {
@@ -36,14 +41,12 @@
     "@types/handlebars": "4.0.36",
     "@types/i18next": "8.4.2",
     "@types/i18next-node-fs-backend": "0.0.29",
-    
     "gulp": "3.9.1",
     "gulp-typescript": "3.2.2",
     "gulp-mocha": "4.3.1",
     "del": "3.0.0",
     "merge-stream": "1.0.1",
     "typescript": "2.5.2",
-
     "mocha": "3.5.3",
     "should": "13.0.1",
     "mock-fs": "4.4.1",
@@ -55,7 +58,6 @@
     "build": "gulp build",
     "test": "gulp test",
     "prepublish": "gulp build",
-    
     "cli": "gulp build && node ./bin/converter.js generate"
   },
   "bin": {
