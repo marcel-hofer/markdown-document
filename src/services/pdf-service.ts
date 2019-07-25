@@ -12,7 +12,7 @@ export class PdfService {
 
         const defer = q.defer<IRenderPdfResult>();
 
-        childProcess.execFile(options.wkhtmltopdfPath, args, { timeout: 15000 }, function(error, stdout, stderr) {
+        childProcess.execFile(options.wkhtmltopdfPath, args, { timeout: options.pdfrendertimeout }, function(error, stdout, stderr) {
             const data = {
                 error: error, 
                 stdout: stdout, 
