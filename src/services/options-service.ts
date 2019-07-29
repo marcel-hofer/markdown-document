@@ -8,7 +8,7 @@ export interface IOptions {
     documentPath?: string;
     outputPath?: string;
     tempPath?: string;
-    
+
     layout?: string;
     language?: string;
     writeMetadata?: boolean;
@@ -20,7 +20,7 @@ export interface IOptions {
 export interface IPdfOptions {
     wkhtmltopdfPath?: string;
 
-    pdfrendertimeout?: number;
+    pdfRenderTimeout?: number;
     marginBottom?: number;
     marginLeft?: number;
     marginRight?: number;
@@ -121,7 +121,7 @@ export class OptionsService {
 
             pdf: {
                 wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
-                pdfrendertimeout: 15000,
+                pdfRenderTimeout: 15000,
                 pageSize: 'A4',
                 orientation: 'Portrait'
             }
@@ -151,8 +151,8 @@ export class OptionsService {
         }
 
         options.pdf.wkhtmltopdfPath = options.pdf.wkhtmltopdfPath || fallback.pdf.wkhtmltopdfPath;
-        
-        options.pdf.pdfrendertimeout = options.pdf.pdfrendertimeout || fallback.pdf.pdfrendertimeout;
+
+        options.pdf.pdfRenderTimeout = options.pdf.pdfRenderTimeout || fallback.pdf.pdfRenderTimeout;
         options.pdf.marginBottom = options.pdf.marginBottom || fallback.pdf.marginBottom;
         options.pdf.marginLeft = options.pdf.marginLeft || fallback.pdf.marginLeft;
         options.pdf.marginRight = options.pdf.marginRight || fallback.pdf.marginRight;
@@ -168,7 +168,7 @@ export class OptionsService {
             options.pdf.header.html = options.pdf.header.html || fallback.pdf.header.html;
             options.pdf.header.spacing = options.pdf.header.spacing || fallback.pdf.header.spacing;
         }
-        
+
         if (fallback.pdf.footer != null) {
             options.pdf.footer.html = options.pdf.footer.html || fallback.pdf.footer.html;
             options.pdf.footer.spacing = options.pdf.footer.spacing || fallback.pdf.footer.spacing;
