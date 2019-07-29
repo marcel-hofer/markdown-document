@@ -30,6 +30,7 @@ export interface IPdfOptions {
     pageSize?: string;
     pageHeight?: number;
     pageWidth?: number;
+    zoom?: number;
 
     header?: IPdfHeaderFooterOptions;
     footer?: IPdfHeaderFooterOptions;
@@ -161,7 +162,8 @@ export class OptionsService {
         options.pdf.pageSize = options.pdf.pageSize || fallback.pdf.pageSize;
         options.pdf.pageHeight = options.pdf.pageHeight || fallback.pdf.pageHeight;
         options.pdf.pageWidth = options.pdf.pageWidth || fallback.pdf.pageWidth;
-        
+        options.pdf.zoom = options.pdf.zoom || fallback.pdf.zoom;
+
         if (fallback.pdf.header != null) {
             options.pdf.header.html = options.pdf.header.html || fallback.pdf.header.html;
             options.pdf.header.spacing = options.pdf.header.spacing || fallback.pdf.header.spacing;
