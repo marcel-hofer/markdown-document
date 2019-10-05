@@ -24,6 +24,7 @@ class WkhtmltopdfArguments {
         this.addArgument('--page-size', this.options.pageSize);
         this.addArgument('--page-height', this.options.pageHeight);
         this.addArgument('--page-width', this.options.pageWidth);
+        this.addArgument('--zoom', this.options.zoom);
     }
     
     private parseHeader() {
