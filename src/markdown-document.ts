@@ -1,16 +1,19 @@
 import * as winston from "winston";
 
 import { default as optionsService, IOptions } from "./services/options-service";
-import markdownService from "./services/markdown-service";
+import { MarkdownService } from "./services/markdown-service";
 import layoutService from "./services/layout-service";
 import { default as fileService, TempPath } from "./services/file-service";
 import pdfService from "./services/pdf-service";
 import { default as metadataService, IPdfMetadata } from "./services/metadata-service";
 
 export class MarkdownDocument {
+    private service: MarkdownService;
+    
     constructor(private options: IOptions) {
+        this.service = new MarkdownService(options.useHtml);
     }
-
+    
     public async createPdfAsync() {
         let timer = winston.startTimer();
         await optionsService.consolidateAsync(this.options);
@@ -21,8 +24,8 @@ export class MarkdownDocument {
         timer.done('Checked preconditions');
         
         timer = winston.startTimer();
-        const markdownAsHtml = await markdownService.renderFileAsync(this.options.documentPath);
-        const markdownMeta = markdownService.getMetadata();
+        const markdownAsHtml = await this.service.renderFileAsync(this.options.documentPath);
+        const markdownMeta = this.service.getMetadata();
         timer.done('Render markdown to html finished');
 
         timer = winston.startTimer();

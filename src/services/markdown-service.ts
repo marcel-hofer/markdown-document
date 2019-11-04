@@ -15,8 +15,8 @@ import fileService from "./file-service";
 export class MarkdownService {
     private readonly md: IRemarkable;
 
-    constructor() {
-        this.md = this.createRemarkableInstance();
+    constructor(useHtml: boolean) {
+        this.md = this.createRemarkableInstance(useHtml);
     }
 
     public async renderFileAsync(path: PathLike) {
@@ -30,8 +30,9 @@ export class MarkdownService {
         return this.md.meta;
     }
 
-    private createRemarkableInstance() {
+    private createRemarkableInstance(useHtml: boolean) {
         const md = new Remarkable({
+            html: useHtml,
             xhtmlOut: true,
             highlight: this.highlight
         });
@@ -59,4 +60,4 @@ export class MarkdownService {
     }
 }
 
-export default new MarkdownService();
+export default new MarkdownService(false);

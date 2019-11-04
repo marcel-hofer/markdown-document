@@ -15,6 +15,7 @@ export interface IOptions {
 
     document?: IDocumentInformation;
     pdf?: IPdfOptions;
+    useHtml?: boolean;
 }
 
 export interface IPdfOptions {
@@ -118,6 +119,7 @@ export class OptionsService {
         this.applyFallbackOptions(options, <IOptions>{
             language: 'en',
             writeMetadata: true,
+            useHtml: false,
 
             pdf: {
                 wkhtmltopdfPath: require('wkhtmltopdf-installer').path,
@@ -139,6 +141,7 @@ export class OptionsService {
 
     private applyFallbackOptions(options: IOptions, fallback: IOptions) {
         options.language = options.language || fallback.language;
+        options.useHtml = options.useHtml || fallback.useHtml;
         options.writeMetadata = options.writeMetadata == null ? fallback.writeMetadata : options.writeMetadata;
 
         options.pdf = options.pdf || { };
