@@ -15,7 +15,7 @@ import fileService from "./file-service";
 export class MarkdownService {
     private readonly md: IRemarkable;
 
-    constructor(useHtml: boolean) {
+    constructor(useHtml: boolean = false) {
         this.md = this.createRemarkableInstance(useHtml);
     }
 
@@ -60,4 +60,4 @@ export class MarkdownService {
     }
 }
 
-export default new MarkdownService(false);
+export default new MarkdownService();

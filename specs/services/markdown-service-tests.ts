@@ -35,5 +35,19 @@ describe('MarkdownService', function() {
             should(result.trim().replace(/\n/g, ''))
                 .be.equal('<pre><code class="language-js"><span class="hljs-keyword">var</span> x = <span class="hljs-number">1</span>;</code></pre>');
         });
+
+        it('renders html blocks correctly', async function() {
+            // Arrange
+            const service = new MarkdownService(true);
+            mockFs({
+                'document.md': 'test <strong>wusa</strong>'
+            });
+
+            // Act
+            const result = await service.renderFileAsync('document.md');
+
+            // Assert
+            should(result.trim()).be.equal('<p>test <strong>wusa</strong></p>');
+        });
     });
 });
