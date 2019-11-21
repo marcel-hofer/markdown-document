@@ -1,10 +1,8 @@
 /// <reference path="../include.d.ts" />
 
-import * as should from "should";
 import * as path from "path";
 
-import { IOptions, MarkdownDocument } from "../../src/markdown-document";
-import fileService from "../../src/services/file-service";
+import { IOptions } from "../../src/markdown-document";
 
 import { testTemplateGenerationAsync, basicTemplate } from "./helpers";
 import { PDF_GENERATION_TIMEOUT } from "../constants";
