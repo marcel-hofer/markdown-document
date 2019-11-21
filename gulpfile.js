@@ -5,38 +5,38 @@ const mocha = require('gulp-mocha');
 
 const merge = require("merge-stream");
 
-gulp.task('clean', function() {
+function clean() {
     return del([
-        'output', 
+        'output',
         'src/**/*.js',
         'specs/**/*.js',
         'specs/**/*.html',
         'specs/**/*.pdf',
         '!specs/testfiles/**'
     ]);
-});
+}
 
-gulp.task('build', ['clean'], function() {
-    let tsProject = ts.createProject('tsconfig.json', {
-		declaration: true
-	});
+function build() {
+    const tsProject = ts.createProject('tsconfig.json', {
+        declaration: true
+    });
 
-    let build = gulp.src('src/**/*.ts')
+    const build = gulp.src('src/**/*.ts')
         .pipe(tsProject());
 
-    let copyPackageJson = gulp.src('package.json')
+    const copyPackageJson = gulp.src('package.json')
         .pipe(gulp.dest('.'));
 
     return merge(
-        build.js.pipe(gulp.dest('output')), 
+        build.js.pipe(gulp.dest('output')),
         build.dts.pipe(gulp.dest('output/definitions')),
         copyPackageJson);
-});
+}
 
-gulp.task('build-test', ['clean'], function() {
-    let tsProject = ts.createProject('tsconfig.json');
+function buildTest() {
+    const tsProject = ts.createProject('tsconfig.json');
 
-    let build = gulp.src([
+    const build = gulp.src([
             'src/**/*.ts',
             'specs/**/*.ts'
         ], {
@@ -46,11 +46,16 @@ gulp.task('build-test', ['clean'], function() {
         .pipe(gulp.dest('./'));
 
     return merge(build);
-});
+}
 
-gulp.task('test', ['build-test'], function() {
+function test() {
     return gulp.src('specs/**/*.js')
         .pipe(mocha({
             timeout: 50
         }));
-});
+}
+
+
+gulp.task('clean', clean);
+gulp.task('build', gulp.series('clean', build));
+gulp.task('test', gulp.series('clean', buildTest, test));
