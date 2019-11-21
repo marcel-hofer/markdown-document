@@ -59,5 +59,3 @@ export class MarkdownService {
         return ''; // use external default escaping
     }
 }
-
-export default new MarkdownService();
