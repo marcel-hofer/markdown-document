@@ -5,6 +5,25 @@ Converts markdown files to PDF documents using HTML templates.
 [![NPM Downloads][downloads-image]][downloads-url]
 
 ## Getting started
+### Using npm
+1. Install `markdown-document` using the following command:
+```
+npm init
+npm install --save markdown-document
+```
+
+2. Create your document
+```
+echo # My first markdown-document > document.md
+```
+
+3. (Optional) configure document properties using `document.json`
+4. Build PDF file:
+```
+./node_-_modules/.bin/markdown-document
+```
+
+### Using yarn
 1. Install `markdown-document` using the following command:
 ```
 yarn add markdown-document --save
