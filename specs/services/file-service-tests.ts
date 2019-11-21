@@ -22,7 +22,7 @@ describe('FileService', function() {
             should(result).be.true();
         });
 
-        
+
         it('returns false if file does not exists', function() {
             // Arrange
             mockFs({
@@ -51,7 +51,7 @@ describe('FileService', function() {
             should(result).be.true();
         });
 
-        
+
         it('returns false if file does not exists', async function() {
             // Arrange
             mockFs({
@@ -229,7 +229,7 @@ describe('FileService', function() {
         it('deletes directory with sub directories', async function() {
             // Arrange
             mockFs({
-                'folder': { 
+                'folder': {
                     'folder2': { },
                     'folder3': { }
                 }
@@ -246,7 +246,7 @@ describe('FileService', function() {
         it('deletes directory with files', async function() {
             // Arrange
             mockFs({
-                'folder': { 
+                'folder': {
                     'file1.md': 'content',
                     'file2.md': 'content'
                 }
@@ -421,7 +421,7 @@ describe('FileService', function() {
 
             // Act
             await tempFile.deleteAsync();
-            
+
             // Assert
             const writtenFileExists = fs.existsSync(tempFile.path);
             should(writtenFileExists).be.false();
@@ -445,7 +445,7 @@ describe('FileService', function() {
             // Arrange
             const tempDirectory = await fileService.createTempDirectoryAsync();
             const file = path.join(tempDirectory.path, 'file1.txt');
-            
+
             // Act
             await fileService.writeFileAsync(file, 'content');
 
@@ -477,7 +477,7 @@ describe('FileService', function() {
             // Assert
             should(result).be.equal('test.json');
         });
-        
+
         it('changes test.md with -props.json to test-props.json', function() {
             // Act
             const result = fileService.changeExt('test.md', '-props.json');
@@ -520,11 +520,11 @@ describe('FileService', function() {
     describe('resolveModuleDirectory', function() {
         it('returns resolved module directory', function() {
             // Arrange
-            const resolvedPath = require.resolve('mocha');
+            const resolvedPath = require.resolve('q');
             const expected = resolvedPath.substr(0, resolvedPath.lastIndexOf(path.sep));
 
             // Act
-            const result = fileService.resolveModuleDirectory('mocha');
+            const result = fileService.resolveModuleDirectory('q');
 
             // Assert
             should(result).be.equal(expected);
