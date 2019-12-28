@@ -23,7 +23,7 @@
     "tmp": "0.0.33",
     "remarkable": "1.7.1",
     "remarkable-katex": "1.0.1",
-    "handlebars": "4.0.10",
+    "handlebars": "4.3.0",
     "i18next": "9.1.0",
     "i18next-node-fs-backend": "1.0.0",
     "node-exiftool": "2.3.0",
